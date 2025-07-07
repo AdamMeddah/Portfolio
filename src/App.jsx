@@ -1,40 +1,18 @@
-// App.jsx
-import { useState, useEffect } from "react";
-import Scene from "./components/Scene.jsx";
+import Scene from "./components/Scene";
 import { Canvas } from "@react-three/fiber";
+import { ScrollControls } from "@react-three/drei";
+import "./App.css";
 
-export default function App() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrollY(window.scrollY);
-    }
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+function App() {
   return (
-    <>
-      {}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          pointerEvents: "none",
-        }}
-      >
-        <Canvas orthographic camera={{ zoom: 100, position: [0, 0, 10] }}>
-          <ambientLight />
-          <Scene scrollY={scrollY} />
-        </Canvas>
-      </div>
-
-      {/* Scroll space */}
-      <div style={{ height: "500vh" }} />
-    </>
+    <div id="canvas-container">
+      <Canvas orthographic camera={{ zoom: 60, position: [0, -10, 120] }}>
+        <ScrollControls pages={3} damping={0.1}>
+          <Scene />
+        </ScrollControls>
+      </Canvas>
+    </div>
   );
 }
+
+export default App;

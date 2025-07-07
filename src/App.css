@@ -1,8 +1,14 @@
+html,
 body {
-  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 #canvas-container {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
 }

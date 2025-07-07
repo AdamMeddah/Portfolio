@@ -1,23 +1,30 @@
-import { useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useRef, useEffect, useState } from "react";
+import { useScroll } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
-export default function Scene({ scrollY }) {
-  const frontCoverRef = useRef();
-  const { camera } = useThree();
+export default function Scene(props) {
+  const scroll = useScroll();
+  const boxRef = useRef();
+  const [isHovered, setIsHovered] = useState(false);
 
   useFrame(() => {
-    if (!frontCoverRef.current) return;
-
-    const maxScroll = window.innerHeight * 5;
-    const scrollFraction = Math.min(scrollY / maxScroll, 1);
+    const y = scroll.offset; // between 0 and 1
+    boxRef.current.rotation.y = y * Math.PI; // example animation
   });
 
   return (
     <>
-      <OrbitControls enableZoom={false} />
-      <mesh ref={frontCoverRef} position={[0, 0, 0]}>
-        <boxGeometry args={[2, 3, 0.2]} />
+      <OrbitControls enableZoom={false} enableRotate={false} />
+      <ambientLight intensity={1} />
+      <directionalLight position={[5, 5, 5]} />
+      <mesh
+        ref={boxRef}
+        position={[0, 2, -10]}
+        onPointerOver={() => setIsHovered(true)}
+        onPointerOut={() => setIsHovered(false)}
+      >
+        <boxGeometry args={[4, 6, 0.2]} />
         <meshStandardMaterial color="#c2a46f" />
       </mesh>
     </>
