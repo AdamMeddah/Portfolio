@@ -1,16 +1,23 @@
-import { useEffect } from "react";
-import { ScrollControls, Scroll } from "@react-three/drei";
+import { useRef } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
 
-export default function Scene({ scrollPos }) {
+export default function Scene({ scrollY }) {
+  const frontCoverRef = useRef();
+  const { camera } = useThree();
+
+  useFrame(() => {
+    if (!frontCoverRef.current) return;
+
+    const maxScroll = window.innerHeight * 5;
+    const scrollFraction = Math.min(scrollY / maxScroll, 1);
+  });
+
   return (
     <>
       <OrbitControls enableZoom={false} />
-      <ambientLight intensity={1} />
-      <directionalLight position={[5, 5, 5]} />
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={scrollPos > 50 ? [4, 6, 0.2] : [5, 5, 0.2]} />
+      <mesh ref={frontCoverRef} position={[0, 0, 0]}>
+        <boxGeometry args={[2, 3, 0.2]} />
         <meshStandardMaterial color="#c2a46f" />
       </mesh>
     </>

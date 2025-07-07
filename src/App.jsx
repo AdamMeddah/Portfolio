@@ -1,34 +1,40 @@
+// App.jsx
 import { useState, useEffect } from "react";
-
 import Scene from "./components/Scene.jsx";
-import "./App.css";
 import { Canvas } from "@react-three/fiber";
-import { OrthographicCamera } from "@react-three/drei";
 
-function App() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  const handleScroll = () => {
-    const position = window.scrollY;
-    setScrollPosition(position);
-  };
+export default function App() {
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    function onScroll() {
+      setScrollY(window.scrollY);
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <div id="canvas-container">
-      <Canvas orthographic camera={{ zoom: 100, position: [0, 0, 100] }}>
-        <ambientLight />
-        <Scene scrollPos={scrollPosition} />
-      </Canvas>
-    </div>
+    <>
+      {}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          pointerEvents: "none",
+        }}
+      >
+        <Canvas orthographic camera={{ zoom: 100, position: [0, 0, 10] }}>
+          <ambientLight />
+          <Scene scrollY={scrollY} />
+        </Canvas>
+      </div>
+
+      {/* Scroll space */}
+      <div style={{ height: "500vh" }} />
+    </>
   );
 }
-
-export default App;
