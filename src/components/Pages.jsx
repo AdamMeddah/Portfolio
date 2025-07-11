@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { useScroll } from "@react-three/drei";
+import { Text3D, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 

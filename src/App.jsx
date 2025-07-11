@@ -7,8 +7,12 @@ function App() {
   return (
     <>
       <div id="canvas-container">
-        <Canvas orthographic camera={{ zoom: 60, position: [0, -2, 120] }}>
-          <ScrollControls pages={3} damping={0.1}>
+        <Canvas
+          shadows
+          orthographic
+          camera={{ zoom: 60, position: [0, -2, 120] }}
+        >
+          <ScrollControls pages={3} damping={0.1} distance={4}>
             <Scene />
           </ScrollControls>
         </Canvas>
