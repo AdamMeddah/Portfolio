@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { OrbitControls, Text3D } from "@react-three/drei";
-import { Page, DoublePage } from "./Pages";
+import { Page } from "./Pages";
 import { useThree } from "@react-three/fiber";
 import * as Three from "three";
 
@@ -19,7 +19,7 @@ export default function Scene() {
       end: 0.4,
       color: "#c2a46f",
       position: [0, 0, -10],
-      text: "",
+      text: "dsjdsjhdhjsohids",
       hasGrid: false,
     },
 
@@ -128,6 +128,7 @@ export default function Scene() {
         rotation={transformations[i]?.rotation} //chained comparison, makes sure transformations[i] actually exists, otherwise returning undefined
         scale={transformations[i]?.scale}
         text={page.text}
+        hasGrod={page.hasGrid}
         className={`page-text page-${page.id}`} //two different classes applied
       />
     );
@@ -139,18 +140,18 @@ export default function Scene() {
       <ambientLight intensity={1} />
       <directionalLight
         position={[5, 5, 5]}
-        castShadow
+        // castShadow
         intensity={1}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        // shadow-mapSize-width={1024}
+        // shadow-mapSize-height={1024}
       />
       <mesh
-        receiveShadow
-        castShadow
+        // receiveShadow
+        // castShadow
         position={[0, 5, 0]}
         rotation={[textRotate.current, textRotate.current, textRotate.current]}
       >
-        <Text3D
+        {/* <Text3D
           font="/fonts/Inter_Bold.json"
           size={0.5}
           height={0.2}
@@ -160,7 +161,7 @@ export default function Scene() {
         >
           Hello World
           <meshStandardMaterial color="white" />
-        </Text3D>
+        </Text3D> */}
       </mesh>
 
       {pages}
