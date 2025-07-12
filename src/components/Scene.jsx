@@ -1,82 +1,17 @@
 import { useRef, useEffect, useState } from "react";
 import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { OrbitControls, Text3D } from "@react-three/drei";
+import { OrbitControls, Text3D, Html } from "@react-three/drei";
 import { Page } from "./Pages";
 import { useThree } from "@react-three/fiber";
 import * as Three from "three";
+import pageData from "../data/pageData.js";
+import _ from "lodash";
 
-export default function Scene() {
+export default function Scene({ onOffsetChange }) {
   const scroll = useScroll();
   const offset = scroll.offset * scroll.pages; //to go from 0 to 6
   const { camera } = useThree();
-  const textRotate = useRef(0);
-  const pageData = [
-    {
-      id: 1,
-      dimensions: [4, 6, 0.2],
-      start: 0,
-      end: 0.4,
-      color: "#c2a46f",
-      position: [0, 0, -10],
-      text: "dsjdsjhdhjsohids",
-      hasGrid: false,
-    },
-
-    {
-      id: 2,
-      dimensions: [4, 6, 0.2],
-      start: 0.5,
-      end: 0.9,
-      color: "#ffffff",
-      position: [0, 0, -10.001],
-      cappedProgress: 0.99, //so it doesn't clip back into the first one
-      text: "Hi! I'm Adam Meddah.",
-      hasGrid: false,
-    },
-
-    {
-      id: 3,
-      dimensions: [4, 6, 0.2],
-      start: 1,
-      end: 1.5,
-      color: "#ffffff",
-      position: [0, 0, -10.002],
-      text: "Projects",
-      hasGrid: true,
-    },
-    {
-      id: 4,
-      dimensions: [4, 6, 0.2],
-      start: 1.6,
-      end: 2.0,
-      color: "#ffffff",
-      position: [0, 0, -10.003],
-      text: "Other work",
-      hasGrid: false,
-    },
-    {
-      id: 5,
-      dimensions: [4, 6, 0.2],
-      start: 2.1,
-      end: 2.5,
-      color: "#ffffff",
-      position: [0, -0, -10.004],
-      text: "Boom",
-      hasGrid: false,
-    },
-
-    {
-      id: 6,
-      dimensions: [4, 6, 0.2],
-      start: 2.6,
-      end: 3.0,
-      color: "#ffffff",
-      position: [0, 0, -10.005],
-      text: "Love",
-      hasGrid: false,
-    },
-  ];
 
   const [transformations, setTransformations] = useState(
     pageData.map(() => ({
@@ -86,8 +21,14 @@ export default function Scene() {
     }))
   );
 
+  const throttledCallback = useRef(
+    _.throttle((offset) => {
+      onOffsetChange(offset);
+    }, 500)
+  );
+
   useFrame(() => {
-    textRotate.current += 0.03;
+    // textRotate.current += 0.03;
 
     const targetZoom = offset > 0.1 ? 130 : 60;
     camera.zoom = Three.MathUtils.lerp(camera.zoom, targetZoom, 0.1);
@@ -115,6 +56,7 @@ export default function Scene() {
     });
 
     setTransformations(newTransformations);
+    throttledCallback.current(offset);
   });
 
   const pages = pageData.map((page, i) => {
@@ -128,8 +70,6 @@ export default function Scene() {
         rotation={transformations[i]?.rotation} //chained comparison, makes sure transformations[i] actually exists, otherwise returning undefined
         scale={transformations[i]?.scale}
         text={page.text}
-        hasGrod={page.hasGrid}
-        className={`page-text page-${page.id}`} //two different classes applied
       />
     );
   });
@@ -149,7 +89,6 @@ export default function Scene() {
         // receiveShadow
         // castShadow
         position={[0, 5, 0]}
-        rotation={[textRotate.current, textRotate.current, textRotate.current]}
       >
         {/* <Text3D
           font="/fonts/Inter_Bold.json"

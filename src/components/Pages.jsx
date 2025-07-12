@@ -5,17 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 
 import * as THREE from "three";
 
-export function Page({
-  position,
-  color,
-  dimensions,
-  rotation,
-  scale,
-  hasGrid,
-  text,
-  className,
-  image,
-}) {
+export function Page({ position, color, dimensions, rotation, scale }) {
   const [width, height, depth] = dimensions;
 
   return (
@@ -35,17 +25,17 @@ export function Page({
       </mesh>
 
       {
-        <Html
-          position={[width / 2 + position[0], position[1], position[2]]}
-          center
-          style={{
-            pointerEvents: "none",
-            width: `${width * 100}px`,
-            height: `${height * 100}px`,
-          }}
-        >
-          <div style={{ color: "red" }}>{text}</div>
-        </Html>
+        // <Html
+        //   position={[width / 2 + position[0], position[1], position[2]]}
+        //   center
+        //   style={{
+        //     pointerEvents: "none",
+        //     width: `${width * 100}px`,
+        //     height: `${height * 100}px`,
+        //   }}
+        // >
+        //   <div style={{ color: "red" }}>{text}</div>
+        // </Html>
       }
     </group>
   );
