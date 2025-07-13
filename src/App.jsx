@@ -12,30 +12,27 @@ function App() {
   useEffect(() => {
     console.log(`offset: ${offset}`);
   }, [offset]);
-  const content = pageData.map((page) => {
-    if (page.leftContent) {
-      const leftContent = page.leftContent;
-      return (
-        <TextContent
-          key={page.id}
-          className={`page-text page-${page.id}`} //two different classes applied
-          hasGrid={page.hasGrid} //undefined case handled in component
-          textColor={leftContent.textColor}
-          title={leftContent.title}
-          content={leftContent.mainContent}
-        />
-      );
-    }
-  });
+
+  // const content = pageData.map((page) => {
+  //   if (page.leftContent) {
+  //     const leftContent = page.leftContent;
+  //     return (
+  //       <TextContent
+  //         key={page.id}
+  //         className={`page-text page-${page.id}`} //two different classes applied
+  //         hasGrid={page.hasGrid} //undefined case handled in component
+  //         textColor={leftContent.textColor}
+  //         title={leftContent.title}
+  //         content={leftContent.mainContent}
+  //       />
+  //     );
+  //   }
+  // });
 
   return (
     <>
       <div id="canvas-container">
-        <Canvas
-          shadows
-          orthographic
-          camera={{ zoom: 60, position: [0, -2, 120] }}
-        >
+        <Canvas shadows camera={{ fov: 80, position: [0, 1, 10] }}>
           <ScrollControls
             pages={3}
             damping={0.1}
@@ -50,11 +47,11 @@ function App() {
         </Canvas>
       </div>
 
-      <div>
+      {/* <div>
         <h1>Hi!</h1>
-      </div>
+      </div> */}
 
-      {content}
+      {/* {content} */}
     </>
   );
 }
