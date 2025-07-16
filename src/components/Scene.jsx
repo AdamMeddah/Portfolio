@@ -8,6 +8,7 @@ import * as THREE from "three";
 import pageData from "../data/pageData.js";
 import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
+import Arrow from "./Arrow.jsx";
 
 export default function Scene({ onOffsetChange }) {
   const scroll = useScroll();
@@ -15,6 +16,8 @@ export default function Scene({ onOffsetChange }) {
   const { camera } = useThree();
   const [TVFocus, setTVFocus] = useState(false);
   const [zoomIn, setZoomIn] = useState(false);
+  const [arrowClicked, setArrowclicked] = useState(false);
+  const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
 
   const [transformations, setTransformations] = useState(
     pageData.map(() => ({
@@ -30,7 +33,20 @@ export default function Scene({ onOffsetChange }) {
     }, 100)
   );
 
+  function rotateCamera() {
+    setTargetRotationY(-2);
+    setArrowclicked(true);
+  }
+
   useFrame(() => {
+    if (arrowClicked) {
+      camera.rotation.y = THREE.MathUtils.lerp(
+        camera.rotation.y,
+        targetRotationY,
+        0.03 // smaller = slower, bigger = faster
+      );
+    }
+
     const TVPos = new THREE.Vector3(4.33, 5.5, -5); //changed the y pos slightly from the actual mesh
     const defaultCamPos = new THREE.Vector3(0, 5, 5); // same Y as TV, so aligned vertically
 
@@ -43,10 +59,12 @@ export default function Scene({ onOffsetChange }) {
       camera.fov = THREE.MathUtils.lerp(camera.fov, 30, 0.1);
       camera.lookAt(TVPos);
     } else {
-      // move camera back but still look at TV pos (not origin)
-      camera.position.lerp(defaultCamPos, 0.1);
-      camera.fov = THREE.MathUtils.lerp(camera.fov, 80, 0.1);
-      camera.lookAt(TVPos); // keep looking at TV pos
+      if (!arrowClicked) {
+        // move camera back but still look at TV pos (not origin)
+        camera.position.lerp(defaultCamPos, 0.1);
+        camera.fov = THREE.MathUtils.lerp(camera.fov, 80, 0.1);
+        camera.lookAt(TVPos); // keep looking at TV pos
+      }
     }
 
     camera.updateProjectionMatrix();
@@ -103,10 +121,16 @@ export default function Scene({ onOffsetChange }) {
       <ambientLight intensity={2} />
       <directionalLight
         position={[5, 5, 5]}
-        // castShadow
-        intensity={1}
+        castShadow
+        // intensity={1}
         // shadow-mapSize-width={1024}
         // shadow-mapSize-height={1024}
+        // shadow-camera-near={1}
+        // shadow-camera-far={50}
+        // shadow-camera-left={-10}
+        // shadow-camera-right={10}
+        // shadow-camera-top={10}
+        // shadow-camera-bottom={-10}
       />
       <TVStaticScreen
         handleTVFocus={setTVFocus}
@@ -114,6 +138,14 @@ export default function Scene({ onOffsetChange }) {
         zoomIn={zoomIn}
         handleZoomIn={setZoomIn}
       />
+
+      <Arrow
+        position={[4, 5.5, 3]}
+        rotation={[4, 3.5, 1.8]}
+        conePos={[0, 0.6, 0]}
+        handler={rotateCamera}
+      />
+
       {/* {pages} */}
     </>
   );
