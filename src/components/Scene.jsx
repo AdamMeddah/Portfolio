@@ -9,6 +9,7 @@ import pageData from "../data/pageData.js";
 import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 import Arrow from "./Arrow.jsx";
+import { useHtmlPositioner } from "./HtmlPositioner.jsx";
 
 export default function Scene({ onOffsetChange }) {
   const scroll = useScroll();
@@ -23,6 +24,8 @@ export default function Scene({ onOffsetChange }) {
   const [showTVContent, setShowTVContent] = useState(false); //handles the actual opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
   const [cameraReady, setCameraReady] = useState(false);
+  const htmlRef = useRef();
+  const tvMeshRef = useRef();
 
   const timerRef = useRef(null);
 
@@ -184,19 +187,20 @@ export default function Scene({ onOffsetChange }) {
         handler={rotateCamera}
       />
 
-      <mesh position={[4.33, 5.5, -5]}>
+      <mesh ref={tvMeshRef} position={[4.33, 5.5, -5]}>
         <boxGeometry args={[0.1, 0.1, 0.1]} />
         <meshBasicMaterial transparent opacity={0} />
 
         {shouldRenderTVContent && (
           <Html
-            transparent
+            ref={htmlRef}
             center
             distanceFactor={20}
             style={{
               opacity: showTVContent ? 1 : 0,
-              transition: "opacity 0.5s ease-in-out",
+              transition: "opacity 0.3s ease-out",
               pointerEvents: showTVContent ? "auto" : "none",
+              position: "absolute", //     manual positioning
             }}
           >
             <div className="fade-in tv-ui-container">
