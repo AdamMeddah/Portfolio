@@ -1,24 +1,24 @@
 import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-import { useThree } from "@react-three/fiber";
+import { Text3D } from "@react-three/drei";
 
 export function TVStaticScreen({
   TVFocus,
   handleTVFocus,
   zoomIn,
   handleZoomIn,
+  allowInteraction,
 }) {
   const meshRef = useRef();
   const videoRef = useRef(document.createElement("video"));
   const { camera } = useThree();
-
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (TVFocus) {
-      video.src = "/videos/white.mp4";
+      video.src = "/videos/black.mp4";
     } else {
       video.src = "/videos/static.mp4";
     }
@@ -40,13 +40,15 @@ export function TVStaticScreen({
         ref={meshRef}
         position={[4.33, 5.5, -5]}
         onClick={() => {
+          if (!allowInteraction) return;
+
           handleTVFocus(!TVFocus);
 
           if (zoomIn) {
             handleZoomIn(!zoomIn);
           } else {
             //only want delay when entering, not when exiting.
-            setTimeout(() => handleZoomIn(!zoomIn), 200);
+            setTimeout(() => handleZoomIn(!zoomIn), 300);
           }
         }}
       >
@@ -55,6 +57,18 @@ export function TVStaticScreen({
           <videoTexture attach="map" args={[videoRef.current]} />
         </meshBasicMaterial>
       </mesh>
+
+      {!zoomIn && (
+        <Text3D
+          font="/fonts/Inter_Bold.json"
+          size={0.3}
+          position={[3.4, 5.35, -5]}
+          rotation={[0, -0.2, 0]}
+        >
+          click me
+          <meshStandardMaterial color="black" />
+        </Text3D>
+      )}
     </>
   );
 }

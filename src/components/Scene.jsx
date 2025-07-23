@@ -14,27 +14,53 @@ export default function Scene({ onOffsetChange }) {
   const scroll = useScroll();
   const offset = scroll.offset * scroll.pages; //to go from 0 to 6
   const { camera } = useThree();
+  const [isLoading, setIsLoading] = useState(true);
+  const [allowInteraction, setAllowInteraction] = useState(false);
   const [TVFocus, setTVFocus] = useState(false);
   const [zoomIn, setZoomIn] = useState(false);
   const [arrowClicked, setArrowclicked] = useState(false);
   const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
+  const [showTVContent, setShowTVContent] = useState(false); //handles the actual opacity transition
+  const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
+  const [cameraReady, setCameraReady] = useState(false);
 
-  const [transformations, setTransformations] = useState(
-    pageData.map(() => ({
-      //mapping in order to match however many pageData elements
-      rotation: [0, 0, 0],
-      scale: [1, 1, 1],
-    }))
-  );
+  const timerRef = useRef(null);
 
-  const throttledCallback = useRef(
-    _.throttle((offset) => {
-      onOffsetChange(offset);
-    }, 100)
-  );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setAllowInteraction(true);
+    }, 2000); // 2 second delay
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (zoomIn) {
+      // when zooming in
+      setShouldRenderTVContent(true);
+      const showTimer = setTimeout(() => setShowTVContent(true), 200);
+      return () => clearTimeout(showTimer);
+    } else {
+      // when zooming out
+      setShowTVContent(false);
+      const hideTimer = setTimeout(() => {
+        setShouldRenderTVContent(false);
+      }, 500); // wait for transition to be done
+      return () => clearTimeout(hideTimer);
+    }
+  }, [zoomIn, isLoading]);
+
+  //   const throttledCallback = useRef(
+  //     _.throttle((offset) => {
+  //       onOffsetChange(offset);
+  //     }, 100)
+  //   );
 
   function rotateCamera() {
-    setTargetRotationY(-2);
+    setTargetRotationY((prev) => prev - 2.5);
     setArrowclicked(true);
   }
 
@@ -49,16 +75,20 @@ export default function Scene({ onOffsetChange }) {
 
     const TVPos = new THREE.Vector3(4.33, 5.5, -5); //changed the y pos slightly from the actual mesh
     const defaultCamPos = new THREE.Vector3(0, 5, 5); // same Y as TV, so aligned vertically
+    const zoomTarget = new THREE.Vector3(TVPos.x, TVPos.y, TVPos.z + 0.5);
 
     if (zoomIn) {
       // Move camera close to TV
-      camera.position.lerp(
-        new THREE.Vector3(TVPos.x, TVPos.y, TVPos.z + 0.5),
-        0.1
-      );
+
+      camera.position.lerp(zoomTarget, 0.1);
       camera.fov = THREE.MathUtils.lerp(camera.fov, 30, 0.1);
       camera.lookAt(TVPos);
+
+      const distance = camera.position.distanceTo(zoomTarget);
+      setCameraReady(distance < 0.5);
     } else {
+      setCameraReady(false);
+
       if (!arrowClicked) {
         // move camera back but still look at TV pos (not origin)
         camera.position.lerp(defaultCamPos, 0.1);
@@ -108,6 +138,13 @@ export default function Scene({ onOffsetChange }) {
   //     );
   //   });
 
+  //   const [transformations, setTransformations] = useState(
+  //     pageData.map(() => ({
+  //       //mapping in order to match however many pageData elements
+  //       rotation: [0, 0, 0],
+  //       scale: [1, 1, 1],
+  //     }))
+  //   );
   return (
     <>
       <Environment
@@ -115,7 +152,7 @@ export default function Scene({ onOffsetChange }) {
         background
         resolution={512}
         backgroundRotation={[0, 2.2, 0]}
-        backgroundIntensity={1.2} // optional intensity factor (default: 1, only works with three 0.163 and up)
+        backgroundIntensity={0.8} // optional intensity factor (default: 1, only works with three 0.163 and up)
       />
 
       <ambientLight intensity={2} />
@@ -137,6 +174,7 @@ export default function Scene({ onOffsetChange }) {
         TVFocus={TVFocus}
         zoomIn={zoomIn}
         handleZoomIn={setZoomIn}
+        allowInteraction={allowInteraction}
       />
 
       <Arrow
@@ -145,6 +183,51 @@ export default function Scene({ onOffsetChange }) {
         conePos={[0, 0.6, 0]}
         handler={rotateCamera}
       />
+
+      <mesh position={[4.33, 5.5, -5]}>
+        <boxGeometry args={[0.1, 0.1, 0.1]} />
+        <meshBasicMaterial transparent opacity={0} />
+
+        {shouldRenderTVContent && (
+          <Html
+            transparent
+            center
+            distanceFactor={20}
+            style={{
+              opacity: showTVContent ? 1 : 0,
+              transition: "opacity 0.5s ease-in-out",
+              pointerEvents: showTVContent ? "auto" : "none",
+            }}
+          >
+            <div className="fade-in tv-ui-container">
+              <div className="tv-ui-vignette" />
+              <h2 className="tv-ui-title">📺 Choose a Channel</h2>
+              <div className="tv-ui-channels">
+                {[
+                  { title: "About Me", icon: "❓" },
+                  { title: "Experience", icon: "💼" },
+                  { title: "Projects", icon: "💻" },
+                  { title: "Blog", icon: "🖊️" },
+                ].map((item, index) => (
+                  <div key={index} className="tv-ui-channel-card">
+                    <div className="tv-ui-channel-icon">{item.icon}</div>
+                    <div className="tv-ui-channel-title">{item.title}</div>
+                  </div>
+                ))}
+              </div>
+              <button
+                className="tv-ui-exit-button"
+                onClick={() => {
+                  setZoomIn(false);
+                  setTVFocus(false);
+                }}
+              >
+                Back
+              </button>
+            </div>
+          </Html>
+        )}
+      </mesh>
 
       {/* {pages} */}
     </>
