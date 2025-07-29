@@ -40,16 +40,12 @@ export function TVStaticScreen({
         ref={meshRef}
         position={[4.33, 5.5, -5]}
         onClick={() => {
-          if (!allowInteraction) return;
+          if (!allowInteraction || zoomIn) return;
 
-          handleTVFocus(!TVFocus);
+          handleTVFocus(true);
 
-          if (zoomIn) {
-            handleZoomIn(!zoomIn);
-          } else {
-            //only want delay when entering, not when exiting.
-            setTimeout(() => handleZoomIn(!zoomIn), 300);
-          }
+          //only want delay when entering, not when exiting.
+          setTimeout(() => handleZoomIn(!zoomIn), 300);
         }}
       >
         <planeGeometry args={[2.3, 1.8]} />
