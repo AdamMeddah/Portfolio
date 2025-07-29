@@ -200,12 +200,12 @@ export default function Scene({ onOffsetChange }) {
           <Html
             ref={htmlRef}
             center
-            distanceFactor={20}
+            distanceFactor={0.1}
+            transform
             style={{
               opacity: showTVContent ? 1 : 0,
               transition: "opacity 0.3s ease-out",
               pointerEvents: showTVContent ? "auto" : "none",
-              position: "absolute", //     manual positioning
             }}
           >
             <div className="fade-in tv-ui-container">
@@ -236,6 +236,7 @@ export default function Scene({ onOffsetChange }) {
 
               {selectedChannel && (
                 <div className="channel-display">
+                  {console.log("Selected:", selectedChannel)}
                   {selectedChannel == "About Me" && <About />}
                 </div>
               )}
@@ -243,6 +244,7 @@ export default function Scene({ onOffsetChange }) {
                 className="tv-ui-exit-button"
                 onClick={() => {
                   setZoomIn(false);
+                  setSelectedChannel(null);
                   setTVFocus(false);
                 }}
               >

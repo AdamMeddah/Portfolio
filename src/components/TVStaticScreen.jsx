@@ -44,8 +44,7 @@ export function TVStaticScreen({
 
           handleTVFocus(true);
 
-          //only want delay when entering, not when exiting.
-          setTimeout(() => handleZoomIn(!zoomIn), 300);
+          handleZoomIn(true);
         }}
       >
         <planeGeometry args={[2.3, 1.8]} />
