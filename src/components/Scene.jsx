@@ -207,29 +207,11 @@ export default function Scene({ onOffsetChange }) {
         <boxGeometry args={[0.1, 0.1, 0.1]} />
         <meshBasicMaterial transparent opacity={0} />
 
-        <mesh position={[0, 0, -0.005]}>
-          {" "}
-          {/* Positioned slightly in front */}
-          <planeGeometry args={[2.3, 1.8]} />
-          <meshPhysicalMaterial
-            transparent
-            transmission={0.95} // Increased transparency
-            roughness={0.15} // Smoother surface
-            metalness={0.1} // Slight metallic sheen
-            thickness={0.5} // Better refraction
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            color="#ffffff"
-            envMapIntensity={1} // Increased environment reflection
-            ior={1.5} // Glass refraction index
-          />
-        </mesh>
-
         {shouldRenderTVContent && (
           <Html
             ref={htmlRef}
-            distanceFactor={0.2}
-            position={[0, 0, -0.006]}
+            distanceFactor={0.25}
+            position={[0, 0, -0.01]}
             center
             zIndexRange={[100, 0]}
             style={{
