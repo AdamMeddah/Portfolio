@@ -93,6 +93,7 @@ export default function Scene({ onOffsetChange }) {
       camera.lookAt(TVPos);
 
       const distance = camera.position.distanceTo(zoomTarget);
+
       setCameraReady(distance < 0.5);
     } else {
       setCameraReady(false);
@@ -160,12 +161,22 @@ export default function Scene({ onOffsetChange }) {
         background
         resolution={512}
         backgroundRotation={[0, 2.2, 0]}
-        backgroundIntensity={0.8} // optional intensity factor (default: 1, only works with three 0.163 and up)
+        backgroundIntensity={0.4} // optional intensity factor (default: 1, only works with three 0.163 and up)
       />
 
-      <ambientLight intensity={2} />
+      <ambientLight intensity={1.5} />
+
+      <spotLight
+        position={[4, 5, -3]}
+        angle={0.3}
+        intensity={2}
+        penumbra={1}
+        castShadow
+      />
+
       <directionalLight
         position={[5, 5, 5]}
+        intensity={1.2}
         castShadow
         // intensity={1}
         // shadow-mapSize-width={1024}
@@ -192,16 +203,35 @@ export default function Scene({ onOffsetChange }) {
         handler={rotateCamera}
       />
 
-      <mesh ref={tvMeshRef} position={[4.33, 5.5, -5]}>
+      <mesh position={[4.33, 5.5, -5]}>
         <boxGeometry args={[0.1, 0.1, 0.1]} />
         <meshBasicMaterial transparent opacity={0} />
+
+        <mesh position={[0, 0, -0.005]}>
+          {" "}
+          {/* Positioned slightly in front */}
+          <planeGeometry args={[2.3, 1.8]} />
+          <meshPhysicalMaterial
+            transparent
+            transmission={0.95} // Increased transparency
+            roughness={0.15} // Smoother surface
+            metalness={0.1} // Slight metallic sheen
+            thickness={0.5} // Better refraction
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+            color="#ffffff"
+            envMapIntensity={1} // Increased environment reflection
+            ior={1.5} // Glass refraction index
+          />
+        </mesh>
 
         {shouldRenderTVContent && (
           <Html
             ref={htmlRef}
+            distanceFactor={0.2}
+            position={[0, 0, -0.006]}
             center
-            distanceFactor={0.1}
-            transform
+            zIndexRange={[100, 0]}
             style={{
               opacity: showTVContent ? 1 : 0,
               transition: "opacity 0.3s ease-out",
