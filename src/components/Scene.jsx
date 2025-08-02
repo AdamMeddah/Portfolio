@@ -9,10 +9,11 @@ import pageData from "../data/pageData.js";
 import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 import Arrow from "./Arrow.jsx";
-import About from "./channels/About.jsx";
-import Blog from "./channels/Blog.jsx";
-import Experience from "./channels/Experience.jsx";
-import Projects from "./channels/Projects.jsx";
+import About from "./tabs/About.jsx";
+import Blog from "./tabs/Blog.jsx";
+import Experience from "./tabs/Experience.jsx";
+import Projects from "./tabs/Projects.jsx";
+import LaunchScreen from "./tabs/LaunchScreen.jsx";
 
 export default function Scene({ onOffsetChange }) {
   const scroll = useScroll();
@@ -27,7 +28,7 @@ export default function Scene({ onOffsetChange }) {
   const [showTVContent, setShowTVContent] = useState(false); //handles the actual opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
   const [cameraReady, setCameraReady] = useState(false);
-  const [selectedChannel, setSelectedChannel] = useState(null);
+  const [currentTab, setCurrentTab] = useState(null);
 
   const htmlRef = useRef();
   const tvMeshRef = useRef();
@@ -220,49 +221,7 @@ export default function Scene({ onOffsetChange }) {
               pointerEvents: showTVContent ? "auto" : "none",
             }}
           >
-            <div className="fade-in tv-ui-container">
-              <div className="tv-ui-vignette" />
-              {!selectedChannel && (
-                <>
-                  <h2 className="tv-ui-title">📺 Choose a Channel</h2>
-
-                  <div className="tv-ui-channels">
-                    {[
-                      { title: "About Me", icon: "❓" },
-                      { title: "Experience", icon: "💼" },
-                      { title: "Projects", icon: "💻" },
-                      { title: "Blog", icon: "🖊️" },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        onClick={() => setSelectedChannel(item.title)}
-                        className="tv-ui-channel-card"
-                      >
-                        <div className="tv-ui-channel-icon">{item.icon}</div>
-                        <div className="tv-ui-channel-title">{item.title}</div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {selectedChannel && (
-                <div className="channel-display">
-                  {console.log("Selected:", selectedChannel)}
-                  {selectedChannel == "About Me" && <About />}
-                </div>
-              )}
-              <button
-                className="tv-ui-exit-button"
-                onClick={() => {
-                  setZoomIn(false);
-                  setSelectedChannel(null);
-                  setTVFocus(false);
-                }}
-              >
-                Back
-              </button>
-            </div>
+            <LaunchScreen />
           </Html>
         )}
       </mesh>
