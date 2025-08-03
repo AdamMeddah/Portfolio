@@ -33,7 +33,7 @@ function App() {
     <>
       <div id="canvas-container">
         <Canvas shadows camera={{ fov: 80, position: [0, 1, 10] }}>
-          <ScrollControls
+          {/* <ScrollControls
             pages={3}
             damping={0.1}
             distance={4}
@@ -41,9 +41,9 @@ function App() {
             //   setOffset(e.scrollTop * 3);
             //   console.log(offset);
             // }}
-          >
-            <Scene onOffsetChange={setOffset} />
-          </ScrollControls>
+          > */}
+          <Scene onOffsetChange={setOffset} />
+          {/* </ScrollControls> */}
         </Canvas>
       </div>
 

@@ -1,3 +1,11 @@
+@import "./Fonts.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -35,6 +43,8 @@ canvas {
   text-align: center;
   align-self: end;
   margin-bottom: 12vh;
+  font-family: "NetflixSans";
+  font-weight: 300;
 }
 .profile {
   display: flex;
@@ -47,10 +57,61 @@ canvas {
 }
 /* need to fix units used, e.g rem for font sizes */
 .profile-img {
-  width: 20vh;
+  width: 10vw;
+  border: 5px solid transparent;
+  transition: outline 0.1s ease;
 }
 .profile-text {
   margin-top: 2vh;
   font-size: 2.5vh;
   align-self: center;
+  color: #4f4f4f;
+}
+
+.profile:hover .profile-text {
+  color: #ffffff;
+}
+
+.profile:hover .profile-img {
+  border: 5px solid transparent; /* to keep size */
+  box-shadow: 0 0 10px 3px white; /* not white for some reason!!*/
+  filter: brightness(1.2);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 45vw;
+  position: fixed;
+  top: -50vh;
+  left: -50vw;
+}
+.left-navbar {
+  display: flex;
+
+  align-self: flex-start;
+  width: 50vw;
+  gap: 2vw;
+}
+
+.right-navbar {
+  align-self: flex-end;
+  width: 50vw;
+  gap: 2vw;
+}
+
+.adam-logo {
+  width: 10vw;
+}
+
+.home-button {
+  border: none;
+  background: none;
+  font-family: "NetflixSans";
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.user-logo {
+  width: 2.5vw;
 }

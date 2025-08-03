@@ -14,10 +14,11 @@ import Blog from "./tabs/Blog.jsx";
 import Experience from "./tabs/Experience.jsx";
 import Projects from "./tabs/Projects.jsx";
 import LaunchScreen from "./tabs/LaunchScreen.jsx";
+import MainScreen from "./tabs/MainScreen.jsx";
 
 export default function Scene({ onOffsetChange }) {
-  const scroll = useScroll();
-  const offset = scroll.offset * scroll.pages; //to go from 0 to 6
+  // const scroll = useScroll();
+  // const offset = scroll.offset * scroll.pages; //to go from 0 to 6
   const { camera } = useThree();
   const [isLoading, setIsLoading] = useState(true);
   const [allowInteraction, setAllowInteraction] = useState(false);
@@ -27,9 +28,8 @@ export default function Scene({ onOffsetChange }) {
   const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
   const [showTVContent, setShowTVContent] = useState(false); //handles the actual opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
-  const [cameraReady, setCameraReady] = useState(false);
   const [currentTab, setCurrentTab] = useState(null);
-
+  const [user, setUser] = useState(null);
   const htmlRef = useRef();
   const tvMeshRef = useRef();
 
@@ -94,11 +94,7 @@ export default function Scene({ onOffsetChange }) {
       camera.lookAt(TVPos);
 
       const distance = camera.position.distanceTo(zoomTarget);
-
-      setCameraReady(distance < 0.5);
     } else {
-      setCameraReady(false);
-
       if (!arrowClicked) {
         // move camera back but still look at TV pos (not origin)
         camera.position.lerp(defaultCamPos, 0.1);
@@ -175,20 +171,7 @@ export default function Scene({ onOffsetChange }) {
         castShadow
       />
 
-      <directionalLight
-        position={[5, 5, 5]}
-        intensity={1.2}
-        castShadow
-        // intensity={1}
-        // shadow-mapSize-width={1024}
-        // shadow-mapSize-height={1024}
-        // shadow-camera-near={1}
-        // shadow-camera-far={50}
-        // shadow-camera-left={-10}
-        // shadow-camera-right={10}
-        // shadow-camera-top={10}
-        // shadow-camera-bottom={-10}
-      />
+      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
       <TVStaticScreen
         handleTVFocus={setTVFocus}
         TVFocus={TVFocus}
@@ -217,16 +200,17 @@ export default function Scene({ onOffsetChange }) {
             zIndexRange={[100, 0]}
             style={{
               opacity: showTVContent ? 1 : 0,
-              transition: "opacity 0.3s ease-out",
               pointerEvents: showTVContent ? "auto" : "none",
             }}
           >
-            <LaunchScreen />
+            {!currentTab && (
+              <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
+            )}
+
+            {currentTab && <MainScreen user={user} />}
           </Html>
         )}
       </mesh>
-
-      {/* {pages} */}
     </>
   );
 }
