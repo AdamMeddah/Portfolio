@@ -163,6 +163,12 @@ export default function Scene({ onOffsetChange }) {
 
       <ambientLight intensity={1.5} />
 
+      <directionalLight
+        position={[4.33, 10, -2]} // place it above and slightly in front of the TV
+        intensity={2} // brighten it enough
+        castShadow={false}
+      />
+
       <spotLight
         position={[4, 5, -3]}
         angle={0.3}
@@ -201,6 +207,7 @@ export default function Scene({ onOffsetChange }) {
             style={{
               opacity: showTVContent ? 1 : 0,
               pointerEvents: showTVContent ? "auto" : "none",
+              backgroundColor: "transparent",
             }}
           >
             {!currentTab && (
