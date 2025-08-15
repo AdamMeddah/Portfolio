@@ -1,3 +1,5 @@
+import Card from "../Card";
+
 export default function MainScreen({ user }) {
   function getUserLogo(user) {
     switch (user) {
@@ -67,9 +69,31 @@ export default function MainScreen({ user }) {
       <div className="top-picks">
         Top Picks for {user.charAt(0).toUpperCase() + user.slice(1)}
         {/* capitalize first letter */}
-        <div className="top-picks-list"></div>
+        <div className="top-picks-list">
+          {user === "recruiter" && (
+            <>
+              <Card title="Skills" image="images/skills.jpg" />
+              <Card title="Projects" image="images/projects.jpg" />
+              <Card title="Contact Me" image="images/contact.jpg" />
+            </>
+          )}
+        </div>
       </div>
-      <div className="continue-watching"></div>
+
+      <div className="continue-watching">
+        Continue Watching for {user.charAt(0).toUpperCase() + user.slice(1)}
+        <div className="continue-watching-list">
+          {user === "recruiter" && (
+            <>
+              <Card title="About" image="images/about.jpg" />
+
+              <Card title="Blog" image="images/blog.jpg" />
+            </>
+          )}
+        </div>
+      </div>
+
+      <h3 className="footer"> © 2025 Adam Meddah. All rights reserved.</h3>
     </>
   );
 }

@@ -89,7 +89,7 @@ canvas {
   position: fixed;
   align-items: center;
   right: 2vw;
-  bottom: 74vh;
+  bottom: 97vh;
   z-index: 1;
   margin-left: 10vw;
   background-color: #0e0e0e;
@@ -144,20 +144,21 @@ canvas {
 
 .main-preview-vid {
   width: 120vw;
-  height: 80vh;
-  margin-left: -2vw;
+  height: 110vh;
   object-fit: cover;
-  margin-top: -31vh;
+  margin-top: -34vh;
+
   position: relative;
+  top: 18vh;
 }
 
 .main-two-buttons {
   display: flex;
-  position: absolute;
-  bottom: 8vh;
-  left: 5%;
   gap: 2vw;
+  margin-left: 7%;
   align-items: center;
+  position: relative;
+  bottom: 20vh;
 }
 
 .play-icon {
@@ -218,9 +219,48 @@ canvas {
 
 .top-picks {
   position: relative;
-  top: 7vh;
   font-size: 1.5rem;
-  left: 5%;
+  left: 7%;
   font-weight: 500;
   color: white;
+}
+
+.top-picks-list {
+  display: flex;
+
+  gap: 0.5vw;
+  padding-top: 2vh;
+}
+
+.continue-watching {
+  position: relative;
+  top: 5vh;
+  font-size: 1.5rem;
+  left: 7%;
+  font-weight: 500;
+  color: white;
+}
+
+.continue-watching-list {
+  display: flex;
+  padding-top: 2vh;
+  gap: 0.5vw;
+}
+
+.card {
+  cursor: pointer;
+  width: 17vw;
+  height: 18vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-blend-mode: lighten;
+}
+
+.footer {
+  color: white;
+  position: relative;
+  top: 40%;
+  left: 7%;
 }

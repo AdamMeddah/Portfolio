@@ -210,11 +210,22 @@ export default function Scene({ onOffsetChange }) {
               backgroundColor: "transparent",
             }}
           >
-            {!currentTab && (
-              <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
-            )}
+            <div
+              style={{
+                width: "100%",
+                height: "100vh",
+                overflowY: "auto",
+                overflowX: "hidden",
+                backgroundColor: "#141414",
+                paddingBottom: "50vh",
+              }}
+            >
+              {!currentTab && (
+                <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
+              )}
 
-            {currentTab && <MainScreen user={user} />}
+              {currentTab && <MainScreen user={user} />}
+            </div>
           </Html>
         )}
       </mesh>
