@@ -28,7 +28,7 @@ export default function Scene({ onOffsetChange }) {
   const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
   const [showTVContent, setShowTVContent] = useState(false); //handles the actual opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
-  const [currentTab, setCurrentTab] = useState(null);
+  const [currentTab, setCurrentTab] = useState("profiles");
   const [user, setUser] = useState(null);
   const htmlRef = useRef();
   const tvMeshRef = useRef();
@@ -210,22 +210,13 @@ export default function Scene({ onOffsetChange }) {
               backgroundColor: "transparent",
             }}
           >
-            <div
-              style={{
-                width: "100%",
-                height: "100vh",
-                overflowY: "auto",
-                overflowX: "hidden",
-                backgroundColor: "#141414",
-                paddingBottom: "50vh",
-              }}
-            >
-              {!currentTab && (
-                <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
-              )}
+            {currentTab === "profiles" && (
+              <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
+            )}
 
-              {currentTab && <MainScreen user={user} />}
-            </div>
+            {currentTab === "main" && (
+              <MainScreen user={user} setCurrentTab={setCurrentTab} />
+            )}
           </Html>
         )}
       </mesh>

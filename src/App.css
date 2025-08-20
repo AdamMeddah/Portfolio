@@ -140,6 +140,11 @@ canvas {
 .user-logo {
   width: 2.5vw;
   margin-top: -1rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.user-logo:hover {
+  scale: 1.2;
 }
 
 .main-preview-vid {
@@ -152,13 +157,32 @@ canvas {
   top: 18vh;
 }
 
+.main-info {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 45vh;
+  left: 7%;
+  color: white;
+}
+.main-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.main-paragraph {
+  font-size: 1.4rem;
+  max-width: 40%;
+  font-weight: 300;
+}
+
 .main-two-buttons {
   display: flex;
   gap: 2vw;
-  margin-left: 7%;
+  left: 7%;
   align-items: center;
   position: relative;
-  bottom: 20vh;
+  bottom: 38vh;
 }
 
 .play-icon {
@@ -191,6 +215,7 @@ canvas {
   display: flex;
   gap: 0.7vw;
   cursor: pointer;
+  text-decoration: none;
   align-items: center;
   height: 5.5vh;
   border-radius: 4px;
@@ -223,22 +248,22 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
+  bottom: 32vh;
 }
 
 .top-picks-list {
   display: flex;
-
   gap: 0.5vw;
   padding-top: 2vh;
 }
 
 .continue-watching {
   position: relative;
-  top: 5vh;
   font-size: 1.5rem;
   left: 7%;
   font-weight: 500;
   color: white;
+  bottom: 10vh;
 }
 
 .continue-watching-list {
@@ -256,6 +281,11 @@ canvas {
   justify-content: center;
   color: white;
   background-blend-mode: lighten;
+  transition: all 0.7s;
+}
+
+.card:hover {
+  scale: 1.2;
 }
 
 .footer {
