@@ -263,7 +263,7 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
-  bottom: 10vh;
+  bottom: 23vh;
 }
 
 .continue-watching-list {
@@ -293,4 +293,17 @@ canvas {
   position: relative;
   top: 40%;
   left: 7%;
+}
+
+/* PROJECTS SECTION */
+
+/* need to add this like previous one to show navbar! */
+.project-wrapper {
+  width: 120vw;
+  height: 110vh;
+  object-fit: cover;
+  margin-top: -34vh;
+
+  position: relative;
+  top: 18vh;
 }

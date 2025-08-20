@@ -12,7 +12,6 @@ export default function MainScreen({ user, setCurrentTab }) {
           paddingBottom: "50vh",
         }}
       >
-        <Navbar user={user} />
         <video
           className="main-preview-vid"
           autoPlay
@@ -84,9 +83,21 @@ export default function MainScreen({ user, setCurrentTab }) {
           <div className="top-picks-list">
             {user === "recruiter" && (
               <>
-                <Card title="Skills" image="images/skills.jpg" />
-                <Card title="Projects" image="images/projects.jpg" />
-                <Card title="Contact Me" image="images/contact.jpg" />
+                <Card
+                  title="Skills"
+                  image="images/skills.jpg"
+                  setCurrentTab={setCurrentTab}
+                />
+                <Card
+                  title="Projects"
+                  image="images/projects.jpg"
+                  setCurrentTab={setCurrentTab}
+                />
+                <Card
+                  title="Contact Me"
+                  image="images/contact.jpg"
+                  setCurrentTab={setCurrentTab}
+                />
               </>
             )}
           </div>

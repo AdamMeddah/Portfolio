@@ -1,4 +1,4 @@
-export default function Navbar({ user }) {
+export default function Navbar({ user, setCurrentTab }) {
   function getUserLogo(user) {
     switch (user) {
       case "recruiter":
@@ -18,7 +18,12 @@ export default function Navbar({ user }) {
           Home
         </button>
         <button className="home-button">About</button>
-        <button className="home-button">Projects</button>
+        <button
+          className="home-button"
+          onClick={() => setCurrentTab("Projects")}
+        >
+          Projects
+        </button>
         <button className="home-button">Contact</button>
       </div>
 
