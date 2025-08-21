@@ -307,3 +307,63 @@ canvas {
   position: relative;
   top: 18vh;
 }
+
+.project-grid {
+  margin-top: 11%;
+
+  display: grid;
+  grid-template-columns: 10% 10% 10% 10%;
+  column-gap: 15vw;
+  row-gap: 20vh;
+  margin-left: 7%;
+}
+
+.project {
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 10vh;
+  flex-wrap: wrap;
+  width: 220%;
+  height: 110%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 8px rgba(75, 5, 5, 0.6);
+  /* horizontal, vertical, blur, spread */
+  overflow: hidden;
+  /* overflow hidden needed to scale image up without it getting bigger than the div */
+}
+
+.project-image:hover {
+  scale: 1.2;
+}
+
+.project-image {
+  width: 98%;
+  margin-left: 1%;
+  margin-top: 1%;
+  height: 40%;
+  border-bottom: solid;
+  border-bottom-color: red;
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  border-bottom-width: 2px;
+  transition: all 0.4s;
+}
+.project-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-top: -18%;
+}
+
+.project-title {
+  color: rgb(222, 5, 5);
+  font-size: 1.5rem;
+}
+
+.project-desc {
+  margin-top: -0.5%;
+  font-weight: 300;
+  font-size: 1.1rem;
+}

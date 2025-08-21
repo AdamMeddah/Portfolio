@@ -1,3 +1,5 @@
+import Project from "../Project";
+
 export default function Projects({ user, setCurrentTab }) {
   return (
     <>
@@ -10,7 +12,22 @@ export default function Projects({ user, setCurrentTab }) {
           paddingBottom: "50vh",
         }}
       >
-        <div className="project-wrapper"> </div>
+        <div className="project-wrapper">
+          <div className="project-grid">
+            <Project
+              title="MusiWrite"
+              desc="Using Flask, I powered tf up and MADE SOMETHING AWESOME AND GREAT!"
+              image="images/projects.jpg"
+            />
+            <Project title="What" desc="Whoa" image="images/projects.jpg" />
+            <Project
+              title="What"
+              desc="Whoa"
+              image="images/projects.jpg"
+            />{" "}
+            <Project title="What" desc="Whoa" image="images/projects.jpg" />
+          </div>
+        </div>
       </div>
     </>
   );
