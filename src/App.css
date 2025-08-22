@@ -46,6 +46,7 @@ canvas {
   margin-bottom: 12vh;
   font-family: "NetflixSans";
   font-weight: 300;
+  color: white;
 }
 .profile {
   display: flex;
