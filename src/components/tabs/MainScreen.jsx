@@ -1,5 +1,6 @@
 import Card from "../Card";
 import Navbar from "../Navbar";
+import { Text } from "@react-three/drei";
 export default function MainScreen({ user, setCurrentTab }) {
   return (
     <>
@@ -21,7 +22,7 @@ export default function MainScreen({ user, setCurrentTab }) {
 
         <div className="main-info">
           <h1 className="main-title">
-            Adam Meddah <span style={{ fontSize: "3rem" }}>-</span> Full-Stack
+            Adam Meddah <span style={{ fontSize: "3rem" }}>|</span> Full-Stack
             Developer{" "}
           </h1>
 
