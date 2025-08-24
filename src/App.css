@@ -136,8 +136,7 @@ canvas {
 }
 
 .adam-logo {
-  width: 10vw;
-  margin-left: -2rem;
+  width: 30vw;
   cursor: pointer;
 }
 
@@ -150,7 +149,7 @@ canvas {
 }
 
 .user-logo {
-  width: 2.5vw;
+  width: 6vw;
   margin-top: -1rem;
   cursor: pointer;
   transition: all 0.5s;
@@ -164,7 +163,7 @@ canvas {
   height: 110vh;
   object-fit: cover;
   margin-top: -34vh;
-
+  object-position: 25% center;
   position: relative;
   top: 18vh;
 }
@@ -173,34 +172,40 @@ canvas {
   display: flex;
   flex-direction: column;
   position: relative;
-  bottom: 45vh;
+  bottom: 54vh;
   left: 7%;
   color: white;
 }
 .main-title {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
+.seperator-span {
+  font-size: 2.2rem;
+}
+
 .main-paragraph {
-  font-size: 1.4rem;
-  max-width: 40%;
+  font-size: 1.2rem;
+  max-width: 85%;
   font-weight: 300;
   background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  border-radius: 10px;
 }
 
 .main-two-buttons {
   display: flex;
   gap: 2vw;
-  left: 7%;
+  left: 8%;
   align-items: center;
   position: relative;
-  bottom: 38vh;
+  bottom: 52vh;
 }
 
 .play-icon {
-  width: 3rem;
-  height: 2.5rem;
+  width: 2.2rem;
+  height: 2.2rem;
   margin-top: 1.2vh;
   margin-right: -0.3vw;
 }
@@ -233,8 +238,8 @@ canvas {
   height: 5.5vh;
   border-radius: 4px;
   color: white;
-  padding-right: 1vw;
-  padding-left: 1vw;
+  padding: 1vw;
+
   font-size: 1.5rem;
 
   background-color: rgba(
@@ -261,12 +266,12 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
-  bottom: 32vh;
+  bottom: 46vh;
 }
 
 .top-picks-list {
   display: flex;
-  gap: 0.5vw;
+  gap: 1vw;
   padding-top: 2vh;
 }
 
@@ -276,18 +281,18 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
-  bottom: 28vh;
+  bottom: 38vh;
 }
 
 .continue-watching-list {
   display: flex;
   padding-top: 2vh;
-  gap: 0.5vw;
+  gap: 1vw;
 }
 
 .card {
   cursor: pointer;
-  width: 17vw;
+  width: 34vw;
   height: 18vh;
   display: flex;
   align-items: center;
@@ -478,5 +483,95 @@ canvas {
 
   .profile-img {
     width: 25vw; /* slightly smaller */
+  }
+}
+
+/* MAIN SCREEN QUERIES */
+
+@media (min-width: 1024px) {
+  .navbar {
+    gap: 45vw;
+  }
+
+  .user-logo {
+    width: 2.6vw;
+  }
+  .main-info {
+    bottom: 50vh;
+  }
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .main-paragraph {
+    font-size: 1.4rem;
+    max-width: 40%;
+  }
+
+  .main-preview-vid {
+    width: 120vw;
+  }
+
+  .seperator-span {
+    font-size: 3rem;
+  }
+
+  .main-two-buttons {
+    display: flex;
+    gap: 2vw;
+    left: 7%;
+    align-items: center;
+    position: relative;
+    bottom: 50vh;
+  }
+  .top-picks {
+    position: relative;
+    font-size: 1.5rem;
+    left: 7%;
+    font-weight: 500;
+    color: white;
+    bottom: 44vh;
+  }
+
+  .top-picks-list {
+    display: flex;
+    gap: 0.5vw;
+    padding-top: 2vh;
+  }
+
+  .continue-watching {
+    position: relative;
+    font-size: 1.5rem;
+    left: 7%;
+    font-weight: 500;
+    color: white;
+    bottom: 28vh;
+  }
+
+  .continue-watching-list {
+    display: flex;
+    padding-top: 2vh;
+    gap: 0.5vw;
+  }
+
+  .adam-logo {
+    width: 13vw;
+  }
+  .card {
+    cursor: pointer;
+    width: 17vw;
+    height: 18vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-blend-mode: lighten;
+    transition: all 0.7s;
+  }
+
+  /* Optional: revert horizontal scroll to grid */
+  .top-picks-list,
+  .continue-watching-list {
+    overflow-x: visible;
   }
 }

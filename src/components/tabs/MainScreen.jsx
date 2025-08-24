@@ -8,9 +8,8 @@ export default function MainScreen({ user, setCurrentTab }) {
         style={{
           width: "100%",
           height: "100vh",
-          overflowY: "auto",
+          overflowY: "scroll",
           overflowX: "hidden",
-          paddingBottom: "50vh",
         }}
       >
         <video
@@ -22,7 +21,7 @@ export default function MainScreen({ user, setCurrentTab }) {
 
         <div className="main-info">
           <h1 className="main-title">
-            Adam Meddah <span style={{ fontSize: "3rem" }}>|</span> Full-Stack
+            Adam Meddah <span className="seperator-span">|</span> Full-Stack
             Developer{" "}
           </h1>
 
@@ -30,10 +29,8 @@ export default function MainScreen({ user, setCurrentTab }) {
             Computer Science student at{" "}
             <span style={{ fontWeight: "500" }}>McMaster University</span> with
             experience building full-stack applications, AI-powered tools, and
-            immersive web experiences. I’ve developed projects ranging from
-            secure business web apps to AI-driven music recommendation systems
-            and interactive 3D portfolios, blending{" "}
-            <span style={{ fontWeight: "500" }}>technical depth</span> with{" "}
+            immersive web experiences. I strive for a blend of{" "}
+            <span style={{ fontWeight: "500" }}>technical depth</span> and{" "}
             <span style={{ fontWeight: "500" }}>creative design. </span> With a
             strong foundation across multiple languages, frameworks, and cloud
             technologies, I focus on delivering software that is both{" "}
