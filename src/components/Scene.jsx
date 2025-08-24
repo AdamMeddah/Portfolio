@@ -211,7 +211,9 @@ export default function Scene({ onOffsetChange }) {
             }}
           >
             {currentTab === "profiles" && (
-              <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
+              <div className="launch-wrapper">
+                <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
+              </div>
             )}
 
             {currentTab !== "profiles" && (
