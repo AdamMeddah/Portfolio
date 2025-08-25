@@ -290,6 +290,40 @@ canvas {
   gap: 1vw;
 }
 
+.top-5 {
+  margin-left: 7%;
+  margin-top: -20vh;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.top-5-list {
+  display: flex;
+  height: 20vh;
+  padding-top: 1.6vh;
+  gap: 5vw;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rank-entry svg {
+  width: 20vw;
+  height: 20vh;
+}
+
+.rank-entry {
+  display: flex;
+  transition: all 0.5s;
+}
+
+.rank-entry:hover {
+  scale: 1.1;
+}
+.rank-entry .card {
+  width: 25vw;
+  height: 20vh;
+}
+
 .card {
   cursor: pointer;
   width: 34vw;
@@ -309,7 +343,7 @@ canvas {
 .footer {
   color: white;
   position: relative;
-  top: 40%;
+  top: 50%;
   left: 7%;
 }
 
@@ -569,9 +603,18 @@ canvas {
     transition: all 0.7s;
   }
 
-  /* Optional: revert horizontal scroll to grid */
-  .top-picks-list,
-  .continue-watching-list {
-    overflow-x: visible;
+  .top-5-list {
+    margin-left: -10vw;
+    gap: 4vw;
+  }
+
+  .rank-entry svg {
+    width: 13vw;
+    height: 25vh;
+  }
+
+  .rank-entry .card {
+    width: 13vw;
+    height: 25vh;
   }
 }
