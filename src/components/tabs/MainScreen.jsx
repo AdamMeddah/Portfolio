@@ -4,14 +4,7 @@ import { Text } from "@react-three/drei";
 export default function MainScreen({ user, setCurrentTab }) {
   return (
     <>
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          overflowY: "scroll",
-          overflowX: "hidden",
-        }}
-      >
+      <div className="outer-wrapper">
         <video
           className="main-preview-vid"
           autoPlay

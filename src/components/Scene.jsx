@@ -37,6 +37,24 @@ export default function Scene({ onOffsetChange }) {
   const timerRef = useRef(null);
 
   useEffect(() => {
+    window.scrollTo(0, 800); // scroll to middle
+  }, []);
+
+  useEffect(() => {
+    const canvasContainer = document.getElementById("canvas-container");
+
+    if (currentTab === "main") {
+      // re-enable scroll
+      canvasContainer.style.overflow = "auto";
+      canvasContainer.style.height = "210vh"; // matches content needed in mainscreen
+    } else {
+      // disable scroll
+      canvasContainer.style.overflow = "hidden";
+      canvasContainer.style.height = "100vh";
+    }
+  }, [currentTab]);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
       setAllowInteraction(true);

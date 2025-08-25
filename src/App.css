@@ -12,15 +12,25 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
+  overscroll-behavior: none;
 }
 
 #canvas-container {
-  width: 100%;
-  height: 100%;
-  background-color: black;
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 210vh;
+  z-index: 9;
+  background-color: black;
+  overflow-y: scroll;
+  overscroll-behavior: none;
+}
+
+/* main screen wrapper */
+.outer-wrapper {
+  margin-top: -8vh;
+  padding-bottom: 5vh;
 }
 
 .launch-wrapper {
@@ -94,24 +104,25 @@ canvas {
 }
 
 /* MAIN SCREEN SECTION */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   gap: 45vw;
-  position: fixed;
   align-items: center;
   right: 2vw;
-  bottom: 97vh;
-  z-index: 1;
+  margin-top: -14vh;
+  z-index: 999;
   margin-left: 10vw;
-  background-color: #0e0e0e;
   height: 8vh;
+  background-color: #0d0d0d;
+  position: fixed;
 }
 .left-navbar {
   left: 36vw;
   display: flex;
   position: relative;
-  top: 2.5vh;
+  top: 3.2vh;
   align-self: flex-start;
   width: 50vw;
   gap: 2vw;
@@ -130,13 +141,13 @@ canvas {
   align-self: flex-end;
   position: relative;
   left: 40vw;
-  bottom: 0.8vh;
+  bottom: 0.3vh;
   width: 50vw;
   gap: 2vw;
 }
 
 .adam-logo {
-  width: 30vw;
+  width: 20vw;
   cursor: pointer;
 }
 
@@ -149,8 +160,7 @@ canvas {
 }
 
 .user-logo {
-  width: 6vw;
-  margin-top: -1rem;
+  width: 5vw;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -292,7 +302,7 @@ canvas {
 
 .top-5 {
   margin-left: 7%;
-  margin-top: -20vh;
+  margin-top: -30vh;
   color: white;
   font-size: 1.5rem;
   font-weight: 500;
@@ -302,6 +312,7 @@ canvas {
   height: 20vh;
   padding-top: 1.6vh;
   gap: 5vw;
+  margin-left: -15vw;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -342,9 +353,8 @@ canvas {
 
 .footer {
   color: white;
-  position: relative;
-  top: 50%;
-  left: 7%;
+  margin-top: 60vh;
+  margin-left: 7%;
 }
 
 /* PROJECTS SECTION */
