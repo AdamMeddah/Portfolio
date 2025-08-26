@@ -30,7 +30,7 @@ body {
 
 /* main screen wrapper */
 .outer-wrapper {
-  margin-top: 24vh;
+  margin-top: 30vh;
   padding-bottom: 5vh;
 }
 
@@ -104,14 +104,15 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: -20vh;
+  margin-top: 67vh;
   left: -2.7vw;
   right: 0;
-  height: 9vh;
+  height: 12vh;
   width: 106%;
   background-color: #0d0d0d;
   z-index: 999;
-  padding: 0 2vw;
+  padding: 4vh 2vw;
+  padding-top: 5vh;
 }
 
 .left-navbar {
@@ -163,16 +164,17 @@ canvas {
   object-fit: cover;
   object-position: 25% center;
   position: relative;
-  top: -34vh;
+  top: 10vh;
   left: -3vw;
+  z-index: 1;
 }
 
 .main-info {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 40vh;
-  left: 7%;
+  top: 23%;
+  left: -1%;
   color: white;
   z-index: 10;
 }
@@ -200,9 +202,9 @@ canvas {
   gap: 2vw;
   align-items: center;
   position: absolute;
-  top: 48vh;
-  left: 7%;
+  top: 40vh;
   z-index: 10;
+  left: 0.5%;
 }
 
 .play-icon {
@@ -254,41 +256,40 @@ canvas {
   height: 1.5rem;
 }
 
+.sections {
+  margin-top: 15vh;
+
+  gap: 10vh;
+}
+
 .top-picks {
-  position: relative;
   font-size: 1.5rem;
   left: 7%;
   font-weight: 500;
   color: white;
-  margin-top: -46vh;
-  margin-bottom: 2vh;
 }
 
 .top-picks-list {
   display: flex;
   gap: 1vw;
-  padding: 2vh 0 0 7%;
+  padding: 2vh 0 2vh 0;
 }
 
 .continue-watching {
   position: relative;
   font-size: 1.5rem;
-  left: 7%;
   font-weight: 500;
   color: white;
-  margin-top: -38vh;
   margin-bottom: 2vh;
 }
 
 .continue-watching-list {
   display: flex;
   gap: 1vw;
-  padding: 2vh 0 0 7%;
+  padding: 2vh 0 0 0;
 }
 
 .top-5 {
-  margin-left: 7%;
-  margin-top: -30vh;
   color: white;
   font-size: 1.5rem;
   font-weight: 500;
@@ -299,8 +300,8 @@ canvas {
   flex-wrap: wrap;
   justify-content: center;
   gap: 5vw;
-  padding: 1.6vh 0 0 7%;
-  margin-left: -15vw;
+  margin-left: -10vw;
+  padding: 1.6vh 0 0;
 }
 
 .rank-entry {
@@ -318,6 +319,7 @@ canvas {
 }
 
 .rank-entry .card {
+  margin-left: -3vw;
   width: 25vw;
   height: 20vh;
 }
