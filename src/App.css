@@ -12,7 +12,10 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  min-height: 200vh;
   overscroll-behavior: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #canvas-container {
@@ -20,16 +23,14 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 210vh;
   z-index: 9;
   background-color: black;
-  overflow-y: scroll;
-  overscroll-behavior: none;
+  pointer-events: none;
 }
 
 /* main screen wrapper */
 .outer-wrapper {
-  margin-top: -8vh;
+  margin-top: 24vh;
   padding-bottom: 5vh;
 }
 
@@ -41,13 +42,6 @@ body {
 
 canvas {
   display: block;
-}
-
-.page-1 {
-  position: fixed;
-  margin-left: 260px;
-  color: blue;
-  margin-top: 60px;
 }
 
 .users {
@@ -66,6 +60,7 @@ canvas {
   font-weight: 300;
   color: white;
 }
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -79,17 +74,18 @@ canvas {
   align-items: center;
   gap: 2vh;
 }
-/* need to fix units used, e.g rem for font sizes */
+
 .profile-img {
   width: 30vw;
   border: 5px solid transparent;
-  transition: outline 0.1s ease;
+  transition: box-shadow 0.1s ease, filter 0.1s ease;
 }
+
 .profile-text {
   margin-top: 1vh;
   font-size: 1.2rem;
-  align-self: center;
   color: #4f4f4f;
+  transition: color 0.1s ease;
 }
 
 .profile:hover .profile-text {
@@ -97,9 +93,7 @@ canvas {
 }
 
 .profile:hover .profile-img {
-  border: 5px solid transparent; /* to keep size */
-  border: white;
-  box-shadow: 0 0 10px 3px white; /* not white for some reason!!*/
+  box-shadow: 0 0 10px 3px white;
   filter: brightness(1.2);
 }
 
@@ -108,23 +102,20 @@ canvas {
 .navbar {
   display: flex;
   justify-content: space-between;
-  gap: 45vw;
   align-items: center;
-  right: 2vw;
-  margin-top: -14vh;
-  z-index: 999;
-  margin-left: 10vw;
-  height: 8vh;
-  background-color: #0d0d0d;
   position: fixed;
+  top: -20vh;
+  left: -2.7vw;
+  right: 0;
+  height: 9vh;
+  width: 106%;
+  background-color: #0d0d0d;
+  z-index: 999;
+  padding: 0 2vw;
 }
+
 .left-navbar {
-  left: 36vw;
   display: flex;
-  position: relative;
-  top: 3.2vh;
-  align-self: flex-start;
-  width: 50vw;
   gap: 2vw;
 }
 
@@ -132,60 +123,60 @@ canvas {
   color: white;
   transition: color 0.5s;
   cursor: pointer;
-}
-.left-navbar button:hover {
-  color: #bababa;
-}
-
-.right-navbar {
-  align-self: flex-end;
-  position: relative;
-  left: 40vw;
-  bottom: 0.3vh;
-  width: 50vw;
-  gap: 2vw;
-}
-
-.adam-logo {
-  width: 20vw;
-  cursor: pointer;
-}
-
-.home-button {
-  border: none;
   background: none;
+  border: none;
   font-family: "NetflixSans";
   font-weight: 300;
   font-size: 1rem;
 }
 
-.user-logo {
-  width: 5vw;
-  cursor: pointer;
-  transition: all 0.5s;
+.left-navbar button:hover {
+  color: #bababa;
 }
+
+.right-navbar {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.adam-logo {
+  width: 20vw;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.user-logo {
+  width: 6vw;
+  max-width: 60px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
 .user-logo:hover {
-  scale: 1.2;
+  transform: scale(1.2);
 }
 
 .main-preview-vid {
-  width: 120vw;
-  height: 110vh;
+  width: 110%;
+  height: 90vh;
   object-fit: cover;
-  margin-top: -34vh;
   object-position: 25% center;
   position: relative;
-  top: 18vh;
+  top: -34vh;
+  left: -3vw;
 }
 
 .main-info {
   display: flex;
   flex-direction: column;
-  position: relative;
-  bottom: 54vh;
+  position: absolute;
+  top: 40vh;
   left: 7%;
   color: white;
+  z-index: 10;
 }
+
 .main-title {
   font-size: 2rem;
   font-weight: 700;
@@ -207,17 +198,16 @@ canvas {
 .main-two-buttons {
   display: flex;
   gap: 2vw;
-  left: 8%;
   align-items: center;
-  position: relative;
-  bottom: 52vh;
+  position: absolute;
+  top: 48vh;
+  left: 7%;
+  z-index: 10;
 }
 
 .play-icon {
   width: 2.2rem;
   height: 2.2rem;
-  margin-top: 1.2vh;
-  margin-right: -0.3vw;
 }
 
 .play-button {
@@ -229,9 +219,10 @@ canvas {
   color: black;
   font-size: 1.5rem;
   font-weight: 500;
-  padding-right: 1vw;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   border: none;
+  transition: background-color 0.3s ease;
 }
 
 .play-button:hover {
@@ -239,25 +230,18 @@ canvas {
 }
 
 .info-button {
-  border: none;
   display: flex;
   gap: 0.7vw;
+  align-items: center;
+  background-color: rgba(104, 100, 108, 0.6);
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
   cursor: pointer;
   text-decoration: none;
-  align-items: center;
-  height: 5.5vh;
-  border-radius: 4px;
-  color: white;
-  padding: 1vw;
-
-  font-size: 1.5rem;
-
-  background-color: rgba(
-    104,
-    100,
-    108,
-    0.6
-  ); /* change opacity only on bg, not the stuff in button too*/
+  transition: background-color 0.3s ease;
 }
 
 .info-button:hover {
@@ -266,8 +250,8 @@ canvas {
 
 .info-icon {
   stroke: white;
-  width: 3rem;
-  height: 5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .top-picks {
@@ -276,13 +260,14 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
-  bottom: 46vh;
+  margin-top: -46vh;
+  margin-bottom: 2vh;
 }
 
 .top-picks-list {
   display: flex;
   gap: 1vw;
-  padding-top: 2vh;
+  padding: 2vh 0 0 7%;
 }
 
 .continue-watching {
@@ -291,13 +276,14 @@ canvas {
   left: 7%;
   font-weight: 500;
   color: white;
-  bottom: 38vh;
+  margin-top: -38vh;
+  margin-bottom: 2vh;
 }
 
 .continue-watching-list {
   display: flex;
-  padding-top: 2vh;
   gap: 1vw;
+  padding: 2vh 0 0 7%;
 }
 
 .top-5 {
@@ -307,14 +293,23 @@ canvas {
   font-size: 1.5rem;
   font-weight: 500;
 }
+
 .top-5-list {
   display: flex;
-  height: 20vh;
-  padding-top: 1.6vh;
-  gap: 5vw;
-  margin-left: -15vw;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 5vw;
+  padding: 1.6vh 0 0 7%;
+  margin-left: -15vw;
+}
+
+.rank-entry {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.rank-entry:hover {
+  transform: scale(1.1);
 }
 
 .rank-entry svg {
@@ -322,14 +317,6 @@ canvas {
   height: 20vh;
 }
 
-.rank-entry {
-  display: flex;
-  transition: all 0.5s;
-}
-
-.rank-entry:hover {
-  scale: 1.1;
-}
 .rank-entry .card {
   width: 25vw;
   height: 20vh;
@@ -344,11 +331,11 @@ canvas {
   justify-content: center;
   color: white;
   background-blend-mode: lighten;
-  transition: all 0.7s;
+  transition: transform 0.7s ease;
 }
 
 .card:hover {
-  scale: 1.2;
+  transform: scale(1.2);
 }
 
 .footer {
@@ -359,25 +346,21 @@ canvas {
 
 /* PROJECTS SECTION */
 
-/* need to add this like previous one to show navbar! */
 .project-wrapper {
-  width: 120vw;
+  width: 100vw;
   height: 110vh;
   object-fit: cover;
   margin-top: -34vh;
-
   position: relative;
   top: 18vh;
 }
 
 .project-grid {
   margin-top: 11%;
-
   display: grid;
-  grid-template-columns: 10% 10% 10% 10%;
-  column-gap: 15vw;
-  row-gap: 20vh;
-  margin-left: 7%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20vh 15vw;
+  padding: 0 7%;
 }
 
 .project {
@@ -385,38 +368,32 @@ canvas {
   display: flex;
   flex-direction: column;
   color: white;
-  gap: 10vh;
-  flex-wrap: wrap;
   width: 220%;
   height: 110%;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 8px rgba(75, 5, 5, 0.6);
-  /* horizontal, vertical, blur, spread */
   overflow: hidden;
-  /* overflow hidden needed to scale image up without it getting bigger than the div */
 }
 
 .project:hover .project-image {
-  scale: 1.1;
+  transform: scale(1.1);
 }
 
 .project-image {
   width: 98%;
-  margin-left: 1%;
-  margin-top: 1%;
+  margin: 1% 0 0 1%;
   height: 40%;
-  border-bottom: solid;
-  border-bottom-color: red;
+  border-bottom: 2px solid red;
   border-bottom-left-radius: 5%;
   border-bottom-right-radius: 5%;
-  border-bottom-width: 2px;
-  transition: all 0.4s;
+  transition: transform 0.4s ease;
 }
+
 .project-text {
   display: flex;
   flex-direction: column;
   margin-left: 5%;
-  margin-top: -18%;
+  margin-top: 5%;
 }
 
 .project-title {
@@ -425,7 +402,7 @@ canvas {
 }
 
 .project-desc {
-  margin-top: -0.5%;
+  margin-top: 0.5rem;
   font-weight: 300;
   font-size: 1.1rem;
 }
@@ -433,36 +410,35 @@ canvas {
 .tag-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  margin-left: 5%;
-  gap: 6%;
-  row-gap: 1rem;
-  margin-top: -12%;
+  gap: 1rem 6%;
+  margin: 5% 0 0 5%;
 }
 
 .tag {
   display: inline-flex;
+  align-items: center;
   gap: 0.5rem;
   border-radius: 12px;
   background-color: #2c2c2c;
-  line-height: 0.1;
-  padding: 0% 3%;
-  align-items: center;
+  padding: 0.25rem 0.75rem;
 }
 
 .tag img {
-  width: 1em;
+  width: 1rem;
+  height: 1rem;
 }
+
 .tag h3 {
   font-weight: 300;
-  font-size: 1.1em;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 /* BREAKPOINTS */
 
 @media (min-width: 768px) {
   .users {
-    flex-direction: row; /* side-by-side profiles */
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -489,24 +465,97 @@ canvas {
 @media (min-width: 1024px) {
   .users {
     flex-direction: row;
-    justify-content: flex-start; /* keep original layout */
+    justify-content: flex-start;
   }
 
   #launch-title {
-    font-size: 4rem; /* your original size */
+    font-size: 4rem;
     margin-bottom: 12vh;
   }
 
   #profile-row {
-    gap: 10vh; /* original gap */
+    gap: 10vh;
   }
 
   .profile-img {
-    width: 10vw; /* original */
+    width: 10vw;
   }
 
   .profile-text {
-    font-size: 2.5vh; /* original */
+    font-size: 1.3rem;
+  }
+
+  .outer-wrapper {
+    margin-top: 30vh;
+    background-color: #141414;
+  }
+
+  .navbar {
+    margin-top: 28vh;
+    padding: 0 4vw;
+  }
+
+  .user-logo {
+    width: 2.6vw;
+    max-width: 40px;
+  }
+
+  .main-info {
+    top: 40vh;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .main-paragraph {
+    font-size: 1.4rem;
+    max-width: 40%;
+  }
+
+  .main-two-buttons {
+    top: 50vh;
+  }
+
+  .seperator-span {
+    font-size: 3rem;
+  }
+
+  .top-picks {
+    margin-top: -44vh;
+  }
+
+  .continue-watching {
+    margin-top: -28vh;
+  }
+
+  .adam-logo {
+    width: 13vw;
+    max-width: 150px;
+  }
+
+  .card {
+    width: 17vw;
+    height: 18vh;
+  }
+
+  .top-5 {
+    margin-top: -20vh;
+  }
+
+  .top-5-list {
+    gap: 1vw;
+    margin-top: 4vh;
+  }
+
+  .rank-entry svg {
+    width: 13vw;
+    height: 25vh;
+  }
+
+  .rank-entry .card {
+    width: 13vw;
+    height: 25vh;
   }
 }
 
@@ -526,105 +575,39 @@ canvas {
   }
 
   .profile-img {
-    width: 25vw; /* slightly smaller */
+    width: 25vw;
   }
 }
 
-/* MAIN SCREEN QUERIES */
+@media screen and (max-width: 860px) and (max-height: 450px),
+  screen and (max-width: 915px) and (max-height: 450px),
+  screen and (max-width: 760px) and (max-height: 450px) {
+  #canvas-container {
+    min-height: 330vh;
+  }
 
-@media (min-width: 1024px) {
   .navbar {
-    gap: 45vw;
+    height: 20vh;
+    margin-top: -32vh;
   }
 
   .user-logo {
-    width: 2.6vw;
-  }
-  .main-info {
-    bottom: 50vh;
-  }
-  .main-title {
-    font-size: 3rem;
+    margin-left: -2vw;
   }
 
-  .main-paragraph {
-    font-size: 1.4rem;
-    max-width: 40%;
+  .info-button {
+    height: 11vh;
   }
 
-  .main-preview-vid {
-    width: 120vw;
-  }
-
-  .seperator-span {
-    font-size: 3rem;
-  }
-
-  .main-two-buttons {
-    display: flex;
-    gap: 2vw;
-    left: 7%;
-    align-items: center;
-    position: relative;
-    bottom: 50vh;
-  }
-  .top-picks {
-    position: relative;
-    font-size: 1.5rem;
-    left: 7%;
-    font-weight: 500;
-    color: white;
-    bottom: 44vh;
-  }
-
-  .top-picks-list {
-    display: flex;
-    gap: 0.5vw;
-    padding-top: 2vh;
-  }
-
-  .continue-watching {
-    position: relative;
-    font-size: 1.5rem;
-    left: 7%;
-    font-weight: 500;
-    color: white;
-    bottom: 28vh;
-  }
-
-  .continue-watching-list {
-    display: flex;
-    padding-top: 2vh;
-    gap: 0.5vw;
-  }
-
-  .adam-logo {
-    width: 13vw;
-  }
-  .card {
-    cursor: pointer;
-    width: 17vw;
-    height: 18vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-blend-mode: lighten;
-    transition: all 0.7s;
-  }
-
-  .top-5-list {
-    margin-left: -10vw;
-    gap: 4vw;
-  }
-
-  .rank-entry svg {
-    width: 13vw;
-    height: 25vh;
+  .footer {
+    margin-top: 85vh;
   }
 
   .rank-entry .card {
-    width: 13vw;
-    height: 25vh;
+    margin-left: -4vw;
+  }
+
+  .outer-wrapper {
+    margin-top: -10vh;
   }
 }

@@ -2,6 +2,13 @@ import Card from "../Card";
 import Navbar from "../Navbar";
 import { Text } from "@react-three/drei";
 export default function MainScreen({ user, setCurrentTab }) {
+  const navbar = document.querySelector(".navbar");
+  const initialOffset = -130; // negative so it starts up
+
+  window.addEventListener("scroll", () => {
+    navbar.style.top = window.scrollY / 11 + initialOffset + "px";
+  });
+
   return (
     <>
       <div className="outer-wrapper">
