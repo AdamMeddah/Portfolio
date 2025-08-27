@@ -23,7 +23,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9;
+  z-index: 1;
   background-color: black;
   pointer-events: none;
 }
@@ -104,15 +104,14 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  margin-top: 67vh;
-  left: -2.7vw;
+  top: -7%;
+  left: -3%;
   right: 0;
   height: 12vh;
   width: 106%;
   background-color: #0d0d0d;
   z-index: 999;
-  padding: 4vh 2vw;
-  padding-top: 5vh;
+  padding: 2vh 4vw;
 }
 
 .left-navbar {
@@ -159,7 +158,7 @@ canvas {
 }
 
 .main-preview-vid {
-  width: 110%;
+  width: 105%;
   height: 90vh;
   object-fit: cover;
   object-position: 25% center;
@@ -581,35 +580,89 @@ canvas {
   }
 }
 
-@media screen and (max-width: 860px) and (max-height: 450px),
-  screen and (max-width: 915px) and (max-height: 450px),
-  screen and (max-width: 760px) and (max-height: 450px) {
-  #canvas-container {
-    min-height: 330vh;
-  }
+/* Small phones */
+/* Very tall/narrow screens (like 375x667, 412x915) */
 
+@media (max-width: 400px) {
   .navbar {
-    height: 20vh;
-    margin-top: -32vh;
+    margin-top: 70vh;
   }
 
-  .user-logo {
-    margin-left: -2vw;
+  .main-info {
+    margin-top: -12vh;
   }
 
-  .info-button {
-    height: 11vh;
-  }
-
-  .footer {
-    margin-top: 85vh;
-  }
-
-  .rank-entry .card {
-    margin-left: -4vw;
-  }
-
-  .outer-wrapper {
-    margin-top: -10vh;
+  .main-two-buttons {
+    margin-top: 15vh;
   }
 }
+
+@media (min-width: 400px) and (max-width: 480px) {
+  .navbar {
+    margin-top: 90vh;
+  }
+}
+
+/* Tablets (portrait and small landscape) */
+
+@media (min-width: 667px) {
+  .navbar {
+    margin-top: 100vh;
+  }
+
+  .main-preview-vid {
+    top: 30vh;
+    object-position: 10% 25%;
+  }
+
+  .sections {
+    margin-top: 30vh;
+  }
+  .main-paragraph {
+    margin-top: -2vh;
+    margin-left: -0.6vw;
+    padding-right: 3vw;
+    max-width: 80%;
+  }
+
+  .main-two-buttons {
+    flex-direction: column;
+    margin-left: 80%;
+    margin-top: -7%;
+  }
+}
+
+@media (min-width: 667px) and (min-height: 413px) {
+  .navbar {
+    margin-top: 92vh;
+  }
+}
+
+@media (min-width: 900px) {
+  .navbar {
+    margin-top: 98vh;
+  }
+  .main-two-buttons {
+    margin-top: -8%;
+  }
+}
+
+/* Laptops & small desktops */
+@media (min-width: 1024px) {
+  .navbar {
+    margin-top: 73vh;
+  }
+  .main-preview-vid {
+    top: 33vh;
+  }
+}
+
+/* Big desktops / ultrawide */
+@media (min-width: 1200px) {
+}
+
+/* Iphone 11 pro navbar needs bigger margin top (896x414) */
+
+/* 812 x 375 the main paragraph gotta go up more */
+
+/* 926x428 the  */
