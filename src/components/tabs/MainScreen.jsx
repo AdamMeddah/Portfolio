@@ -171,7 +171,7 @@ export default function MainScreen({ user, setCurrentTab }) {
                   width="100%"
                   height="100%"
                   viewBox="0 0 81 154"
-                  class="svg-icon svg-icon-rank-4 top-10-rank"
+                  className="svg-icon svg-icon-rank-4 top-10-rank"
                 >
                   <path
                     stroke="#595959"
@@ -189,7 +189,7 @@ export default function MainScreen({ user, setCurrentTab }) {
                   width="100%"
                   height="100%"
                   viewBox="0 0 81 154"
-                  class="svg-icon svg-icon-rank-5 top-10-rank"
+                  className="svg-icon svg-icon-rank-5 top-10-rank"
                 >
                   <path
                     stroke="#595959"

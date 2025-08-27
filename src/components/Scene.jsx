@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { Environment, useScroll } from "@react-three/drei";
+import { Environment, ScrollControls, Scroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { OrbitControls, Text3D, Html } from "@react-three/drei";
 import { Page } from "./Pages";
