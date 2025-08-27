@@ -318,9 +318,14 @@ canvas {
 }
 
 .rank-entry .card {
-  margin-left: -3vw;
+  margin-left: -2vw;
   width: 25vw;
   height: 20vh;
+}
+
+#rank-1 {
+  margin-left: -2vw;
+  margin-right: 2vw;
 }
 
 .card {
@@ -437,155 +442,30 @@ canvas {
 
 /* BREAKPOINTS */
 
-@media (min-width: 768px) {
-  .users {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  #launch-title {
-    font-size: 3rem;
-    margin-bottom: 8vh;
-  }
-
-  #profile-row {
-    flex-direction: row;
-    gap: 10vh;
-  }
-
-  .profile-img {
-    width: 15vw;
-  }
-
-  .profile-text {
-    font-size: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .users {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  #launch-title {
-    font-size: 4rem;
-    margin-bottom: 12vh;
-  }
-
-  #profile-row {
-    gap: 10vh;
-  }
-
-  .profile-img {
-    width: 10vw;
-  }
-
-  .profile-text {
-    font-size: 1.3rem;
-  }
-
-  .outer-wrapper {
-    margin-top: 30vh;
-    background-color: #141414;
-  }
-
-  .navbar {
-    margin-top: 28vh;
-    padding: 0 4vw;
-  }
-
-  .user-logo {
-    width: 2.6vw;
-    max-width: 40px;
-  }
-
-  .main-info {
-    top: 40vh;
-  }
-
-  .main-title {
-    font-size: 3rem;
-  }
-
-  .main-paragraph {
-    font-size: 1.4rem;
-    max-width: 40%;
-  }
-
-  .main-two-buttons {
-    top: 50vh;
-  }
-
-  .seperator-span {
-    font-size: 3rem;
-  }
-
-  .top-picks {
-    margin-top: -44vh;
-  }
-
-  .continue-watching {
-    margin-top: -28vh;
-  }
-
-  .adam-logo {
-    width: 13vw;
-    max-width: 150px;
-  }
-
-  .card {
-    width: 17vw;
-    height: 18vh;
-  }
-
-  .top-5 {
-    margin-top: -20vh;
-  }
-
-  .top-5-list {
-    gap: 1vw;
-    margin-top: 4vh;
-  }
-
-  .rank-entry svg {
-    width: 13vw;
-    height: 25vh;
-  }
-
-  .rank-entry .card {
-    width: 13vw;
-    height: 25vh;
-  }
-}
-
-@media (max-width: 760px) and (max-height: 750px) {
-  .launch-wrapper {
-    padding-top: 20vh;
-  }
-
-  #profile-row {
-    flex-direction: row;
-    gap: 10vh;
-  }
-
-  #launch-title {
-    font-size: 1.5rem;
-    margin-bottom: 3vh;
-  }
-
-  .profile-img {
-    width: 25vw;
-  }
-}
-
 /* Small phones */
 /* Very tall/narrow screens (like 375x667, 412x915) */
 
-@media (max-width: 400px) {
+@media (max-width: 375px) {
   .navbar {
-    margin-top: 70vh;
+    margin-top: 73.5vh;
+  }
+
+  .main-info {
+    margin-top: -12vh;
+  }
+  .main-paragraph {
+    max-width: 104vw;
+    margin-top: -2vh;
+  }
+
+  .main-two-buttons {
+    margin-top: 16vh;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 400px) {
+  .navbar {
+    margin-top: 71vh;
   }
 
   .main-info {
@@ -599,7 +479,14 @@ canvas {
 
 @media (min-width: 400px) and (max-width: 480px) {
   .navbar {
-    margin-top: 90vh;
+    margin-top: 70vh;
+  }
+
+  .main-info {
+    margin-top: -3vh;
+  }
+  .main-two-buttons {
+    margin-top: 10vh;
   }
 }
 
@@ -638,9 +525,18 @@ canvas {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 800px) and (orientation: landscape) {
   .navbar {
-    margin-top: 98vh;
+    margin-top: 101vh;
+  }
+  .main-two-buttons {
+    margin-top: -8%;
+  }
+}
+
+@media (min-width: 883px) and (orientation: landscape) {
+  .navbar {
+    margin-top: 99vh;
   }
   .main-two-buttons {
     margin-top: -8%;
