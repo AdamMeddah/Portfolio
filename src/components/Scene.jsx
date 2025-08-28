@@ -16,6 +16,7 @@ import Projects from "./tabs/Projects.jsx";
 import LaunchScreen from "./tabs/LaunchScreen.jsx";
 import MainScreen from "./tabs/MainScreen.jsx";
 import Navbar from "./Navbar.jsx";
+import Contact from "./tabs/Contact.jsx";
 
 export default function Scene({ onOffsetChange }) {
   // const scroll = useScroll();
@@ -234,12 +235,12 @@ export default function Scene({ onOffsetChange }) {
               </div>
             )}
 
-            {currentTab !== "profiles" && (
-              <Navbar user={user} setCurrentTab={setCurrentTab} />
-            )}
-
             {currentTab === "main" && (
               <MainScreen user={user} setCurrentTab={setCurrentTab} />
+            )}
+
+            {currentTab === "Contact Me" && (
+              <Contact user={user} setCurrentTab={setCurrentTab} />
             )}
 
             {currentTab === "Projects" && (

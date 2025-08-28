@@ -4,6 +4,12 @@ import { Text } from "@react-three/drei";
 export default function MainScreen({ user, setCurrentTab }) {
   return (
     <>
+      <Navbar
+        user={user}
+        setCurrentTab={setCurrentTab}
+        sectionClass={"navbar"}
+      />
+
       <div className="outer-wrapper">
         <video
           className="main-preview-vid"
