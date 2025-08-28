@@ -33,7 +33,6 @@ body {
 .outer-wrapper {
   margin-top: 30vh;
   padding-bottom: 5vh;
-  overflow-x: hidden;
 }
 
 .launch-wrapper {
@@ -417,7 +416,7 @@ canvas {
   margin-top: 11%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20vh 15vw;
+  gap: 10vh 2vw;
   padding: 0 7%;
   width: 100%;
   margin-left: auto;
