@@ -497,13 +497,31 @@ canvas {
 
 /* CONTACT STYLING */
 
+.contact-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 105vh;
+
+  left: -7%;
+  right: 0;
+  height: 12vh;
+  width: 115%;
+  background-color: #0d0d0d;
+  z-index: 999;
+  padding: 2vh 4vw;
+}
+
 .contact-form {
   background-color: #1e1e1e; /* dark gray */
   color: white;
   padding: 2rem;
   border-radius: 8px;
   max-width: 600px;
-  margin: 5rem auto; /* center */
+  margin-left: 36%;
+  margin-bottom: 8vh;
+  justify-content: center;
 }
 .contact-form input,
 .contact-form textarea {
@@ -527,28 +545,72 @@ canvas {
   background-color: #c00;
 }
 
-.contact-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: -40%;
-  left: -3%;
-  right: 0;
-  height: 12vh;
-  width: 106%;
-  background-color: #0d0d0d;
-  z-index: 999;
-  padding: 2vh 4vw;
-  margin-top: 20vh;
-}
-
 .contact-wrapper {
   width: 100vw;
   height: 200vh;
-  margin-top: 80vh;
+  margin-top: 120vh;
   overflow-y: auto;
 }
+
+.contact-header {
+  color: white;
+  text-align: center;
+  margin-left: 2vw;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+.contact-title {
+  font-size: 5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.secondary-contact {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin: 0.5rem 0 0 0;
+}
+
+.tertiary-contact {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #aaaaaa;
+  margin: 0.3rem 0 0 0;
+  font-style: italic;
+}
+
+.contact-header h1,
+.contact-header p {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.contact-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.contact-logos svg {
+  transition: all 0.5s;
+  height: 60px;
+}
+
+.contact-logos svg:hover {
+  color: #27c6ea; /* mint/turquoise */
+  filter: drop-shadow(0 0 5px #1abc9c);
+}
+
+.github-logo {
+  color: white;
+}
+
+.linkedin-logo {
+  color: white;
+}
+
 /* BREAKPOINTS */
 
 /* Small phones */
