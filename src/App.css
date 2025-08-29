@@ -501,7 +501,7 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 105vh;
+  top: 45vh;
 
   left: -7%;
   right: 0;
@@ -518,9 +518,7 @@ canvas {
   padding: 2rem;
   border-radius: 8px;
   max-width: 600px;
-  margin-left: 36%;
   margin-bottom: 8vh;
-  justify-content: center;
 }
 .contact-form input,
 .contact-form textarea {
@@ -547,8 +545,13 @@ canvas {
 .contact-wrapper {
   width: 100vw;
   height: 200vh;
-  margin-top: 120vh;
+  margin-top: 0vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .contact-header {
@@ -587,9 +590,8 @@ canvas {
 
 .contact-logos {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 40px;
+  margin-left: -4vw;
 }
 
 .contact-logos svg {
@@ -762,3 +764,11 @@ canvas {
 /* 812 x 375 the main paragraph gotta go up more */
 
 /* 926x428 the  */
+
+/* CONTACT MEDIA QUERIES */
+
+@media (max-width: 430px) {
+  .contact-wrapper {
+    margin-top: 4vh;
+  }
+}
