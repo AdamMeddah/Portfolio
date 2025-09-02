@@ -180,15 +180,16 @@ canvas {
 
 .adam-logo {
   width: 40vw;
-  max-width: 200px;
+  margin-left: -1vw;
+  margin-right: 2vw;
   cursor: pointer;
 }
 
 .user-logo {
-  width: 6vw;
-  max-width: 60px;
+  width: 15%;
   cursor: pointer;
   transition: transform 0.5s ease;
+  margin-left: 25%;
 }
 
 .user-logo:hover {
@@ -501,7 +502,7 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 45vh;
+  top: -5vh;
 
   left: -7%;
   right: 0;
@@ -519,6 +520,7 @@ canvas {
   border-radius: 8px;
   max-width: 600px;
   margin-bottom: 8vh;
+  margin-left: 2vw;
 }
 .contact-form input,
 .contact-form textarea {
@@ -544,7 +546,8 @@ canvas {
 
 .contact-wrapper {
   width: 100vw;
-  height: 200vh;
+  height: auto;
+  min-height: 100vh;
   margin-top: 0vh;
   overflow-y: auto;
   display: flex;
@@ -560,6 +563,8 @@ canvas {
   margin-left: 2vw;
   margin-bottom: 3rem;
   line-height: 1.2;
+  display: flex;
+  flex-direction: column;
 }
 
 .contact-title {
@@ -590,18 +595,23 @@ canvas {
 
 .contact-logos {
   display: flex;
-  gap: 40px;
-  margin-left: -4vw;
+  gap: 4vw;
+  margin-top: 0.5vh;
+  padding-left: 5%;
 }
 
 .contact-logos svg {
   transition: all 0.5s;
-  height: 60px;
+  height: 4.7vh;
 }
 
 .contact-logos svg:hover {
   color: #27c6ea; /* mint/turquoise */
   filter: drop-shadow(0 0 5px #1abc9c);
+}
+
+.contact-logos a:hover {
+  cursor: pointer;
 }
 
 .github-logo {
@@ -700,6 +710,16 @@ canvas {
   }
 }
 
+@media (min-width: 667px) and (max-height: 413px) {
+  .user-logo {
+    width: 9%;
+  }
+
+  .contact-logos svg {
+    width: 80%;
+  }
+}
+
 @media (min-width: 800px) and (orientation: landscape) {
   .navbar {
     margin-top: 101vh;
@@ -767,8 +787,228 @@ canvas {
 
 /* CONTACT MEDIA QUERIES */
 
-@media (max-width: 430px) {
+@media (min-width: 760px) {
   .contact-wrapper {
-    margin-top: 4vh;
+    padding-top: 70vh;
+    margin-bottom: 40vh;
+  }
+}
+
+@media (max-height: 500px) {
+  .contact-header {
+    margin-top: -10vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+  }
+
+  .contact-title {
+    font-size: 3rem;
+  }
+  .secondary-contact {
+    font-size: 1.3rem;
+  }
+
+  .tertiary-contact {
+    font-size: 1.1rem;
+  }
+
+  .secondary-contact,
+  .tertiary-contact {
+    margin-top: 5vh;
+  }
+
+  .contact-logos svg {
+    height: 50px;
+  }
+  .contact-form {
+    margin-top: -10vh;
+    height: 240px;
+    padding: 0.3rem;
+    padding-top: 0;
+  }
+
+  .contact-logos {
+  }
+
+  .contact-navbar {
+    top: 29vh;
+  }
+}
+
+@media (min-width: 360px) {
+  .contact-wrapper {
+    margin-top: 15vh;
+  }
+
+  .contact-navbar {
+    top: 3vh;
+  }
+}
+
+@media (min-width: 400px) {
+  .contact-wrapper {
+    margin-top: 15vh;
+  }
+
+  .contact-navbar {
+    top: 3vh;
+  }
+}
+
+@media (min-width: 670px) {
+  .contact-navbar {
+    top: 39vh;
+  }
+}
+
+@media (min-width: 760px) {
+  .contact-navbar {
+    top: 50vh;
+  }
+
+  .adam-logo {
+    width: 60%;
+  }
+
+  .contact-logos svg {
+    margin-top: 5%;
+    width: 85%;
+  }
+
+  .user-logo {
+    width: 9%;
+  }
+}
+
+@media (min-width: 800px) {
+  .contact-navbar {
+    top: 45vh;
+  }
+
+  .adam-logo {
+    width: 80%;
+  }
+
+  .contact-logos svg {
+    margin-top: 15%;
+    width: 70%;
+  }
+
+  .user-logo {
+    width: 12%;
+  }
+
+  .on-mind {
+    height: 40px;
+  }
+
+  .contact-form {
+    height: 100%;
+  }
+  .contact-wrapper {
+    margin-top: 0vh;
+  }
+}
+
+@media (min-width: 844px) {
+  .contact-navbar {
+    top: 43vh;
+  }
+
+  .adam-logo {
+    width: 80%;
+  }
+
+  .contact-logos svg {
+    margin-top: 5%;
+    margin-left: 2vw;
+    width: 60%;
+  }
+
+  .contact-logos {
+    gap: 2px;
+  }
+
+  .user-logo {
+    width: 11%;
+  }
+}
+
+@media (min-width: 883px) {
+  .contact-navbar {
+    top: 40vh;
+  }
+
+  .adam-logo {
+    width: 80%;
+  }
+
+  .contact-form {
+    height: 110%;
+  }
+  .contact-wrapper {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 915px) {
+  .contact-navbar {
+    top: 40.5vh;
+  }
+
+  .adam-logo {
+    width: 40%;
+  }
+
+  .user-logo {
+    width: 12%;
+  }
+
+  .contact-wrapper {
+    margin-top: 0vh;
+    overflow: hidden;
+  }
+
+  .contact-form {
+    height: 110%;
+  }
+
+  .contact-submit {
+    margin-top: -5vh;
+  }
+}
+
+@media (min-width: 915px) {
+  .contact-navbar {
+    top: 38vh;
+  }
+}
+
+@media (min-width: 1000px) {
+  .contact-navbar {
+    top: 38vh;
+  }
+  .adam-logo {
+    width: 40%;
+  }
+}
+
+@media (max-width: 375px) and (max-height: 667px) {
+  .adam-logo {
+    margin-top: 10%;
+  }
+
+  .contact-logos {
+    margin-top: 10%;
+  }
+
+  .user-logo {
+    margin-top: 8%;
+  }
+
+  .hamburger {
+    margin-top: 10%;
   }
 }
