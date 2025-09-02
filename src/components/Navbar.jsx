@@ -105,7 +105,14 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
           >
             Home
           </button>
-          <button onClick={() => setIsOpen(false)}>About</button>
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              setCurrentTab("About");
+            }}
+          >
+            About
+          </button>
           <button
             onClick={() => {
               setCurrentTab("Projects");
@@ -116,7 +123,7 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
           </button>
           <button
             onClick={() => {
-              setCurrentTab("Projects");
+              setCurrentTab("Contact Me");
 
               setIsOpen(false);
             }}

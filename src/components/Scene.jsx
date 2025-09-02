@@ -272,6 +272,10 @@ export default function Scene({ onOffsetChange }) {
             {currentTab === "Skills" && (
               <Skills user={user} setCurrentTab={setCurrentTab} />
             )}
+
+            {currentTab === "About" && (
+              <About user={user} setCurrentTab={setCurrentTab} />
+            )}
           </Html>
         )}
       </mesh>

@@ -228,7 +228,7 @@ canvas {
 
 .main-paragraph {
   font-size: 1.2rem;
-  max-width: 85%;
+  max-width: 70%;
   font-weight: 300;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 0.5rem;
@@ -820,6 +820,53 @@ canvas {
   text-align: center;
 }
 
+/* ABOUT SECTION */
+
+.about-1 {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+}
+.about-1 img {
+  width: 110%;
+}
+
+.about-improve {
+  font-size: 150%;
+}
+
+.about-title {
+  margin-left: 40%;
+  font-weight: 700;
+}
+.about-paragraph {
+  margin-left: 6%;
+  font-weight: 500;
+}
+
+.about-text {
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .about-1 {
+    flex-direction: column;
+    align-content: center;
+    margin-top: 15%;
+  }
+
+  .about-1 img {
+    width: 60%;
+  }
+
+  .about-title {
+    margin-left: 0;
+  }
+
+  .about-paragraph {
+    margin-left: 0;
+  }
+}
 /* BREAKPOINTS */
 
 /* Small phones */
@@ -956,6 +1003,7 @@ canvas {
 
   .main-paragraph {
     margin-left: 0;
+    max-width: 50%;
   }
 
   .main-two-buttons {
