@@ -1,13 +1,17 @@
-export default function About() {
+import Navbar from "../Navbar";
+
+export default function About({ user, setCurrentTab }) {
   return (
     <>
-      <h1 id="about-header">
-        <b>Hello!</b> I'm Adam Meddah
-      </h1>
+      <Navbar
+        user={user}
+        setCurrentTab={setCurrentTab}
+        sectionClass={"project-navbar"}
+      />
 
-      <h2 id="about-secondary-header">
-        Computer Science student at McMaster University
-      </h2>
+      <div className="about-1">
+        <img src="" alt="" />
+      </div>
     </>
   );
 }

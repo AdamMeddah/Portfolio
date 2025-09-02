@@ -622,6 +622,204 @@ canvas {
   color: white;
 }
 
+/* BLOG SECTION */
+
+.blog-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: -7%;
+  left: -3%;
+  right: 0;
+  height: 12vh;
+  width: 106%;
+  background-color: #0d0d0d;
+  z-index: 999;
+  padding: 2vh 4vw;
+}
+
+.blog-wrapper {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  margin-top: 0;
+  overflow-y: auto;
+}
+
+.blog-grid {
+  margin-top: 15%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 12vh 2vw;
+  padding: 0 7%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-card {
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 8px rgba(5, 5, 75, 0.6); /* blue-ish glow to distinguish */
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  height: auto;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
+.blog-image {
+  width: 98%;
+  margin: 1% 0 0 1%;
+  height: 70%;
+  border-bottom: 2px solid #27c6ea; /* turquoise separator */
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.blog-card:hover .blog-image {
+  transform: scale(1.1);
+}
+
+.blog-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.blog-title {
+  color: #27c6ea;
+  font-size: 1.5rem;
+}
+
+.blog-desc {
+  margin-top: 0.5rem;
+  font-weight: 300;
+  font-size: 1.1rem;
+}
+
+.blog-content {
+  margin-left: 2%;
+}
+
+/* BLOG DETAIL SECTION */
+
+.blog-detail {
+  max-width: 800px; /* readable width */
+  margin: 2rem auto; /* center it */
+  padding: 1.5rem;
+  background: #fff; /* card-like look */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-detail .detail-image {
+  width: 100%;
+  max-height: 400px; /* prevent giant pics */
+  object-fit: cover; /* crop instead of squish */
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.blog-detail h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.blog-detail p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.blog-detail button {
+  background: #27c6ea;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.blog-detail button:hover {
+  background: #1abc9c;
+}
+
+/* markdown img inside blog-detail */
+.blog-detail img {
+  max-width: 100%; /* stop images from overflowing container */
+  height: auto; /* keep aspect ratio */
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* SKILLS SECTION */
+
+.skills-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem; /* space between cards */
+  overflow-x: auto; /* scroll horizontally if too many cards */
+  padding: 2rem;
+  justify-content: center;
+}
+
+.skill-card {
+  flex: 0 0 200px; /* fixed width cards */
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px 4px rgba(5, 5, 75, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: scale(1.05);
+}
+
+.skill-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.skill-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.skill-desc {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #aaa;
+  text-align: center;
+}
+
 /* BREAKPOINTS */
 
 /* Small phones */
@@ -716,7 +914,7 @@ canvas {
   }
 
   .contact-logos svg {
-    width: 80%;
+    width: 5vw;
   }
 }
 
@@ -854,6 +1052,26 @@ canvas {
 
   .contact-navbar {
     top: 3vh;
+  }
+  .user-logo {
+    width: 40px;
+  }
+}
+
+@media (min-width: 400px) and (min-height: 900px) {
+  .contact-wrapper {
+    margin-top: 15vh;
+  }
+
+  .contact-navbar {
+    top: 3vh;
+  }
+
+  .contact-logos {
+    margin-left: -40vw;
+  }
+  .user-logo {
+    width: 40px;
   }
 }
 

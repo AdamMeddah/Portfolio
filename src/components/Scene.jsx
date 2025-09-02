@@ -8,6 +8,8 @@ import * as THREE from "three";
 import pageData from "../data/pageData.js";
 import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
+
+// Component Imports
 import Arrow from "./Arrow.jsx";
 import About from "./tabs/About.jsx";
 import Blog from "./tabs/Blog.jsx";
@@ -17,7 +19,9 @@ import LaunchScreen from "./tabs/LaunchScreen.jsx";
 import MainScreen from "./tabs/MainScreen.jsx";
 import Navbar from "./Navbar.jsx";
 import Contact from "./tabs/Contact.jsx";
+import Skills from "./tabs/Skills.jsx";
 
+import BlogDetail from "./tabs/BlogDetail.jsx";
 export default function Scene({ onOffsetChange }) {
   // const scroll = useScroll();
   // const offset = scroll.offset * scroll.pages; //to go from 0 to 6
@@ -32,6 +36,7 @@ export default function Scene({ onOffsetChange }) {
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); //handles the conditional rendering
   const [currentTab, setCurrentTab] = useState("profiles");
   const [user, setUser] = useState(null);
+  const [activePost, setActivePost] = useState(null);
   const htmlRef = useRef();
   const tvMeshRef = useRef();
 
@@ -245,6 +250,27 @@ export default function Scene({ onOffsetChange }) {
 
             {currentTab === "Projects" && (
               <Projects user={user} setCurrentTab={setCurrentTab} />
+            )}
+
+            {currentTab === "Blog" && !activePost && (
+              <Blog
+                user={user}
+                setCurrentTab={setCurrentTab}
+                setActivePost={setActivePost}
+              />
+            )}
+
+            {currentTab === "Blog" && activePost && (
+              <BlogDetail
+                user={user}
+                post={activePost}
+                setCurrentTab={setCurrentTab}
+                clearActivePost={() => setActivePost(null)}
+              />
+            )}
+
+            {currentTab === "Skills" && (
+              <Skills user={user} setCurrentTab={setCurrentTab} />
             )}
           </Html>
         )}
