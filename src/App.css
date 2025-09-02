@@ -772,6 +772,12 @@ canvas {
 
 /* SKILLS SECTION */
 
+.skills-title {
+  color: white;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+}
 .skills-grid {
   display: flex;
   flex-direction: row;
@@ -780,6 +786,7 @@ canvas {
   overflow-x: auto; /* scroll horizontally if too many cards */
   padding: 2rem;
   justify-content: center;
+  margin-top: 5vh;
 }
 
 .skill-card {
@@ -828,24 +835,53 @@ canvas {
   flex-direction: row;
 }
 .about-1 img {
-  width: 110%;
+  max-width: 400px;
+  height: auto;
+  width: 100%;
+  border-radius: 24px;
 }
 
 .about-improve {
   font-size: 150%;
+  font-size: clamp(1.2rem, 2.5vw, 2.6rem);
 }
 
 .about-title {
+  display: inline-block; /* shrink to fit content so border bottom only on word*/
   margin-left: 40%;
   font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  border-bottom: 2px solid white;
 }
 .about-paragraph {
   margin-left: 6%;
   font-weight: 500;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+.about-improve {
+  text-shadow: 0 0 5px #940101, 0 0 10px #471192, 0 0 20px #7873f5;
+  transition: text-shadow 0.3s ease;
+}
+
+.about-improve:hover {
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec4, 0 0 40px #7873f5;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .about-text {
   color: white;
+  height: 110%;
 }
 
 @media (max-width: 500px) {
@@ -1073,9 +1109,6 @@ canvas {
     height: 240px;
     padding: 0.3rem;
     padding-top: 0;
-  }
-
-  .contact-logos {
   }
 
   .contact-navbar {

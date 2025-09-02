@@ -34,6 +34,7 @@ export default function Skills({ user, setCurrentTab }) {
       />
 
       <div className="project-wrapper">
+        <h1 className="skills-title">My Skills</h1>
         <div className="skills-grid">
           {skills.map((skill, idx) => (
             <div key={idx} className="skill-card">

@@ -36,7 +36,7 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
 
         <div className="nav-links">
           <button onClick={() => setCurrentTab("main")}>Home</button>
-          <button>About</button>
+          <button onClick={() => setCurrentTab("About")}> About</button>
           <button onClick={() => setCurrentTab("Projects")}>Projects</button>
           <button onClick={() => setCurrentTab("Contact Me")}>Contact</button>
         </div>
