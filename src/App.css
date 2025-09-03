@@ -495,6 +495,15 @@ canvas {
   margin: 0;
 }
 
+.skills-subtitle {
+  color: rgb(222, 5, 5);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 3rem 0 1.5rem 5%;
+  border-left: 4px solid rgb(222, 5, 5); /*  accent bar */
+  padding-left: 0.5rem;
+}
+
 /* CONTACT STYLING */
 
 .contact-navbar {
@@ -686,6 +695,15 @@ canvas {
   border-bottom-right-radius: 5%;
   object-fit: cover;
   transition: transform 0.4s ease;
+}
+
+@media (min-width: 1000px) {
+  .blog-card {
+    max-height: 700px;
+  }
+  .blog-image {
+    height: 80%;
+  }
 }
 
 .blog-text {

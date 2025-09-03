@@ -6,23 +6,22 @@ export default function Blog({ user, setCurrentTab, setActivePost }) {
     {
       id: 1,
       title: "How I Built My Portfolio",
-      desc: "Breaking down the stack and design choices...",
-      fullText: `To be honest, it was insanely challenging
-         challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging.  challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. challenging. ![](images/blog.jpg)`,
+      desc: "Breaking down the stack and design choices, as well as diving headfirst into what felt like uncharted territory.",
+      fullText: `I had just finished a course on React, and had no clue what to do.  `,
       image: "images/about.jpg",
     },
-    {
-      id: 2,
-      title: "Why I Love Full-Stack Development",
-      desc: "Thoughts on frontend + backend synergy...",
-      image: "images/about.jpg",
-    },
-    {
-      id: 3,
-      title: "Why I Love Full-Stack Development",
-      desc: "Thoughts on frontend + backend synergy...",
-      image: "images/about.jpg",
-    },
+    // {
+    //   id: 2,
+    //   title: "Why I Love Full-Stack Development",
+    //   desc: "Thoughts on frontend + backend synergy...",
+    //   image: "images/about.jpg",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Why I Love Full-Stack Development",
+    //   desc: "Thoughts on frontend + backend synergy...",
+    //   image: "images/about.jpg",
+    // },
   ];
 
   return (

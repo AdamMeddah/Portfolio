@@ -19,7 +19,7 @@ export default function MainScreen({ user, setCurrentTab }) {
         ></video>
 
         <div className="main-info">
-          <h1 className="main-title">
+          <h1 className="main-title" onClick={() => setCurrentTab("main")}>
             Adam Meddah <span className="seperator-span">|</span> Full-Stack
             Developer{" "}
           </h1>
@@ -205,8 +205,8 @@ export default function MainScreen({ user, setCurrentTab }) {
                 </svg>
 
                 <Card
-                  title="About"
-                  image="images/about.jpg"
+                  title="Skills"
+                  image="images/skills.jpg"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
@@ -227,8 +227,8 @@ export default function MainScreen({ user, setCurrentTab }) {
                 </svg>
 
                 <Card
-                  title="Skills"
-                  image="images/skills.jpg"
+                  title="About"
+                  image="images/about.jpg"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
