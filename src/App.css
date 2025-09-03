@@ -443,7 +443,7 @@ canvas {
 .project-image {
   width: 98%;
   margin: 1% 0 0 1%;
-  height: 40%;
+  height: 55%;
   border-bottom: 2px solid red;
   border-bottom-left-radius: 5%;
   border-bottom-right-radius: 5%;
@@ -1330,6 +1330,37 @@ canvas {
   }
   .adam-logo {
     width: 40%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .contact-wrapper {
+    margin-top: -25vh;
+  }
+
+  .contact-navbar {
+    margin-top: -20vh;
+  }
+
+  .project-navbar {
+    margin-left: -2vw;
+    width: 110%;
+  }
+
+  #rank-1 {
+    margin-left: 15vw;
+    width: 15%;
+  }
+
+  #rank-3 {
+    margin-left: 6vw;
+  }
+
+  #rank-4 {
+    margin-left: -3vw;
+  }
+  .rank-entry svg {
+    margin-right: -3.8vw;
   }
 }
 
