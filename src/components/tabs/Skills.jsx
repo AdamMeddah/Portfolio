@@ -128,6 +128,12 @@ export default function Skills({ user, setCurrentTab }) {
       title: "Ollama",
       desc: "AI model integration",
     },
+
+    {
+      logo: "images/tailwind.png",
+      title: "Tailwind CSS",
+      desc: "Utility-first CSS framework",
+    },
     // {
     //   logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
     //   title: "Docker",
@@ -138,6 +144,7 @@ export default function Skills({ user, setCurrentTab }) {
     //   title: "Kubernetes",
     //   desc: "Container orchestration",
     // },
+    ,
   ];
 
   const libraries = [
