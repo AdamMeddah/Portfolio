@@ -417,7 +417,7 @@ canvas {
   margin-top: 11%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 10vh 2vw;
+  gap: 12vh 2vw;
   padding: 0 7%;
   width: 100%;
   margin-left: auto;
