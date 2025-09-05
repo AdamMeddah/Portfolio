@@ -32,23 +32,20 @@ export default function Projects({ user, setCurrentTab }) {
             <Tag img="images/ollama.png" title="Ollama" />
           </Project>
           <Project
-            title="Portfolio Website"
-            desc="You're looking at it! An immersive 3D portfolio built with React Three Fiber and Three.js (React Three Fiber), styled like Netflix with custom user flows."
-            image="images/portfolio.png"
-          >
-            <Tag
-              img="vite.svg"
-              title="SDhjpdshjdhjsohjdshjdshjdshjdshhjdshjdshjdhjs"
-            />
-            <Tag img="vite.svg" title="Vite" />
-          </Project>
-          <Project
             title="Rick Grundy Therapy"
             desc="Developed a responsive therapist website with a clean, calming design using React and Tailwind CSS. Implemented a blog platform to allow the therapist to share articles and resources, integrating Strapi as a headless CMS for easy, non-technical content management and updates."
             image="images/rick.png"
           >
-            <Tag img="vite.svg" title="Vite" />
-            <Tag img="vite.svg" title="Vite" />
+            <Tag img="images/react.svg" title="React" />
+            <Tag img="images/tailwind.png" title="Tailwind CSS" />
+          </Project>
+          <Project
+            title="Portfolio Website"
+            desc="You're looking at it! An immersive 3D portfolio built with React Three Fiber and Three.js (React Three Fiber), styled like Netflix with custom user flows."
+            image="images/portfolio.png"
+          >
+            <Tag img="images/ThreeJS.webp" title="Three JS" />
+            <Tag img="images/react.svg" title="React" />
           </Project>
           <Project
             title="Password Manager w/ Encryption"
@@ -56,7 +53,7 @@ export default function Projects({ user, setCurrentTab }) {
             image="images/pvault.png"
           >
             <Tag img="images/python.png" title="Python" />
-            <Tag img="vite.svg" title="Vite" />
+            <Tag img="images/python.png" title="Tkinter" />
           </Project>{" "}
         </div>
       </div>
