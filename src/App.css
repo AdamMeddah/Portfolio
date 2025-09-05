@@ -1588,6 +1588,18 @@ canvas {
 }
 
 @media (min-width: 810px) and (max-width: 810px) {
+  .main-info {
+    margin-top: -7vh;
+  }
+
+  .main-two-buttons {
+    margin-top: -13vh;
+    margin-left: -0.3vw;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 810px) {
   .contact-navbar {
     margin-top: -44vh;
   }
@@ -1604,5 +1616,25 @@ canvas {
 
   #profile-row {
     flex-direction: row;
+  }
+}
+
+@media (min-width: 412px) {
+  .blog-grid {
+    margin-left: -3%;
+    margin-top: 15%;
+  }
+}
+
+@media (min-width: 412px) and (orientation: landscape) {
+  .blog-grid {
+    margin-left: -3%;
+    margin-top: 7%;
+  }
+}
+
+@media (min-width: 390px) {
+  .skills-title {
+    margin-top: 13vh;
   }
 }
