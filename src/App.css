@@ -882,6 +882,40 @@ canvas {
   text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec4, 0 0 40px #7873f5;
 }
 
+.currently-working {
+  margin-top: 10vh;
+  color: white;
+  padding-bottom: 15vh;
+}
+.working-title {
+  display: inline-block;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  border-bottom: 2px solid white;
+  margin-right: 20%;
+  height: 100%;
+}
+
+.about-2 {
+  display: flex;
+}
+
+.about-2 img {
+  max-width: 400px;
+  height: auto;
+  width: 120%;
+  border-radius: 24px;
+  margin-left: 0%;
+}
+
+.working-paragraph {
+  margin-top: -35%;
+  max-width: 48%;
+
+  font-weight: 500;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
