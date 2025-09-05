@@ -397,10 +397,10 @@ canvas {
   align-items: center;
   position: fixed;
   top: -7%;
-  left: -3%;
+  left: -7%;
   right: 0;
   height: 12vh;
-  width: 106%;
+  width: 112%;
   background-color: #0d0d0d;
   z-index: 999;
   padding: 2vh 4vw;
@@ -1336,6 +1336,26 @@ canvas {
   }
 }
 
+@media (min-width: 360px) and (max-width: 411px) {
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    margin-left: -3%;
+  }
+}
+
+@media (min-width: 412px) and (max-width: 415px) {
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    margin-left: -1%;
+  }
+}
+
+@media (min-width: 810px) {
+  .project-wrapper {
+    padding-bottom: 20vh;
+  }
+}
+
 @media (min-width: 915px) {
   .contact-navbar {
     top: 38vh;
@@ -1564,5 +1584,25 @@ canvas {
 
   .main-two-buttons {
     margin-top: -18vh;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 810px) {
+  .contact-navbar {
+    margin-top: -44vh;
+  }
+  .contact-wrapper {
+    margin-top: -50vh;
+  }
+}
+
+/* Profile  section  queries */
+@media (min-width: 667px) {
+  #launch-title {
+    margin-top: -15vh;
+  }
+
+  #profile-row {
+    flex-direction: row;
   }
 }
