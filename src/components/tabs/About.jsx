@@ -39,13 +39,16 @@ export default function About({ user, setCurrentTab }) {
 
         <div className="currently-working">
           <div className="about-2">
-            <h1 className="working-title">What I'm Working On</h1>
+            <div className="about-2-text">
+              <h1 className="working-title">What I'm Working On</h1>
+
+              <p className="working-paragraph">
+                Right now, I'm working on MusiWrite: An AI-powered playlist
+                maker, made for writers, by a writer.
+              </p>
+            </div>
             <img src="images/musiwrite.png" alt="" />
           </div>
-          <p className="working-paragraph">
-            Right now, I'm working on MusiWrite: An AI-powered playlist maker,
-            made for writers, by a writer.
-          </p>
         </div>
       </div>
     </>

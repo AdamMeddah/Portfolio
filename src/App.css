@@ -887,6 +887,12 @@ canvas {
   color: white;
   padding-bottom: 15vh;
 }
+
+.about-2-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
 .working-title {
   display: inline-block;
   font-weight: 700;
@@ -909,7 +915,6 @@ canvas {
 }
 
 .working-paragraph {
-  margin-top: -35%;
   max-width: 48%;
 
   font-weight: 500;
