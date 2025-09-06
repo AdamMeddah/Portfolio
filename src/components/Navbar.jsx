@@ -32,7 +32,12 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
   return (
     <nav className={sectionClass}>
       <div className="left-navbar">
-        <img className="adam-logo" src="images/fullLogo.png" alt="Logo" />
+        <img
+          className="adam-logo"
+          src="images/fullLogo.png"
+          alt="Logo"
+          onClick={() => window.location.reload()}
+        />
 
         <div className="nav-links">
           <button onClick={() => setCurrentTab("main")}>Home</button>

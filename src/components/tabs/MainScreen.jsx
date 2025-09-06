@@ -98,6 +98,46 @@ export default function MainScreen({ user, setCurrentTab }) {
                   />
                 </>
               )}
+
+              {user === "developer" && (
+                <>
+                  <Card
+                    title="Projects"
+                    image="images/projects.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                  <Card
+                    title="Skills"
+                    image="images/skills.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                  <Card
+                    title="Contact Me"
+                    image="images/contact.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                </>
+              )}
+
+              {user === "writer" && (
+                <>
+                  <Card
+                    title="Blog"
+                    image="images/blog.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                  <Card
+                    title="About"
+                    image="images/about.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                  <Card
+                    title="Contact Me"
+                    image="images/contact.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                </>
+              )}
             </div>
           </div>
 
@@ -115,6 +155,37 @@ export default function MainScreen({ user, setCurrentTab }) {
                   <Card
                     title="Blog"
                     image="images/blog.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                </>
+              )}
+
+              {user === "developer" && (
+                <>
+                  <Card
+                    title="About"
+                    image="images/about.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+
+                  <Card
+                    title="Blog"
+                    image="images/blog.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                </>
+              )}
+
+              {user === "writer" && (
+                <>
+                  <Card
+                    title="Projects"
+                    image="images/projects.jpg"
+                    setCurrentTab={setCurrentTab}
+                  />
+                  <Card
+                    title="Skills"
+                    image="images/skills.jpg"
                     setCurrentTab={setCurrentTab}
                   />
                 </>

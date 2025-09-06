@@ -866,13 +866,15 @@ canvas {
   margin-left: 40%;
   font-weight: 700;
   font-size: clamp(1.5rem, 3vw, 3rem);
-  border-bottom: 2px solid white;
+  text-shadow: 0 0 5px #250be5, 0 0 10px #471192, 0 0 20px #7873f5;
+  transition: text-shadow 0.3s ease;
 }
 .about-paragraph {
   margin-left: 6%;
   font-weight: 500;
   font-size: clamp(1rem, 2vw, 1.5rem);
 }
+
 .about-improve {
   text-shadow: 0 0 5px #940101, 0 0 10px #471192, 0 0 20px #7873f5;
   transition: text-shadow 0.3s ease;
@@ -897,9 +899,8 @@ canvas {
   display: inline-block;
   font-weight: 700;
   font-size: clamp(1.5rem, 3vw, 3rem);
-  border-bottom: 2px solid white;
   margin-right: 20%;
-  height: 100%;
+  text-shadow: 0 0 5px #250be5, 0 0 10px #471192, 0 0 20px #7873f5;
 }
 
 .about-2 {
@@ -915,7 +916,7 @@ canvas {
 }
 
 .working-paragraph {
-  max-width: 48%;
+  max-width: 70%;
 
   font-weight: 500;
   font-size: clamp(1rem, 2vw, 1.5rem);
@@ -993,6 +994,11 @@ canvas {
   }
 }
 
+@media (max-width: 420px) {
+  .about-2 img {
+    width: 200%;
+  }
+}
 @media (min-width: 400px) and (max-width: 480px) {
   .navbar {
     margin-top: 70vh;
@@ -1389,6 +1395,11 @@ canvas {
   }
 }
 
+@media (min-width: 750px) {
+  .project-grid {
+    gap: 30vh;
+  }
+}
 @media (min-width: 810px) {
   .project-wrapper {
     padding-bottom: 20vh;
