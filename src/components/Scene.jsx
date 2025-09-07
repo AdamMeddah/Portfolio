@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Environment, ScrollControls, Scroll } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Text3D, Html } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -16,7 +16,7 @@ import Contact from "./tabs/Contact.jsx";
 import Skills from "./tabs/Skills.jsx";
 
 import BlogDetail from "./tabs/BlogDetail.jsx";
-export default function Scene({ onOffsetChange }) {
+export default function Scene({}) {
   // const scroll = useScroll();
   // const offset = scroll.offset * scroll.pages; //to go from 0 to 6
   const { camera } = useThree();
