@@ -11,7 +11,7 @@ export default function About({ user, setCurrentTab }) {
 
       <div className="project-wrapper">
         <div className="about-1">
-          <img src="images/adam.jpg" alt="Adam Meddah" />
+          <img src="images/adam.webp" alt="Adam Meddah" />
 
           <div className="about-text">
             <h1 className="about-title">About Me</h1>
@@ -47,7 +47,7 @@ export default function About({ user, setCurrentTab }) {
                 maker, made for writers, by a writer.
               </p>
             </div>
-            <img src="images/musiwrite.png" alt="" />
+            <img src="images/musiwrite.webp" alt="" />
           </div>
         </div>
       </div>

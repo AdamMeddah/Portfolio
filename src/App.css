@@ -734,9 +734,9 @@ canvas {
   max-width: 800px; /* readable width */
   margin: 2rem auto; /* center it */
   padding: 1.5rem;
-  background: #fff; /* card-like look */
+  background: #e6ded5; /* card-like look */
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .blog-detail .detail-image {
@@ -757,7 +757,7 @@ canvas {
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 2rem;
-  color: #333;
+  color: #2c2c2c;
 }
 
 .blog-detail button {
@@ -783,6 +783,8 @@ canvas {
   margin: 1.5rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  background: #a6a3a3; /*   color behind images */
+  padding: 4px; /* p padding */
 }
 
 /* SKILLS SECTION */
