@@ -4,7 +4,6 @@ import { useFrame } from "@react-three/fiber";
 import { OrbitControls, Text3D, Html } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 
 // Component Imports
