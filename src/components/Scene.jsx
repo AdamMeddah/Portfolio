@@ -110,7 +110,7 @@ export default function Scene({}) {
       <color attach="background" args={["black"]} />
 
       <Environment
-        files="/hdris/fireplace.hdr"
+        files="/hdris/fireplace.exr"
         background
         resolution={512}
         backgroundRotation={[0, 2.2, 0]}
