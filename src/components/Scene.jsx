@@ -107,6 +107,8 @@ export default function Scene({ onOffsetChange }) {
 
   return (
     <>
+      <color attach="background" args={["black"]} />
+
       <Environment
         files="/hdris/fireplace.hdr"
         background
