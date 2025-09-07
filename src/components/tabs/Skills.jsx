@@ -8,7 +8,7 @@ export default function Skills({ user, setCurrentTab }) {
       desc: "Object-oriented language",
     },
     {
-      logo: "images/python.png", // keep local
+      logo: "images/python.webp", // keep local
       title: "Python",
       desc: "General-purpose language",
     },
@@ -71,7 +71,7 @@ export default function Skills({ user, setCurrentTab }) {
     //   desc: "Backend runtime",
     // },
     {
-      logo: "images/flask.png", // keep local
+      logo: "images/flask.webp", // keep local
       title: "Flask",
       desc: "Lightweight Python framework",
     },
@@ -114,7 +114,7 @@ export default function Skills({ user, setCurrentTab }) {
 
   const tools = [
     {
-      logo: "images/aws.png",
+      logo: "images/aws.webp",
       title: "AWS",
       desc: "Cloud services",
     },
@@ -124,13 +124,13 @@ export default function Skills({ user, setCurrentTab }) {
       desc: "Version control",
     },
     {
-      logo: "images/ollama.png",
+      logo: "images/ollama.webp",
       title: "Ollama",
       desc: "AI model integration",
     },
 
     {
-      logo: "images/tailwind.png",
+      logo: "images/tailwind.webp",
       title: "Tailwind CSS",
       desc: "Utility-first CSS framework",
     },

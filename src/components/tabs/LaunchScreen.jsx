@@ -11,7 +11,7 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
             setCurrentTab("main");
           }}
         >
-          <img className="profile-img" src="images/bluishavatar.png" alt="" />
+          <img className="profile-img" src="images/bluishavatar.webp" alt="" />
           <span className="profile-text">Recruiter</span>
         </div>
 
@@ -22,7 +22,7 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
             setCurrentTab("main");
           }}
         >
-          <img className="profile-img" src="images/redavatar.jpg" alt="" />
+          <img className="profile-img" src="images/redavatar.webp" alt="" />
           <span className="profile-text">Writer</span>
         </div>
         <div
@@ -32,7 +32,7 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
             setCurrentTab("main");
           }}
         >
-          <img className="profile-img" src="images/greenavatar.jpg" alt="" />
+          <img className="profile-img" src="images/greenavatar.webp" alt="" />
           <span className="profile-text">Developer</span>
         </div>
       </div>

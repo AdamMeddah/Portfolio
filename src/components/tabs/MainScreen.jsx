@@ -83,17 +83,17 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="Skills"
-                    image="images/skills.jpg"
+                    image="images/skills.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Projects"
-                    image="images/projects.jpg"
+                    image="images/projects.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Contact Me"
-                    image="images/contact.jpg"
+                    image="images/contact.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -103,17 +103,17 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="Projects"
-                    image="images/projects.jpg"
+                    image="images/projects.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Skills"
-                    image="images/skills.jpg"
+                    image="images/skills.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Contact Me"
-                    image="images/contact.jpg"
+                    image="images/contact.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -123,17 +123,17 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="Blog"
-                    image="images/blog.jpg"
+                    image="images/blog.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="About"
-                    image="images/about.jpg"
+                    image="images/about.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Contact Me"
-                    image="images/contact.jpg"
+                    image="images/contact.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -148,13 +148,13 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="About"
-                    image="images/about.jpg"
+                    image="images/about.webp"
                     setCurrentTab={setCurrentTab}
                   />
 
                   <Card
                     title="Blog"
-                    image="images/blog.jpg"
+                    image="images/blog.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -164,13 +164,13 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="About"
-                    image="images/about.jpg"
+                    image="images/about.webp"
                     setCurrentTab={setCurrentTab}
                   />
 
                   <Card
                     title="Blog"
-                    image="images/blog.jpg"
+                    image="images/blog.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -180,12 +180,12 @@ export default function MainScreen({ user, setCurrentTab }) {
                 <>
                   <Card
                     title="Projects"
-                    image="images/projects.jpg"
+                    image="images/projects.webp"
                     setCurrentTab={setCurrentTab}
                   />
                   <Card
                     title="Skills"
-                    image="images/skills.jpg"
+                    image="images/skills.webp"
                     setCurrentTab={setCurrentTab}
                   />
                 </>
@@ -213,7 +213,7 @@ export default function MainScreen({ user, setCurrentTab }) {
 
                 <Card
                   title="Contact Me"
-                  image="images/contact.jpg"
+                  image="images/contact.webp"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
@@ -234,7 +234,7 @@ export default function MainScreen({ user, setCurrentTab }) {
                 </svg>
                 <Card
                   title="Projects"
-                  image="images/projects.jpg"
+                  image="images/projects.webp"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
@@ -255,7 +255,7 @@ export default function MainScreen({ user, setCurrentTab }) {
                 </svg>
                 <Card
                   title="Blog"
-                  image="images/blog.jpg"
+                  image="images/blog.webp"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
@@ -277,7 +277,7 @@ export default function MainScreen({ user, setCurrentTab }) {
 
                 <Card
                   title="Skills"
-                  image="images/skills.jpg"
+                  image="images/skills.webp"
                   setCurrentTab={setCurrentTab}
                 />
               </div>
@@ -299,7 +299,7 @@ export default function MainScreen({ user, setCurrentTab }) {
 
                 <Card
                   title="About"
-                  image="images/about.jpg"
+                  image="images/about.webp"
                   setCurrentTab={setCurrentTab}
                 />
               </div>

@@ -8,7 +8,7 @@ export default function Blog({ user, setCurrentTab, setActivePost }) {
       title: "How I Built My Portfolio",
       desc: "Breaking down the stack and design choices, as well as diving headfirst into what felt like uncharted territory.",
       fullText: `I had just finished a course on React, and had no clue what to do.  `,
-      image: "images/about.jpg",
+      image: "images/about.webp",
     },
     // {
     //   id: 2,

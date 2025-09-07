@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-
+import { Html } from "@react-three/drei";
 import { Text3D } from "@react-three/drei";
 
 export function TVStaticScreen({
@@ -54,15 +54,24 @@ export function TVStaticScreen({
       </mesh>
 
       {!zoomIn && (
-        <Text3D
-          font="/fonts/Inter_Bold.json"
-          size={0.3}
-          position={[3.4, 5.35, -5]}
-          rotation={[0, -0.2, 0]}
+        <Html
+          position={[4.2, 5.35, -5]} // same position as your old Text3D
+          rotation={[0, -0.2, 0]} // same rotation
+          center // centers text on the position
+          distanceFactor={10} // optional: controls scale relative to camera distance
         >
-          click me
-          <meshStandardMaterial color="black" />
-        </Text3D>
+          <div
+            style={{
+              color: "black",
+              fontFamily: "NetflixSans",
+              fontSize: "2rem",
+              fontWeight: "700",
+              pointerEvents: "none", // optional: click-through
+            }}
+          >
+            click me
+          </div>
+        </Html>
       )}
     </>
   );

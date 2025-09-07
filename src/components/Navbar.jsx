@@ -7,11 +7,11 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
   function getUserLogo(user) {
     switch (user) {
       case "recruiter":
-        return "images/bluishavatar.png";
+        return "images/bluishavatar.webp";
       case "developer":
-        return "images/greenavatar.jpg";
+        return "images/greenavatar.webp";
       case "writer":
-        return "images/redavatar.jpg";
+        return "images/redavatar.webp";
     }
   }
 
@@ -34,7 +34,7 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
       <div className="left-navbar">
         <img
           className="adam-logo"
-          src="images/fullLogo.png"
+          src="images/fullLogo.webp"
           alt="Logo"
           onClick={() => window.location.reload()}
         />
