@@ -77,7 +77,7 @@ canvas {
 }
 
 .profile-img {
-  width: 30vw;
+  width: clamp(100px, 30vw, 200px);
   border: 5px solid transparent;
   transition: box-shadow 0.1s ease, filter 0.1s ease;
 }
@@ -676,7 +676,6 @@ canvas {
   border-radius: 10px;
   box-shadow: 0px 0px 10px 8px rgba(5, 5, 75, 0.6); /* blue-ish glow to distinguish */
   overflow: hidden;
-  cursor: pointer;
   transition: transform 0.4s ease;
   height: auto;
   max-height: 400px;
@@ -1020,7 +1019,7 @@ canvas {
 
 @media (min-width: 667px) {
   .navbar {
-    margin-top: 100vh;
+    margin-top: 99vh;
   }
 
   .main-preview-vid {
@@ -1067,6 +1066,19 @@ canvas {
   }
   .main-two-buttons {
     margin-top: -8%;
+  }
+}
+
+@media (min-width: 844px) and (orientation: landscape) {
+  .navbar {
+    margin-top: 100vh;
+  }
+  .main-two-buttons {
+    margin-top: -8%;
+  }
+
+  .contact-logos svg {
+    width: 0vw;
   }
 }
 
@@ -1157,10 +1169,6 @@ canvas {
   .main-two-buttons {
     margin-top: 0vh;
   }
-}
-
-/* Big desktops / ultrawide */
-@media (min-width: 1200px) {
 }
 
 /* Iphone 11 pro navbar needs bigger margin top (896x414) */
@@ -1573,6 +1581,15 @@ canvas {
   }
 }
 
+@media (min-width: 760px) and (max-width: 760px) {
+  .contact-navbar {
+    top: 40vh;
+  }
+  .contact-wrapper {
+    margin-top: -4vh;
+  }
+}
+
 @media (min-width: 800px) {
   .adam-logo {
     width: 40%;
@@ -1585,7 +1602,7 @@ canvas {
   }
 
   .contact-logos svg {
-    width: 120%;
+    width: 90%;
   }
 
   .blog-grid {
@@ -1594,7 +1611,7 @@ canvas {
 
   .user-logo {
     width: 10%;
-    margin-top: 3%;
+    margin-top: 0%;
   }
 }
 
@@ -1686,5 +1703,26 @@ canvas {
 @media (min-width: 390px) {
   .skills-title {
     margin-top: 13vh;
+  }
+}
+
+@media (min-width: 412px) and (max-width: 460px) {
+  .contact-logos {
+    margin-left: -3%;
+  }
+}
+
+/* Big desktops / ultrawide */
+@media (min-width: 1200px) {
+  .project-navbar {
+    margin-left: 2%;
+    width: 110%;
+  }
+  .user-logo {
+    margin-top: 2%;
+  }
+
+  .project-grid {
+    gap: 15vh 2vw;
   }
 }

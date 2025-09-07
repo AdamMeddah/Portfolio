@@ -2,22 +2,17 @@ import { useRef, useEffect, useState } from "react";
 import { Environment, ScrollControls, Scroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { OrbitControls, Text3D, Html } from "@react-three/drei";
-import { Page } from "./Pages";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import pageData from "../data/pageData.js";
 import _ from "lodash";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 
 // Component Imports
-import Arrow from "./Arrow.jsx";
 import About from "./tabs/About.jsx";
 import Blog from "./tabs/Blog.jsx";
-import Experience from "./tabs/Experience.jsx";
 import Projects from "./tabs/Projects.jsx";
 import LaunchScreen from "./tabs/LaunchScreen.jsx";
 import MainScreen from "./tabs/MainScreen.jsx";
-import Navbar from "./Navbar.jsx";
 import Contact from "./tabs/Contact.jsx";
 import Skills from "./tabs/Skills.jsx";
 
@@ -26,8 +21,8 @@ export default function Scene({ onOffsetChange }) {
   // const scroll = useScroll();
   // const offset = scroll.offset * scroll.pages; //to go from 0 to 6
   const { camera } = useThree();
-  const [isLoading, setIsLoading] = useState(true);
-  const [allowInteraction, setAllowInteraction] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [allowInteraction, setAllowInteraction] = useState(true);
   const [TVFocus, setTVFocus] = useState(false);
   const [zoomIn, setZoomIn] = useState(false);
   const [arrowClicked, setArrowclicked] = useState(false);
@@ -38,9 +33,6 @@ export default function Scene({ onOffsetChange }) {
   const [user, setUser] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const htmlRef = useRef();
-  const tvMeshRef = useRef();
-
-  const timerRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 800); // scroll to middle
@@ -61,17 +53,6 @@ export default function Scene({ onOffsetChange }) {
   }, [currentTab]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setAllowInteraction(true);
-    }, 2000); // 2 second delay
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) return;
-
     if (zoomIn) {
       // when zooming in
       setShouldRenderTVContent(true);
@@ -86,12 +67,6 @@ export default function Scene({ onOffsetChange }) {
       return () => clearTimeout(hideTimer);
     }
   }, [zoomIn, isLoading]);
-
-  //   const throttledCallback = useRef(
-  //     _.throttle((offset) => {
-  //       onOffsetChange(offset);
-  //     }, 100)
-  //   );
 
   function rotateCamera() {
     setTargetRotationY((prev) => prev - 2.5);
@@ -129,53 +104,8 @@ export default function Scene({ onOffsetChange }) {
     }
 
     camera.updateProjectionMatrix();
-    // textRotate.current += 0.03;
-    // const targetZ = offset > 0.1 ? 0.1 : 10;
-    // camera.position.z = Three.MathUtils.lerp(camera.position.z, targetZ, 0.1);
-    // const newTransformations = pageData.map((page) => {
-    //   let progress = 0;
-    //   let scale = 1;
-    //   if (offset >= page.start && offset <= page.end) {
-    //     progress = (offset - page.start) / (page.end - page.start); //linear normalization
-    //   }
-    //   if (offset > page.end) {
-    //     progress = 1; //to keep it flipped
-    //     if (page.cappedProgress && progress > page.cappedProgress) {
-    //       progress = page.cappedProgress != null ? page.cappedProgress : 1;
-    //     }
-    //   }
-    //   const rotationY = progress * Math.PI;
-    //   return {
-    //     rotation: [0, -rotationY, 0],
-    //     scale: [scale, scale, scale],
-    //   };
-    // });
-    // setTransformations(newTransformations);
-    // throttledCallback.current(offset);
   });
 
-  //   const pages = pageData.map((page, i) => {
-  //     //remember don't use i for key
-  //     return (
-  //       <Page
-  //         key={page.id}
-  //         position={page.position}
-  //         color={page.color}
-  //         dimensions={page.dimensions}
-  //         rotation={transformations[i]?.rotation} //chained comparison, makes sure transformations[i] actually exists, otherwise returning undefined
-  //         scale={transformations[i]?.scale}
-  //         text={page.text}
-  //       />
-  //     );
-  //   });
-
-  //   const [transformations, setTransformations] = useState(
-  //     pageData.map(() => ({
-  //       //mapping in order to match however many pageData elements
-  //       rotation: [0, 0, 0],
-  //       scale: [1, 1, 1],
-  //     }))
-  //   );
   return (
     <>
       <Environment
@@ -208,13 +138,6 @@ export default function Scene({ onOffsetChange }) {
         zoomIn={zoomIn}
         handleZoomIn={setZoomIn}
         allowInteraction={allowInteraction}
-      />
-
-      <Arrow
-        position={[4, 5.5, 3]}
-        rotation={[4, 3.5, 1.8]}
-        conePos={[0, 0.6, 0]}
-        handler={rotateCamera}
       />
 
       <mesh position={[4.33, 5.5, -5]}>

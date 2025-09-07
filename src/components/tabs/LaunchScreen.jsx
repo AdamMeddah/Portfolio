@@ -25,7 +25,6 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
           <img className="profile-img" src="images/redavatar.jpg" alt="" />
           <span className="profile-text">Writer</span>
         </div>
-
         <div
           className="profile"
           onClick={() => {
