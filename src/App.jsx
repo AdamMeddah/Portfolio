@@ -118,7 +118,7 @@ function App() {
 
   return (
     <>
-      {/* Show loading screen until everything is loaded */}
+      {/* show loading screen until everything is loaded */}
       {isLoading && (
         <div className="initial-loader">
           <div className="loader-content">
@@ -139,7 +139,7 @@ function App() {
         </div>
       )}
 
-      {/* Main app content - hidden until loading completes */}
+      {/* hidden until loading done */}
       <div
         id="canvas-container"
         style={{
@@ -148,7 +148,7 @@ function App() {
           pointerEvents: showContent ? "all" : "none",
         }}
       >
-        <Canvas shadows camera={{ fov: 80, position: [0, 1, 10] }}>
+        <Canvas shadows camera={{ fov: 100, position: [0, 1, 10] }}>
           <Suspense fallback={null}>
             <Scene />
             <Preload all />
