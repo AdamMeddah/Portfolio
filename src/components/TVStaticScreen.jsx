@@ -22,7 +22,7 @@ export function TVStaticScreen({
     if (!video) return;
 
     // set source
-    video.src = TVFocus ? "/videos/black.mp4" : "/videos/static.mp4";
+    video.src = TVFocus ? "/videos/black_ios.mp4" : "/videos/static_ios.mp4";
     video.loop = true;
     video.muted = true;
     video.playsInline = true;

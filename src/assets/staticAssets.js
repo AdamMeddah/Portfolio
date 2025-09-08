@@ -25,7 +25,4 @@ export const staticAssets = {
     "/images/tailwind.webp",
     "/images/ThreeJS.webp",
   ],
-  // videos preloaded in app, no duplicates
-  videos: ["/videos/black.mp4", "/videos/noted.mp4", "/videos/white.mp4"],
-  // fonts preloaded locally
 };

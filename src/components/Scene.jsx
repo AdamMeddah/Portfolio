@@ -76,9 +76,7 @@ export default function Scene({}) {
     setArrowclicked(true);
   }
 
-  useFrame((state, delta) => {
-    if (!arrowClicked && !zoomIn) return; // skip updates if camera is static
-
+  useFrame(() => {
     if (arrowClicked) {
       camera.rotation.y = THREE.MathUtils.lerp(
         camera.rotation.y,
