@@ -28,9 +28,4 @@ export const staticAssets = {
   // videos preloaded in app, no duplicates
   videos: ["/videos/black.mp4", "/videos/noted.mp4", "/videos/white.mp4"],
   // fonts preloaded locally
-  fonts: [
-    "/fonts/met_sans_bold.otf",
-    "/fonts/met_sans_light.otf",
-    "/fonts/met_sans_med.otf",
-  ],
 };
