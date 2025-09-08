@@ -18,7 +18,7 @@ export function TVStaticScreen({
     const video = videoRef.current;
     if (!video) return;
 
-    video.src = TVFocus ? "/videos/black.mp4" : "/videos/static.mp4";
+    video.src = TVFocus ? "/videos/black_fixed.mp4" : "/videos/static.mp4";
     video.loop = true;
     video.muted = true;
     video.playsInline = true; // prevent fullscreen popup on mobile
