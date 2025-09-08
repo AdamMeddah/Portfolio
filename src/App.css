@@ -1840,6 +1840,6 @@ canvas {
 
 @media (min-width: 1600px) {
   .contact-navbar {
-    top: 0;
+    top: 40vh;
   }
 }
