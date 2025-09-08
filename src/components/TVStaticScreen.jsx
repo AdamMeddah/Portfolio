@@ -1,9 +1,6 @@
 import { useRef, useEffect } from "react";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import * as THREE from "three";
-import { Html } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Text3D } from "@react-three/drei";
-import { EXRLoader } from "three/examples/jsm/loaders/EXRLoader";
 
 export function TVStaticScreen({
   TVFocus,
@@ -15,20 +12,20 @@ export function TVStaticScreen({
   const meshRef = useRef();
   const videoRef = useRef(document.createElement("video"));
   const { camera } = useThree();
+
+  // set video source based on TVFocus
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (TVFocus) {
-      video.src = "/videos/black.mp4";
-    } else {
-      video.src = "/videos/static.mp4";
-    }
+
+    video.src = TVFocus ? "/videos/black.mp4" : "/videos/static.mp4";
     video.loop = true;
     video.muted = true;
-    video.playsInline = true; // stop fullscreen popup on mobile
+    video.playsInline = true; // prevent fullscreen popup on mobile
     video.play();
   }, [TVFocus]);
 
+  // update video texture each frame
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.material.map.needsUpdate = true;
@@ -44,7 +41,6 @@ export function TVStaticScreen({
           if (!allowInteraction || zoomIn) return;
 
           handleTVFocus(true);
-
           handleZoomIn(true);
         }}
       >
@@ -56,6 +52,7 @@ export function TVStaticScreen({
 
       {!zoomIn && (
         <>
+          {/* display click me text when not zoomed in */}
           <Text3D
             font="fonts/Inter_Bold.json"
             size={0.3}
@@ -69,7 +66,7 @@ export function TVStaticScreen({
           <Text3D
             font="fonts/Inter_Bold.json"
             size={0.3}
-            position={[4.45, 5.35, -5]} // adjust X to create space
+            position={[4.45, 5.35, -5]}
             rotation={[0, -0.2, 0]}
           >
             me

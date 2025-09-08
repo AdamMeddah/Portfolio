@@ -1,9 +1,13 @@
+// launch screen lets the user pick a profile
 export default function LaunchScreen({ setCurrentTab, setUser }) {
   return (
     <>
-      <h1 id="launch-title"> Who's Watching?</h1>
+      {/* main title */}
+      <h1 id="launch-title">Who's Watching?</h1>
 
+      {/* row of profile options */}
       <div id="profile-row">
+        {/* recruiter profile */}
         <div
           className="profile"
           onClick={() => {
@@ -15,6 +19,7 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
           <span className="profile-text">Recruiter</span>
         </div>
 
+        {/* writer profile */}
         <div
           className="profile"
           onClick={() => {
@@ -25,6 +30,8 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
           <img className="profile-img" src="images/redavatar.webp" alt="" />
           <span className="profile-text">Writer</span>
         </div>
+
+        {/* developer profile */}
         <div
           className="profile"
           onClick={() => {

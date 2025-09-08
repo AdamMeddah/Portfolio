@@ -1,15 +1,21 @@
-import { useState, useEffect, useRef } from "react";
-import Scene from "./components/Scene";
+//handles processes outside of scene, such as preloading assets and overarching canvas setup
+
+//3d related imports (r3f, drei)
 import { Canvas, useLoader } from "@react-three/fiber";
-import { Suspense } from "react";
 import { Preload, useProgress } from "@react-three/drei";
 
-import "./App.css";
+//react imports
+import { useState, useEffect, useRef } from "react";
+import { Suspense } from "react";
+
+//component & other file imports
+import Scene from "./components/Scene";
 import { staticAssets } from "./assets/staticAssets";
+import "./App.css";
 
-// All static assets organized by type
+// all static assets organized by type
 
-// Hook to preload all assets (images, videos, fonts, HDRIs)
+// hook to preload all assets (images, videos, fonts, hdris)
 function usePreloadAssets(assets) {
   const [loaded, setLoaded] = useState(0);
   const [total, setTotal] = useState(0);
@@ -42,7 +48,7 @@ function usePreloadAssets(assets) {
 
     allAssets.forEach((src) => {
       if (src.endsWith(".mp4")) {
-        // Video files
+        // video files
         const video = document.createElement("video");
         video.src = src;
         video.preload = "auto";
@@ -50,21 +56,21 @@ function usePreloadAssets(assets) {
         video.oncanplaythrough = handleLoad;
         video.onerror = handleLoad;
       } else if (src.endsWith(".hdr")) {
-        // HDR environment files - preload as images
+        // hdr environment files - preload as images
         const img = new Image();
         img.src = src;
         img.onload = handleLoad;
         img.onerror = handleLoad;
       } else if (src.endsWith(".json") || src.endsWith(".otf")) {
-        // Font files - fetch them to preload
+        // font files - fetch them to preload
         fetch(src)
           .then((response) => {
             if (response.ok) handleLoad();
-            else handleLoad(); // Still count as loaded even if error
+            else handleLoad(); // still count as loaded even if error
           })
           .catch(handleLoad);
       } else {
-        // Image files
+        // image files
         const img = new Image();
         img.src = src;
         img.onload = handleLoad;
@@ -87,19 +93,19 @@ function App() {
   const [showContent, setShowContent] = useState(false);
   const lastProgress = useRef(0);
 
-  // drei useProgress (3D assets)
+  // drei useProgress (3d assets)
   const { progress: threeProgress, active } = useProgress();
 
   // custom static asset preload
   const { ready: staticReady, progress: staticProgress } =
     usePreloadAssets(staticAssets);
 
-  // Calculate actual combined progress (weighted average)
+  // calculate actual combined progress (weighted average)
   const actualProgress = Math.min(100, (threeProgress + staticProgress) / 2);
   const allReady = !active && staticReady;
 
   useEffect(() => {
-    // Update progress based on actual loading, not simulation
+    // update progress based on actual loading, not simulation
     if (actualProgress > lastProgress.current) {
       lastProgress.current = actualProgress;
       setLoadingProgress(actualProgress);

@@ -1,3 +1,4 @@
+// blog posts data
 export const blogData = [
   {
     id: 1,
@@ -30,6 +31,6 @@ Overall, this project has been a fantastic way to **get my feet wet in 3D web de
 
 This project is just the beginning, and I’m excited to continue exploring the intersection of React and 3D graphics in future projects. I haven't incorporated 3D too much into my portfolio website, so I aim to get more practice with it through other, new projects! (And improving this one)
  `,
-    image: "images/portfolio.webp",
+    image: "images/portfolio.webp", //local image
   },
 ];

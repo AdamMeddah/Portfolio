@@ -1,3 +1,4 @@
+/* define netflixsans font weights, can then be imported for use in App.css */
 @font-face {
   font-family: "NetflixSans";
   src: url("/fonts/net_sans_light.otf") format("opentype");

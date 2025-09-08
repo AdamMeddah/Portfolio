@@ -1,6 +1,6 @@
+// main screen shows the user dashboard with top picks, continue watching, and top 5 sections
 import Card from "../Card";
 import Navbar from "../Navbar";
-import { Text } from "@react-three/drei";
 export default function MainScreen({ user, setCurrentTab }) {
   return (
     <>
@@ -37,8 +37,13 @@ export default function MainScreen({ user, setCurrentTab }) {
             and <span style={{ fontWeight: "500" }}>user-centered. </span>
           </p>
 
+          {/* resume & linkedin buttons */}
           <div className="main-two-buttons">
-            <a className="play-button">
+            <a
+              className="play-button"
+              href="images/AdamResume.pdf"
+              target="blank"
+            >
               <svg className="play-icon" viewBox="0 0 30 30 ">
                 <path
                   d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
@@ -74,6 +79,7 @@ export default function MainScreen({ user, setCurrentTab }) {
           </div>
         </div>
 
+        {/* sections: top picks, continue watching, top 5 */}
         <div className="sections">
           <div className="top-picks">
             Top Picks for {user.charAt(0).toUpperCase() + user.slice(1)}

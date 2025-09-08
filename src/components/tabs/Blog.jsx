@@ -1,16 +1,22 @@
+// import components
 import Navbar from "../Navbar";
 import BlogPostCard from "../BlogPostCard";
 
+// import data
 import { blogData } from "../../data/blogData";
+
 export default function Blog({ user, setCurrentTab, setActivePost }) {
   return (
     <>
+      {/* navbar for navigating blog section */}
       <Navbar
         user={user}
         setCurrentTab={setCurrentTab}
         sectionClass="blog-navbar"
       />
+
       <div className="project-wrapper">
+        {/* grid of blog posts */}
         <div className="blog-grid">
           {blogData.map((post) => (
             <BlogPostCard
