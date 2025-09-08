@@ -38,7 +38,7 @@ export default function Skills({ user, setCurrentTab }) {
 
       <div className="project-wrapper">
         {/* main title */}
-        <h1 className="skills-title">my skills</h1>
+        <h1 className="skills-title">My Skills</h1>
 
         {/* render all skill sections */}
         {renderSection("languages", languages)}

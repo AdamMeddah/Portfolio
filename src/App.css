@@ -1820,3 +1820,26 @@ canvas {
     gap: 15vh 2vw;
   }
 }
+
+@media (min-width: 390px) and (max-width: 390px) {
+  .main-info {
+    margin-top: -18vh;
+  }
+
+  .navbar {
+    top: -21vh;
+  }
+  .main-paragraph {
+    max-width: 80%;
+  }
+  .main-two-buttons {
+    margin-left: -1vw;
+    margin-top: 25vh;
+  }
+}
+
+@media (min-width: 1600px) {
+  .contact-navbar {
+    top: 0;
+  }
+}
