@@ -77,10 +77,7 @@ export default function Scene({}) {
   }
 
   useFrame((state, delta) => {
-    lastFrame.current += delta;
-
-    if (lastFrame.current < 1 / 60) return; // run ~15fps
-    lastFrame.current = 0;
+    if (!arrowClicked && !zoomIn) return; // skip updates if camera is static
 
     if (arrowClicked) {
       camera.rotation.y = THREE.MathUtils.lerp(
