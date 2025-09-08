@@ -15,6 +15,10 @@ export default function MainScreen({ user, setCurrentTab }) {
           className="main-preview-vid"
           autoPlay
           loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          controls={false}
           src="videos/noted_ios.mp4"
         ></video>
 
