@@ -1,6 +1,6 @@
 # Adam Meddah - Interactive 3D Portfolio Website
 
-**Live Demo:** [https://adammeddah.com](https://adammeddah.com)  
+**Live Site:** [https://adammeddah.com](https://adammeddah.com)  
 **Technologies:** React, React Three Fiber, Drei, Three.js, Tailwind CSS  
 
 ## Overview
