@@ -35,6 +35,7 @@ export default function Scene({}) {
   const [user, setUser] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const htmlRef = useRef();
+  const lastFrame = useRef(0);
 
   useEffect(() => {
     window.scrollTo(0, 800); // scroll to middle
@@ -75,7 +76,12 @@ export default function Scene({}) {
     setArrowclicked(true);
   }
 
-  useFrame(() => {
+  useFrame((state, delta) => {
+    lastFrame.current += delta;
+
+    if (lastFrame.current < 1 / 60) return; // run ~15fps
+    lastFrame.current = 0;
+
     if (arrowClicked) {
       camera.rotation.y = THREE.MathUtils.lerp(
         camera.rotation.y,

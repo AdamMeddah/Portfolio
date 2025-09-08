@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Text3D } from "@react-three/drei";
+import * as THREE from "three";
 
 export function TVStaticScreen({
   TVFocus,
@@ -13,22 +14,41 @@ export function TVStaticScreen({
   const videoRef = useRef(document.createElement("video"));
   const { camera } = useThree();
 
-  // set video source based on TVFocus
+  // helper to check if video is ready
+  const isVideoReady = () => videoRef.current?.readyState >= 2;
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    video.src = TVFocus ? "/videos/black_fixed.mp4" : "/videos/static.mp4";
+    // set source
+    video.src = TVFocus ? "/videos/black.mp4" : "/videos/static.mp4";
     video.loop = true;
     video.muted = true;
-    video.playsInline = true; // prevent fullscreen popup on mobile
-    video.play();
+    video.playsInline = true;
+
+    // attempt autoplay
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // autoplay blocked, can handle fallback if needed
+      });
+    }
+
+    return () => {
+      video.pause();
+      video.src = "";
+    };
   }, [TVFocus]);
 
-  // update video texture each frame
+  // update texture in useFrame, but only if video is ready
   useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.material.map.needsUpdate = true;
+    const video = videoRef.current;
+    if (!meshRef.current || !video || !isVideoReady()) return;
+
+    const material = meshRef.current.material;
+    if (material.map) {
+      material.map.needsUpdate = true;
     }
   });
 
@@ -52,7 +72,6 @@ export function TVStaticScreen({
 
       {!zoomIn && (
         <>
-          {/* display click me text when not zoomed in */}
           <Text3D
             font="fonts/Inter_Bold.json"
             size={0.3}
