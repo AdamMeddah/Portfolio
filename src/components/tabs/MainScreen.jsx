@@ -15,7 +15,7 @@ export default function MainScreen({ user, setCurrentTab }) {
           className="main-preview-vid"
           autoPlay
           loop
-          src="videos/noted.mp4"
+          src="videos/noted_ios.mp4"
         ></video>
 
         <div className="main-info">
