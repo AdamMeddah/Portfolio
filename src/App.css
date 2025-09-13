@@ -514,7 +514,7 @@ canvas {
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: -5vh;
+  top: -7vh;
 
   left: -7%;
   right: 0;
@@ -1846,7 +1846,7 @@ canvas {
   }
 
   .contact-navbar {
-    top: 43vh;
+    top: 41.5vh;
   }
   .user-logo {
     margin-top: 2%;
