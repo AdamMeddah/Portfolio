@@ -41,10 +41,10 @@ export default function Skills({ user, setCurrentTab }) {
         <h1 className="skills-title">My Skills</h1>
 
         {/* render all skill sections */}
-        {renderSection("languages", languages)}
-        {renderSection("frameworks", frameworks)}
-        {renderSection("tools", tools)}
-        {renderSection("libraries", libraries)}
+        {renderSection("Languages", languages)}
+        {renderSection("Frameworks", frameworks)}
+        {renderSection("Tools", tools)}
+        {renderSection("Libraries", libraries)}
       </div>
     </>
   );

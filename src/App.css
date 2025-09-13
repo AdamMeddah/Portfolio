@@ -16,6 +16,7 @@ body {
   overscroll-behavior: none;
   overflow-x: hidden;
   overflow-y: auto;
+  background: black;
 }
 
 #canvas-container {
@@ -1497,6 +1498,18 @@ canvas {
   .project-grid {
     gap: 30vh;
   }
+
+  .navbar {
+    top: -23vh;
+  }
+
+  .main-paragraph {
+    font-size: 0.7rem;
+  }
+
+  .contact-navbar {
+    top: 5vh;
+  }
 }
 @media (min-width: 810px) {
   .project-wrapper {
@@ -1693,6 +1706,15 @@ canvas {
 
   .contact-logos svg {
     width: 90%;
+    margin-left: 205%;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+  }
+
+  .main-paragraph {
+    font-size: 1.2rem;
   }
 
   .blog-grid {
@@ -1710,7 +1732,21 @@ canvas {
     margin-top: -5vh;
   }
   .main-two-buttons {
-    margin-top: -12vh;
+    margin-top: -32vh;
+  }
+
+  .left-navbar {
+    margin-right: 20%;
+  }
+  .contact-logos {
+    margin-left: 10%;
+  }
+
+  .contact-navbar {
+    top: 10vh;
+  }
+  .contact-wrapper {
+    margin-top: -30vh;
   }
 }
 

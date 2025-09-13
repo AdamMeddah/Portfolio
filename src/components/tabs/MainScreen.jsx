@@ -5,7 +5,7 @@ import Navbar from "../Navbar";
 import { useEffect } from "react";
 export default function MainScreen({ user, setCurrentTab }) {
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: -5, left: 0, behavior: "smooth" });
   }, []);
 
   return (

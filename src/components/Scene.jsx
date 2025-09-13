@@ -38,7 +38,7 @@ export default function Scene({}) {
   const lastFrame = useRef(0);
 
   useEffect(() => {
-    window.scrollTo(0, 800); // scroll to middle
+    window.scrollTo(0, 700); // scroll to middle
   }, []);
 
   useEffect(() => {
