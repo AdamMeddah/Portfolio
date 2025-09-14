@@ -185,10 +185,11 @@ body {
 
 /* Main Info Section */
 .main-info {
+  display: flex;
   position: relative; /* sits above video */
   margin-left: 10px;
   color: white;
-
+  flex-direction: column;
   max-width: 80%;
   z-index: 1;
 }
@@ -212,21 +213,20 @@ body {
 }
 .main-info-wrapper {
   position: absolute; /* overlay on video */
-  bottom: 20%;
+  bottom: 40%;
   display: flex;
-  flex-direction: column; /* stack text then buttons */
-  align-items: start; /* center horizontally */
+  flex-direction: row; /* stack text then buttons */
+  align-items: center; /* center horizontally */
   gap: 1rem; /* spacing between text and buttons */
   z-index: 2; /* above video */
 }
 
 .main-two-buttons {
-  display: inline-flex;
+  display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
-  flex-direction: row;
+  align-self: flex-end;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 5vh;
 }
 
 .play-button,

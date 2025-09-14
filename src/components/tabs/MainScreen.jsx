@@ -41,47 +41,46 @@ export default function MainScreen({ user, setCurrentTab }) {
               <span style={{ fontWeight: "500" }}>impactful </span>
               and <span style={{ fontWeight: "500" }}>user-centered. </span>
             </p>
+          </div>
+          {/* resume & linkedin buttons */}
+          <div className="main-two-buttons">
+            <a
+              className="play-button"
+              href="images/AdamResume.pdf"
+              target="blank"
+            >
+              <svg className="play-icon" viewBox="0 0 30 30 ">
+                <path
+                  d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
+                  fill="black"
+                />
+              </svg>
+              Resume
+            </a>
 
-            {/* resume & linkedin buttons */}
-            <div className="main-two-buttons">
-              <a
-                className="play-button"
-                href="images/AdamResume.pdf"
-                target="blank"
+            <a
+              className="info-button"
+              href="https://ca.linkedin.com/in/adammeddah"
+              target="blank"
+            >
+              <svg
+                className="info-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#000000"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg className="play-icon" viewBox="0 0 30 30 ">
-                  <path
-                    d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
-                    fill="black"
-                  />
-                </svg>
-                Resume
-              </a>
-
-              <a
-                className="info-button"
-                href="https://ca.linkedin.com/in/adammeddah"
-                target="blank"
-              >
-                <svg
-                  className="info-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="16" x2="12" y2="12"></line>
-                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg>
-                Linkedin
-              </a>
-            </div>
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Linkedin
+            </a>
           </div>
         </div>
       </section>
