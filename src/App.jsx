@@ -12,6 +12,7 @@ import { Suspense } from "react";
 import Scene from "./components/Scene";
 import { staticAssets } from "./assets/staticAssets";
 import Navbar from "./components/Navbar";
+import MainScreen from "./components/tabs/MainScreen";
 import "./App.css";
 
 // all static assets organized by type
@@ -158,6 +159,9 @@ function App() {
           setCurrentTab={setCurrentTab}
           sectionClass="navbar"
         />
+      )}
+      {currentTab === "main" && (
+        <MainScreen user={user} setCurrentTab={setCurrentTab} />
       )}
 
       <div

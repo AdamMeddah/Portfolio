@@ -9,7 +9,7 @@ export default function MainScreen({ user, setCurrentTab }) {
   }, []);
 
   return (
-    <>
+    <div className="main-wrapper">
       <section className="outer-wrapper">
         <video
           className="main-preview-vid"
@@ -319,6 +319,6 @@ export default function MainScreen({ user, setCurrentTab }) {
       </div>
 
       <h3 className="footer"> © 2025 Adam Meddah. All rights reserved.</h3>
-    </>
+    </div>
   );
 }

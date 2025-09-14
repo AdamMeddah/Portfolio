@@ -15,7 +15,6 @@ import About from "./tabs/About.jsx";
 import Blog from "./tabs/Blog.jsx";
 import Projects from "./tabs/Projects.jsx";
 import LaunchScreen from "./tabs/LaunchScreen.jsx";
-import MainScreen from "./tabs/MainScreen.jsx";
 import Contact from "./tabs/Contact.jsx";
 import Skills from "./tabs/Skills.jsx";
 import BlogDetail from "./tabs/BlogDetail.jsx";
@@ -38,20 +37,6 @@ export default function Scene({ currentTab, setCurrentTab, user, setUser }) {
   useEffect(() => {
     window.scrollTo(0, 700); // scroll to middle
   }, []);
-
-  useEffect(() => {
-    const canvasContainer = document.getElementById("canvas-container");
-
-    if (currentTab === "main") {
-      // re-enable scroll
-      canvasContainer.style.overflow = "auto";
-      canvasContainer.style.height = "210vh"; // matches mainscreen content
-    } else {
-      // disable scroll
-      canvasContainer.style.overflow = "hidden";
-      canvasContainer.style.height = "100vh";
-    }
-  }, [currentTab]);
 
   useEffect(() => {
     if (zoomIn) {
@@ -166,9 +151,7 @@ export default function Scene({ currentTab, setCurrentTab, user, setUser }) {
                 <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
               </div>
             )}
-            {currentTab === "main" && (
-              <MainScreen user={user} setCurrentTab={setCurrentTab} />
-            )}
+
             {currentTab === "Contact Me" && (
               <Contact user={user} setCurrentTab={setCurrentTab} />
             )}
