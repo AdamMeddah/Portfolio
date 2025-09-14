@@ -210,12 +210,23 @@ body {
   padding: 1rem;
   border-radius: 10px;
 }
+.main-info-wrapper {
+  position: absolute; /* overlay on video */
+  bottom: 20%;
+  display: flex;
+  flex-direction: column; /* stack text then buttons */
+  align-items: start; /* center horizontally */
+  gap: 1rem; /* spacing between text and buttons */
+  z-index: 2; /* above video */
+}
+
 .main-two-buttons {
   display: inline-flex;
   gap: 1rem;
-
-  justify-content: center;
   flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 5vh;
 }
 
 .play-button,
@@ -223,8 +234,8 @@ body {
   display: flex;
   gap: 0.5vw;
   align-items: center;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  font-size: clamp(1rem, 2vw, 1.5rem); /* scales with screen */
+  padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.8rem, 2vw, 1.2rem);
   border-radius: var(--border-radius);
   border: none;
   cursor: pointer;
@@ -398,7 +409,7 @@ body {
 
 /* Logo Styles */
 .adam-logo {
-  width: clamp(200px, 20vw, 350px);
+  width: clamp(150px, 20vw, 350px);
   margin-left: -1vw;
   margin-right: 2vw;
   cursor: pointer;
@@ -456,37 +467,51 @@ body {
   }
 
   .main-info {
-    margin-top: 10vh;
     max-width: 90%;
   }
 
   .main-title {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-size: clamp(1.2rem, 5vw, 2.2rem);
   }
 
   .main-paragraph {
-    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    font-size: clamp(0.7rem, 3vw, 1.1rem);
     padding: 0.8rem;
   }
 
   .main-two-buttons {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.8rem;
+    width: 100p x;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .main-preview-vid {
-    height: 75%;
+    height: 90%;
     object-position: center 25%;
   }
 
+  .main-info-wrapper {
+    top: 10%;
+    left: -1%;
+    flex-direction: row;
+  }
+
+  .outer-wrapper {
+    margin-bottom: 10%;
+  }
+
+  .main-two-buttons {
+    flex-direction: row;
+  }
   .main-title {
     font-size: clamp(1.6rem, 4vw, 2.5rem);
   }
 
   .main-paragraph {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
+    min-width: 130%;
   }
 }
 
@@ -494,6 +519,10 @@ body {
   .main-preview-vid {
     height: 80%;
     object-position: center 20%;
+  }
+
+  .main-info-wrapper {
+    top: 10%;
   }
 
   .main-title {
@@ -515,5 +544,14 @@ body {
 
   .main-preview-vid {
     object-position: center center; /* better for ultra wide */
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* hide desktop nav */
+  }
+  .hamburger {
+    display: block; /* show hamburger */
   }
 }

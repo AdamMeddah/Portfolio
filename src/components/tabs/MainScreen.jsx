@@ -22,64 +22,66 @@ export default function MainScreen({ user, setCurrentTab }) {
           src="videos/noted_ios.mp4"
         ></video>
 
-        <div className="main-info">
-          <h1 className="main-title" onClick={() => setCurrentTab("main")}>
-            Adam Meddah <span className="seperator-span">|</span> Full-Stack
-            Developer{" "}
-          </h1>
+        <div className="main-info-wrapper">
+          <div className="main-info">
+            <h1 className="main-title" onClick={() => setCurrentTab("main")}>
+              Adam Meddah <span className="seperator-span">|</span> Full-Stack
+              Developer{" "}
+            </h1>
 
-          <p className="main-paragraph">
-            Computer Science student at{" "}
-            <span style={{ fontWeight: "500" }}>McMaster University</span> with
-            experience building full-stack applications, AI-powered tools, and
-            immersive web experiences. I strive for a blend of{" "}
-            <span style={{ fontWeight: "500" }}>technical depth</span> and{" "}
-            <span style={{ fontWeight: "500" }}>creative design. </span> With a
-            strong foundation across multiple languages, frameworks, and cloud
-            technologies, I focus on delivering software that is both{" "}
-            <span style={{ fontWeight: "500" }}>impactful </span>
-            and <span style={{ fontWeight: "500" }}>user-centered. </span>
-          </p>
+            <p className="main-paragraph">
+              Computer Science student at{" "}
+              <span style={{ fontWeight: "500" }}>McMaster University</span>{" "}
+              with experience building full-stack applications, AI-powered
+              tools, and immersive web experiences. I strive for a blend of{" "}
+              <span style={{ fontWeight: "500" }}>technical depth</span> and{" "}
+              <span style={{ fontWeight: "500" }}>creative design. </span> With
+              a strong foundation across multiple languages, frameworks, and
+              cloud technologies, I focus on delivering software that is both{" "}
+              <span style={{ fontWeight: "500" }}>impactful </span>
+              and <span style={{ fontWeight: "500" }}>user-centered. </span>
+            </p>
 
-          {/* resume & linkedin buttons */}
-          <div className="main-two-buttons">
-            <a
-              className="play-button"
-              href="images/AdamResume.pdf"
-              target="blank"
-            >
-              <svg className="play-icon" viewBox="0 0 30 30 ">
-                <path
-                  d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
-                  fill="black"
-                />
-              </svg>
-              Resume
-            </a>
-
-            <a
-              className="info-button"
-              href="https://ca.linkedin.com/in/adammeddah"
-              target="blank"
-            >
-              <svg
-                className="info-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#000000"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {/* resume & linkedin buttons */}
+            <div className="main-two-buttons">
+              <a
+                className="play-button"
+                href="images/AdamResume.pdf"
+                target="blank"
               >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-              </svg>
-              Linkedin
-            </a>
+                <svg className="play-icon" viewBox="0 0 30 30 ">
+                  <path
+                    d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z"
+                    fill="black"
+                  />
+                </svg>
+                Resume
+              </a>
+
+              <a
+                className="info-button"
+                href="https://ca.linkedin.com/in/adammeddah"
+                target="blank"
+              >
+                <svg
+                  className="info-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Linkedin
+              </a>
+            </div>
           </div>
         </div>
       </section>
