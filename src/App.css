@@ -1498,18 +1498,6 @@ canvas {
   .project-grid {
     gap: 30vh;
   }
-
-  .navbar {
-    top: -22vh;
-  }
-
-  .main-paragraph {
-    font-size: 0.7rem;
-  }
-
-  .contact-navbar {
-    top: 5vh;
-  }
 }
 @media (min-width: 810px) {
   .project-wrapper {
@@ -1706,15 +1694,6 @@ canvas {
 
   .contact-logos svg {
     width: 90%;
-    margin-left: 205%;
-  }
-
-  .main-title {
-    font-size: 2.2rem;
-  }
-
-  .main-paragraph {
-    font-size: 1.2rem;
   }
 
   .blog-grid {
@@ -1732,21 +1711,7 @@ canvas {
     margin-top: -5vh;
   }
   .main-two-buttons {
-    margin-top: -32vh;
-  }
-
-  .left-navbar {
-    margin-right: 20%;
-  }
-  .contact-logos {
-    margin-left: 10%;
-  }
-
-  .contact-navbar {
-    top: 10vh;
-  }
-  .contact-wrapper {
-    margin-top: -30vh;
+    margin-top: -12vh;
   }
 }
 
@@ -1878,4 +1843,42 @@ canvas {
   .contact-navbar {
     top: 40vh;
   }
+}
+
+@media (min-width: 700px) and (max-width: 800px) {
+  .main-paragraph {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 389px) and (max-width: 391px) and (min-height: 843px) and (max-height: 845px) and (orientation: portrait) {
+  /* iPhone 14/15/16 portrait */
+}
+
+@media screen and (min-width: 843px) and (max-width: 845px) and (min-height: 389px) and (max-height: 391px) and (orientation: landscape) {
+  /* iPhone 14/15/16 landscape */
+}
+
+@media screen and (min-width: 427px) and (max-width: 429px) and (min-height: 925px) and (max-height: 927px) and (orientation: portrait) {
+  /* iPhone 14/15/16 Plus portrait */
+}
+
+@media screen and (min-width: 925px) and (max-width: 927px) and (min-height: 427px) and (max-height: 429px) and (orientation: landscape) {
+  /* iPhone 14/15/16 Plus landscape */
+}
+
+@media screen and (min-width: 392px) and (max-width: 394px) and (min-height: 851px) and (max-height: 853px) and (orientation: portrait) {
+  /* iPhone 14/15/16 Pro portrait */
+}
+
+@media screen and (min-width: 851px) and (max-width: 853px) and (min-height: 392px) and (max-height: 394px) and (orientation: landscape) {
+  /* iPhone 14/15/16 Pro landscape */
+}
+
+@media screen and (min-width: 429px) and (max-width: 431px) and (min-height: 931px) and (max-height: 933px) and (orientation: portrait) {
+  /* iPhone 14/15/16 Pro Max portrait */
+}
+
+@media screen and (min-width: 931px) and (max-width: 933px) and (min-height: 429px) and (max-height: 431px) and (orientation: landscape) {
+  /* iPhone 14/15/16 Pro Max landscape */
 }

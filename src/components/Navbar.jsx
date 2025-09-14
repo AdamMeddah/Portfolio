@@ -65,7 +65,7 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 496 512"
               className="github-logo"
               xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 448 512"
               className="linkedin-logo"
               xmlns="http://www.w3.org/2000/svg"
