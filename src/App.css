@@ -187,6 +187,7 @@ body {
 .main-info {
   display: flex;
   position: relative; /* sits above video */
+  top: 2vh;
   margin-left: 10px;
   color: white;
   flex-direction: column;
@@ -213,10 +214,10 @@ body {
 }
 .main-info-wrapper {
   position: absolute; /* overlay on video */
-  bottom: 40%;
+  bottom: 20%;
   display: flex;
-  flex-direction: row; /* stack text then buttons */
-  align-items: center; /* center horizontally */
+  flex-direction: column; /* stack text then buttons */
+  align-items: flex-start; /* center horizontally */
   gap: 1rem; /* spacing between text and buttons */
   z-index: 2; /* above video */
 }
@@ -224,8 +225,8 @@ body {
 .main-two-buttons {
   display: flex;
   gap: 1rem;
-  align-self: flex-end;
-  flex-direction: column;
+  align-self: flex-start;
+  flex-direction: row;
   justify-content: center;
 }
 
@@ -234,8 +235,8 @@ body {
   display: flex;
   gap: 0.5vw;
   align-items: center;
-  font-size: clamp(1rem, 2vw, 1.5rem); /* scales with screen */
-  padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.8rem, 2vw, 1.2rem);
+  font-size: clamp(0.9 rem, 2vw, 1.5rem); /* scales with screen */
+  padding: clamp(0.3rem, 1vw, 0.8rem) clamp(0.3rem, 2vw, 1.2rem);
   border-radius: var(--border-radius);
   border: none;
   cursor: pointer;
@@ -471,18 +472,20 @@ body {
   }
 
   .main-title {
-    font-size: clamp(1.2rem, 5vw, 2.2rem);
+    font-size: clamp(1.2rem, 7vw, 2.2rem);
   }
 
   .main-paragraph {
-    font-size: clamp(0.7rem, 3vw, 1.1rem);
+    font-size: clamp(0.8rem, 3vw, 1.1rem);
     padding: 0.8rem;
+  }
+  .main-info-wrapper {
+    bottom: 25%;
   }
 
   .main-two-buttons {
     flex-direction: row;
     gap: 0.8rem;
-    width: 100p x;
   }
 }
 
@@ -493,9 +496,9 @@ body {
   }
 
   .main-info-wrapper {
-    top: 10%;
+    bottom: 10%;
     left: -1%;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .outer-wrapper {
@@ -505,17 +508,36 @@ body {
   .main-two-buttons {
     flex-direction: row;
   }
+
   .main-title {
     font-size: clamp(1.6rem, 4vw, 2.5rem);
   }
 
   .main-paragraph {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
-    min-width: 130%;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
+  .main-info-wrapper {
+    position: absolute; /* overlay on video */
+    bottom: 0;
+    display: flex;
+    flex-direction: row; /* stack text then buttons */
+    align-items: center; /* center horizontally */
+    gap: 1rem; /* spacing between text and buttons */
+    z-index: 2; /* above video */
+  }
+
+  .main-two-buttons {
+    display: flex;
+    gap: 1rem;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: calc(1.2 * 12vh);
+  }
+
   .main-preview-vid {
     height: 80%;
     object-position: center 20%;
