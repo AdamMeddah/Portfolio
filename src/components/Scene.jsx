@@ -21,7 +21,7 @@ import Skills from "./tabs/Skills.jsx";
 import BlogDetail from "./tabs/BlogDetail.jsx";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 
-export default function Scene({}) {
+export default function Scene({ currentTab, setCurrentTab, user, setUser }) {
   const { camera } = useThree();
   const [isLoading, setIsLoading] = useState(false);
   const [allowInteraction, setAllowInteraction] = useState(true);
@@ -31,8 +31,6 @@ export default function Scene({}) {
   const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
   const [showTVContent, setShowTVContent] = useState(false); // handles opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); // handles conditional rendering
-  const [currentTab, setCurrentTab] = useState("profiles");
-  const [user, setUser] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const htmlRef = useRef();
   const lastFrame = useRef(0);

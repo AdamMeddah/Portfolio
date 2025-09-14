@@ -37,16 +37,15 @@ body {
   background: black;
 }
 
-#canvas-container {
-  position: absolute;
+#canvas-container,
+#canvas-container > div {
+  position: fixed; /* anchor to viewport, not relative */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-  background-color: black;
+  z-index: -1 !important; /* force behind everything */
   pointer-events: none;
-  overflow-x: hidden;
 }
 
 /* ===== VARIABLES ===== */
@@ -68,10 +67,6 @@ body {
 
 /* ===== LAYOUT COMPONENTS ===== */
 /* Main Wrapper */
-.outer-wrapper {
-  margin-top: 30vh;
-  padding-bottom: 5vh;
-}
 
 .launch-wrapper {
   position: relative;
@@ -79,20 +74,30 @@ body {
   width: 100%;
 }
 
-/* Navbar */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px; /* or just use px for stability, e.g. 70px */
+  width: 100%;
+  background-color: #0d0d0d;
+  z-index: 1000; /* ensure above video/canvas */
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: -7%;
-  left: -3%;
-  right: 0;
-  height: 12vh;
-  width: 106%;
-  background-color: var(--primary-bg);
-  z-index: 999;
-  padding: 2vh 4vw;
+}
+
+/* HERO SECTION */
+.outer-wrapper {
+  position: relative;
+  min-height: 100dvh; /* dynamic viewport height to fix iOS Safari bar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .nav-links {
@@ -161,31 +166,28 @@ body {
 /* ===== MAIN CONTENT ===== */
 /* Video Preview */
 .main-preview-vid {
-  width: 105%;
-  height: 90vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: 25% center;
-  position: relative;
-  top: 10vh;
-  left: -3vw;
-  z-index: 1;
+  z-index: -1; /* behind text/content */
 }
 
 /* Main Info Section */
 .main-info {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 23%;
-  left: -1%;
-  color: var(--text-white);
-  z-index: 10;
+  position: relative; /* sits above video */
+  color: white;
+  text-align: center;
+  max-width: 80%;
+  z-index: 1;
+  margin-top: 15vh; /* push down a bit so it doesn't collide with navbar */
 }
 
 .main-title {
-  font-size: 2rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 700;
-  cursor: pointer;
 }
 
 .seperator-span {
@@ -193,23 +195,18 @@ body {
 }
 
 .main-paragraph {
-  font-size: 1.2rem;
-  max-width: 70%;
+  font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 300;
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 0.5rem;
-  border-radius: var(--border-radius-lg);
+  margin: 1rem auto;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  border-radius: 10px;
 }
-
-/* Buttons */
 .main-two-buttons {
+  margin-top: 2rem;
   display: flex;
-  gap: 2vw;
-  align-items: center;
-  position: absolute;
-  top: 40vh;
-  z-index: 10;
-  left: 0.5%;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .play-button,
@@ -257,8 +254,10 @@ body {
 
 /* ===== SECTIONS ===== */
 .sections {
-  margin-top: 15vh;
-  gap: 10vh;
+  position: relative;
+  padding: 5vh 5vw;
+  background: black;
+  margin-top: 0; /* no need for big vh hack */
 }
 
 /* Section Headers */
@@ -390,14 +389,15 @@ body {
 
 /* Logo Styles */
 .adam-logo {
-  width: 40vw;
+  width: clamp(200px, 20vw, 350px);
   margin-left: -1vw;
   margin-right: 2vw;
   cursor: pointer;
 }
 
 .user-logo {
-  width: 15%;
+  width: clamp(20px, 3vw, 50px);
+
   cursor: pointer;
   transition: transform var(--transition-slow);
   margin-left: 25%;
@@ -412,186 +412,4 @@ body {
   color: var(--text-white);
   margin-top: 60vh;
   margin-left: 7%;
-}
-
-/* ===== MEDIA QUERIES ===== */
-/* Mobile First Approach */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
-}
-
-/* Small Mobile Devices */
-@media (max-width: 375px) {
-  .navbar {
-    margin-top: 73.5vh;
-  }
-
-  .main-info {
-    margin-top: -12vh;
-  }
-
-  .main-paragraph {
-    max-width: 104vw;
-    margin-top: -2vh;
-  }
-
-  .main-two-buttons {
-    margin-top: 16vh;
-  }
-}
-
-@media (min-width: 376px) and (max-width: 400px) {
-  .navbar {
-    margin-top: 71vh;
-  }
-
-  .main-info {
-    margin-top: -12vh;
-  }
-
-  .main-two-buttons {
-    margin-top: 19vh;
-  }
-}
-
-/* Tablets */
-@media (min-width: 667px) {
-  .navbar {
-    margin-top: 99vh;
-  }
-
-  .main-preview-vid {
-    top: 30vh;
-    object-position: 10% 25%;
-  }
-
-  .sections {
-    margin-top: 30vh;
-  }
-
-  .main-paragraph {
-    margin-top: -2vh;
-    margin-left: -0.6vw;
-    padding-right: 3vw;
-    max-width: 80%;
-  }
-
-  .main-two-buttons {
-    flex-direction: column;
-    margin-left: 80%;
-    margin-top: -7%;
-  }
-}
-
-/* Laptops & Desktops */
-@media (min-width: 1080px) {
-  .navbar {
-    margin-top: 63vh;
-  }
-
-  .main-preview-vid {
-    top: 20vh;
-    height: 60vh;
-  }
-
-  .sections {
-    margin-top: 20vh;
-  }
-
-  .top-5-list {
-    margin-left: -22vw;
-  }
-
-  .main-paragraph {
-    margin-left: 0;
-    max-width: 50%;
-  }
-
-  .main-two-buttons {
-    flex-direction: row;
-    left: -80%;
-  }
-}
-
-/* Large Screens */
-@media (min-width: 1200px) {
-  .project-navbar {
-    margin-left: 2%;
-    width: 110%;
-  }
-
-  .contact-navbar {
-    top: 41.5vh;
-  }
-
-  .user-logo {
-    margin-top: 2%;
-  }
-
-  .project-grid {
-    gap: 15vh 2vw;
-  }
-}
-
-/* ===== UTILITY CLASSES ===== */
-.text-center {
-  text-align: center;
-}
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-
-.flex {
-  display: flex;
-}
-.flex-column {
-  flex-direction: column;
-}
-.flex-row {
-  flex-direction: row;
-}
-.items-center {
-  align-items: center;
-}
-.justify-center {
-  justify-content: center;
-}
-.justify-between {
-  justify-content: space-between;
-}
-
-.mt-1 {
-  margin-top: 0.5rem;
-}
-.mt-2 {
-  margin-top: 1rem;
-}
-.mb-1 {
-  margin-bottom: 0.5rem;
-}
-.mb-2 {
-  margin-bottom: 1rem;
-}
-
-.p-1 {
-  padding: 0.5rem;
-}
-.p-2 {
-  padding: 1rem;
-}
-
-.hidden {
-  display: none;
-}
-.visible {
-  display: block;
 }
