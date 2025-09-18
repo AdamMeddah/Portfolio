@@ -791,6 +791,15 @@ canvas {
 
 /* SKILLS SECTION */
 
+.skills-subtitle {
+  color: rgb(222, 5, 5);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 3rem 0 1.5rem 5%;
+  border-left: 4px solid rgb(222, 5, 5); /*  accent bar */
+  padding-left: 0.5rem;
+}
+
 .skills-title {
   color: white;
   margin-top: 10%;
