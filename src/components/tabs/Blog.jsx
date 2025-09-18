@@ -8,8 +8,6 @@ import { blogData } from "../../data/blogData";
 export default function Blog({ user, setCurrentTab, setActivePost }) {
   return (
     <>
-      {/* navbar for navigating blog section */}
-
       <div className="project-wrapper">
         {/* grid of blog posts */}
         <div className="blog-grid">

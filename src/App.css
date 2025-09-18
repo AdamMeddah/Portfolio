@@ -67,6 +67,60 @@ body {
 }
 
 /* ===== LAYOUT COMPONENTS ===== */
+
+.users {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#launch-title {
+  font-size: 2rem;
+  text-align: center;
+  align-self: end;
+  margin-bottom: 5vh;
+  font-family: "NetflixSans";
+  font-weight: 300;
+  color: white;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5vh;
+}
+
+#profile-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+}
+
+.profile-img {
+  width: clamp(30px, 20vw, 200px);
+  border: 5px solid transparent;
+  transition: box-shadow 0.1s ease, filter 0.1s ease;
+}
+
+.profile-text {
+  margin-top: 1vh;
+  font-size: 1.2rem;
+  color: #4f4f4f;
+  transition: color 0.1s ease;
+}
+
+.profile:hover .profile-text {
+  color: #ffffff;
+}
+
+.profile:hover .profile-img {
+  box-shadow: 0 0 10px 3px white;
+  filter: brightness(1.2);
+}
+
 /* Main Wrapper */
 
 .launch-wrapper {
@@ -380,19 +434,14 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 4vh;
+  cursor: pointer;
 }
 
 #profile-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 2vh;
-}
-
-.profile-img {
-  width: clamp(100px, 30vw, 200px);
-  border: 5px solid transparent;
-  transition: box-shadow var(--transition-fast), filter var(--transition-fast);
 }
 
 .profile-text {
