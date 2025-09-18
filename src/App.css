@@ -1290,3 +1290,20 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* About styling */
+@media (max-width: 768px) {
+  .working-paragraph {
+    max-width: 100%;
+  }
+
+  .about-2 {
+    flex-direction: column; /* stack image and text */
+  }
+
+  .about-2 img {
+    margin-left: 0;
+    margin-top: 1.5rem;
+    max-width: 100%;
+  }
+}
