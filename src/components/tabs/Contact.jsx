@@ -58,13 +58,6 @@ export default function Contact({ user, setCurrentTab }) {
 
   return (
     <>
-      {/* navbar at top */}
-      <Navbar
-        user={user}
-        setCurrentTab={setCurrentTab}
-        sectionClass="contact-navbar"
-      />
-
       <div className="contact-wrapper">
         {/* header text */}
         <div className="contact-header">

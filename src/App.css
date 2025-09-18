@@ -493,7 +493,7 @@ body {
 .contact-logos svg {
   transition: all 0.5s;
   margin-left: 0.2px;
-  height: clamp(28px, 4.7vh, 30px);
+  height: clamp(28px, 3vw, 50px);
 }
 
 .contact-logos svg:hover {
@@ -744,6 +744,91 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   background: #a6a3a3; /*   color behind images */
   padding: 4px; /* p padding */
+}
+
+.contact-form {
+  background-color: #1e1e1e; /* dark gray */
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 700px;
+  margin-bottom: 8vh;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact-form form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #2c2c2c;
+  color: white;
+}
+.contact-form button {
+  background-color: #e00;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+  align-self: center;
+}
+.contact-form button:hover {
+  background-color: #c00;
+}
+
+.contact-wrapper {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 22vh;
+  overflow-y: auto;
+}
+
+.contact-header {
+  color: white;
+  text-align: center;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-title {
+  font-size: 5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.secondary-contact {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #cccccc;
+  margin: 0.5rem 0 0 0;
+}
+
+.tertiary-contact {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #aaaaaa;
+  margin: 0.3rem 0 0 0;
+  font-style: italic;
+}
+
+.contact-header h1,
+.contact-header p {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 480px) {
