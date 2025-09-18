@@ -99,6 +99,7 @@ body {
   position: relative;
   top: 0;
   min-height: 80dvh; /* dynamic viewport height to fix iOS Safari bar */
+  height: min(90dvh, 500px);
   display: flex;
   justify-content: center;
   align-items: start;
@@ -134,7 +135,7 @@ body {
 
 .right-navbar {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 2vw;
 }
 
@@ -179,7 +180,7 @@ body {
   width: 100%;
   height: 80%;
   object-fit: cover;
-  object-position: center 20%; /* 👈 focus on the top of the video */
+  object-position: center 20%; /*  focus on the top of the video */
   z-index: 1; /* behind text/content */
 }
 
@@ -191,6 +192,7 @@ body {
   margin-left: 10px;
   color: white;
   flex-direction: column;
+  justify-content: center;
   max-width: 80%;
   z-index: 1;
 }
@@ -225,6 +227,7 @@ body {
 .main-two-buttons {
   display: flex;
   gap: 1rem;
+  margin-left: 0.5%;
   align-self: flex-start;
   flex-direction: row;
   justify-content: center;
@@ -417,7 +420,7 @@ body {
 }
 
 .user-logo {
-  width: clamp(20px, 3vw, 50px);
+  width: clamp(28px, 3vw, 50px);
 
   cursor: pointer;
   transition: transform var(--transition-slow);
@@ -441,7 +444,7 @@ body {
 .contact-logos svg {
   transition: all 0.5s;
   margin-left: 0.2px;
-  height: clamp(20px, 4.7vh, 30px);
+  height: clamp(28px, 4.7vh, 30px);
 }
 
 .contact-logos svg:hover {
@@ -464,7 +467,7 @@ body {
 @media (max-width: 480px) {
   .main-preview-vid {
     height: 70%; /* shrink video to keep hero info visible */
-    object-position: center 30%;
+    object-position: left;
   }
 
   .main-info {
@@ -478,14 +481,24 @@ body {
   .main-paragraph {
     font-size: clamp(0.8rem, 3vw, 1.1rem);
     padding: 0.8rem;
+    margin-top: -20px;
+  }
+
+  .main-info {
+    gap: 40px;
   }
   .main-info-wrapper {
-    bottom: 25%;
+    bottom: 30%;
   }
 
   .main-two-buttons {
     flex-direction: row;
+    margin-left: 3%;
     gap: 0.8rem;
+  }
+
+  .sections {
+    margin-top: -15%;
   }
 }
 
@@ -503,6 +516,7 @@ body {
 
   .outer-wrapper {
     margin-bottom: 10%;
+    height: 500px;
   }
 
   .main-two-buttons {
@@ -553,6 +567,9 @@ body {
 
   .main-paragraph {
     font-size: clamp(1rem, 2vw, 1.3rem);
+  }
+  .outer-wrapper {
+    height: 500px;
   }
 }
 @media (min-width: 1920px) {
