@@ -16,11 +16,6 @@ export default function Projects({ user, setCurrentTab }) {
   return (
     <>
       {/* navbar at the top */}
-      <Navbar
-        user={user}
-        setCurrentTab={setCurrentTab}
-        sectionClass="project-navbar"
-      />
 
       <div className="project-wrapper">
         <div className="project-grid">
