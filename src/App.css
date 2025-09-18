@@ -831,6 +831,85 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* SKILLS SECTION */
+
+.skills-subtitle {
+  color: rgb(222, 5, 5);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 3rem 0 1.5rem 5%;
+  border-left: 4px solid rgb(222, 5, 5); /*  accent bar */
+  padding-left: 0.5rem;
+}
+
+.skills-title {
+  color: white;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+}
+.skills-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem; /* space between cards */
+  overflow-x: auto; /* scroll horizontally if too many cards */
+  padding: 2rem;
+  justify-content: center;
+  margin-top: 5vh;
+}
+
+.skill-card {
+  flex: 1 1 clamp(150px, 20vw, 250px); /* fixed width cards */
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px 4px rgba(5, 5, 75, 0.5);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.skills-grid {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.skill-card {
+  scroll-snap-align: start;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(222, 5, 5, 0.5);
+}
+
+.skill-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.skill-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.skill-desc {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #aaa;
+  text-align: center;
+}
+.skill-card:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 480px) {
   .main-preview-vid {
     height: 70%; /* shrink video to keep hero info visible */
