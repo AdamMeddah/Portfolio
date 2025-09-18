@@ -4,14 +4,7 @@ import Navbar from "../Navbar";
 export default function About({ user, setCurrentTab }) {
   return (
     <>
-      {/* navbar for navigating between sections */}
-      <Navbar
-        user={user}
-        setCurrentTab={setCurrentTab}
-        sectionClass="project-navbar"
-      />
-
-      <div className="project-wrapper">
+      <div className="about-wrapper">
         {/* about section with image and text */}
         <div className="about-1">
           <img src="images/adam.webp" alt="Adam Meddah" />

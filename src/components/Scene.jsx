@@ -15,13 +15,12 @@ import About from "./tabs/About.jsx";
 import Blog from "./tabs/Blog.jsx";
 import Projects from "./tabs/Projects.jsx";
 import LaunchScreen from "./tabs/LaunchScreen.jsx";
-import MainScreen from "./tabs/MainScreen.jsx";
 import Contact from "./tabs/Contact.jsx";
 import Skills from "./tabs/Skills.jsx";
 import BlogDetail from "./tabs/BlogDetail.jsx";
 import { TVStaticScreen } from "./TVStaticScreen.jsx";
 
-export default function Scene({}) {
+export default function Scene({ currentTab, setCurrentTab, user, setUser }) {
   const { camera } = useThree();
   const [isLoading, setIsLoading] = useState(false);
   const [allowInteraction, setAllowInteraction] = useState(true);
@@ -31,8 +30,6 @@ export default function Scene({}) {
   const [targetRotationY, setTargetRotationY] = useState(camera.rotation.y);
   const [showTVContent, setShowTVContent] = useState(false); // handles opacity transition
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false); // handles conditional rendering
-  const [currentTab, setCurrentTab] = useState("profiles");
-  const [user, setUser] = useState(null);
   const [activePost, setActivePost] = useState(null);
   const htmlRef = useRef();
   const lastFrame = useRef(0);
@@ -40,20 +37,6 @@ export default function Scene({}) {
   useEffect(() => {
     window.scrollTo(0, 700); // scroll to middle
   }, []);
-
-  useEffect(() => {
-    const canvasContainer = document.getElementById("canvas-container");
-
-    if (currentTab === "main") {
-      // re-enable scroll
-      canvasContainer.style.overflow = "auto";
-      canvasContainer.style.height = "210vh"; // matches mainscreen content
-    } else {
-      // disable scroll
-      canvasContainer.style.overflow = "hidden";
-      canvasContainer.style.height = "100vh";
-    }
-  }, [currentTab]);
 
   useEffect(() => {
     if (zoomIn) {
@@ -168,9 +151,7 @@ export default function Scene({}) {
                 <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
               </div>
             )}
-            {currentTab === "main" && (
-              <MainScreen user={user} setCurrentTab={setCurrentTab} />
-            )}
+
             {currentTab === "Contact Me" && (
               <Contact user={user} setCurrentTab={setCurrentTab} />
             )}

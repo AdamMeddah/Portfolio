@@ -11,6 +11,8 @@ import { Suspense } from "react";
 //component & other file imports
 import Scene from "./components/Scene";
 import { staticAssets } from "./assets/staticAssets";
+import Navbar from "./components/Navbar";
+import MainScreen from "./components/tabs/MainScreen";
 import "./App.css";
 
 // all static assets organized by type
@@ -88,9 +90,12 @@ function usePreloadAssets(assets) {
 }
 
 function App() {
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
+  const [currentTab, setCurrentTab] = useState("profiles");
+
   const lastProgress = useRef(0);
 
   // drei useProgress (3d assets)
@@ -146,6 +151,19 @@ function App() {
       )}
 
       {/* hidden until loading done */}
+
+      {/* Navbar only shows on certain tabs */}
+      {currentTab !== "profiles" && (
+        <Navbar
+          user={user}
+          setCurrentTab={setCurrentTab}
+          sectionClass="navbar"
+        />
+      )}
+      {currentTab === "main" && (
+        <MainScreen user={user} setCurrentTab={setCurrentTab} />
+      )}
+
       <div
         id="canvas-container"
         style={{
@@ -156,7 +174,12 @@ function App() {
       >
         <Canvas shadows camera={{ fov: 100, position: [0, 1, 10] }}>
           <Suspense fallback={null}>
-            <Scene />
+            <Scene
+              currentTab={currentTab}
+              setCurrentTab={setCurrentTab}
+              user={user}
+              setUser={setUser}
+            />
             <Preload all />
           </Suspense>
         </Canvas>

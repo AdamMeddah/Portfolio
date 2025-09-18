@@ -29,13 +29,6 @@ export default function Skills({ user, setCurrentTab }) {
 
   return (
     <>
-      {/* navbar at the top of the skills page */}
-      <Navbar
-        user={user}
-        setCurrentTab={setCurrentTab}
-        sectionClass="project-navbar"
-      />
-
       <div className="project-wrapper">
         {/* main title */}
         <h1 className="skills-title">My Skills</h1>
