@@ -556,6 +556,147 @@ body {
   font-size: 1.1rem;
   margin: 0;
 }
+
+/* BLOG SECTION */
+
+.blog-wrapper {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  margin-top: 0;
+  overflow-y: auto;
+}
+
+.blog-grid {
+  margin-top: 15%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12vh 2vw;
+  padding: 0 7%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-card {
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 8px rgba(5, 5, 75, 0.6); /* blue-ish glow to distinguish */
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  height: auto;
+  max-height: 400px;
+}
+
+.blog-card:hover {
+  transform: scale(1.01);
+}
+
+.blog-image {
+  width: 98%;
+  margin: 1% 0 0 1%;
+  height: 50%;
+  border-bottom: 2px solid #27c6ea; /* turquoise separator */
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+@media (min-width: 1000px) {
+  .blog-card {
+    max-height: 700px;
+  }
+  .blog-image {
+    height: 80%;
+  }
+}
+
+.blog-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.blog-title {
+  color: #27c6ea;
+  font-size: 1.5rem;
+}
+
+.blog-desc {
+  margin-top: 0.5rem;
+  font-weight: 300;
+  font-size: 1.1rem;
+}
+
+.blog-content {
+  margin-left: 2%;
+}
+
+/* BLOG DETAIL SECTION */
+
+.blog-detail {
+  max-width: 800px; /* readable width */
+  margin: 2rem auto; /* center it */
+  padding: 1.5rem;
+  background: #e6ded5; /* card-like look */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.blog-detail .detail-image {
+  width: 100%;
+  max-height: 400px; /* prevent giant pics */
+  object-fit: cover; /* crop instead of squish */
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.blog-detail h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.blog-detail p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #2c2c2c;
+}
+
+.blog-detail button {
+  background: #27c6ea;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.blog-detail button:hover {
+  background: #1abc9c;
+}
+
+/* markdown img inside blog-detail */
+.blog-detail img {
+  max-width: 100%; /* stop images from overflowing container */
+  height: auto; /* keep aspect ratio */
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  background: #a6a3a3; /*   color behind images */
+  padding: 4px; /* p padding */
+}
+
 @media (max-width: 480px) {
   .main-preview-vid {
     height: 70%; /* shrink video to keep hero info visible */
