@@ -12,13 +12,6 @@ export default function BlogDetail({
 
   return (
     <>
-      {/* navbar for blog detail */}
-      <Navbar
-        user={user}
-        setCurrentTab={setCurrentTab}
-        sectionClass="blog-navbar"
-      />
-
       <div className="project-wrapper">
         {/* detailed blog view */}
         <div className="blog-detail">
