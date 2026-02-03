@@ -10,7 +10,7 @@ This project is an immersive, interactive 3D portfolio website built with React 
 - **3D TV Interface:** Clickable TV mesh transitions into a personalized home screen.  
 - **User Flows:** Separate experiences for recruiters, developers, and writers, dynamically adjusting projects and content.  
 - **Interactive 3D Elements:** OrbitControls, environment lighting, and custom shaders for immersive visuals.  
-- **Performance Optimizations:** Compressed HDR → EXR, resized images, and optimized code, reducing load time from 30s to 8.8s on slow 3G networks.  
+- **Performance Optimizations:** Compressed HDR → EXR, resized images, and optimized code, reducing load time from 30s to 3.3s.  
 - **Responsive Design:** Mobile-friendly and visually polished across devices.  
 
 ## Installation
