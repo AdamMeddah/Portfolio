@@ -7,10 +7,10 @@ export default function About({ user, setCurrentTab }) {
       <div className="about-wrapper">
         {/* about section with image and text */}
         <div className="about-1">
-          <img src="images/adam.webp" alt="Adam Meddah" />
+          {/* <img src="images/adam.webp" alt="Adam Meddah" /> */}
 
           <div className="about-text">
-            <h1 className="about-title">About Me</h1>
+            <img src="images/aboutlogo.webp" className="about-title" />
 
             <p className="about-paragraph">
               I'm a second year Computer Science student at McMaster University

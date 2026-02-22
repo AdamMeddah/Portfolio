@@ -1099,12 +1099,6 @@ body {
   display: flex;
   flex-direction: row;
 }
-.about-1 img {
-  max-width: 400px;
-  height: auto;
-  width: 100%;
-  border-radius: 24px;
-}
 
 .about-improve {
   font-size: 150%;
@@ -1112,15 +1106,13 @@ body {
 }
 
 .about-title {
-  display: inline-block; /* shrink to fit content so border bottom only on word*/
-  margin-left: 40%;
-  font-weight: 700;
-  font-size: clamp(1.5rem, 3vw, 3rem);
-  text-shadow: 0 0 5px #250be5, 0 0 10px #471192, 0 0 20px #7873f5;
-  transition: text-shadow 0.3s ease;
+  max-width: 350px;
+  width: 100%;
+  border-radius: 9px;
+  margin-left: -0.9%;
 }
 .about-paragraph {
-  margin-left: 6%;
+  margin-left: 0%;
   font-weight: 500;
   font-size: clamp(1rem, 2vw, 1.5rem);
 }
@@ -1158,7 +1150,7 @@ body {
 }
 
 .about-2 img {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
   border-radius: 24px;
   margin-left: 2rem;

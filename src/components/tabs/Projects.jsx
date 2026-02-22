@@ -30,16 +30,6 @@ export default function Projects({ user, setCurrentTab }) {
             <Tag img="images/ollama.webp" title="Ollama" />
           </Project>
 
-          {/* rick grundy therapy website */}
-          <Project
-            title="Rick Grundy Therapy"
-            desc="Developed a responsive therapist website with a clean, calming design using React and Tailwind CSS. Implemented a blog platform to allow the therapist to share articles and resources, integrating Strapi as a headless CMS for easy, non-technical content management and updates."
-            image="images/rick.webp"
-          >
-            <Tag img="images/react.svg" title="React" />
-            <Tag img="images/tailwind.webp" title="Tailwind CSS" />
-          </Project>
-
           {/* portfolio website */}
           <Project
             title="Portfolio Website"
