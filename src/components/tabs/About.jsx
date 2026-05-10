@@ -1,54 +1,54 @@
-// import components
-import Navbar from "../Navbar";
-
 export default function About({ user, setCurrentTab }) {
   return (
     <>
       <div className="about-wrapper">
-        {/* about section with image and text */}
-        <div className="about-1">
-          {/* <img src="images/adam.webp" alt="Adam Meddah" /> */}
-
+        <section className="about-1">
           <div className="about-text">
+            <p className="about-kicker"></p>
             <img src="images/aboutlogo.webp" className="about-title" />
 
-            <p className="about-paragraph">
-              I'm a second year Computer Science student at McMaster University
-              with a passion for unique technological experiences. I strive to
-              contribute to memorable and impactful software projects. Outside
-              of coding, I enjoy writing, exploring AI, going to the gym, public
-              speaking, and much more.
+            <p className="about-lead">
+              I&apos;m a Computer Science student at McMaster University who
+              enjoys building software that feels both thoughtful and useful.
             </p>
 
             <p className="about-paragraph">
+              My favorite projects sit at the intersection of engineering and
+              creativity, whether that means full-stack apps, AI-powered tools,
+              or immersive web experiences like this portfolio.
+            </p>
+
+            <p className="about-paragraph">
+              Outside of coding, I spend time writing, exploring new AI tools,
+              training at the gym, and getting better at public speaking. I care
+              a lot about learning quickly, improving deliberately, and making
+              work that people actually remember.
+            </p>
+
+            <div className="about-callout">
               <span className="about-improve">
-                I'm always trying to improve.
+                I&apos;m always trying to improve.
               </span>
-            </p>
-
-            <p className="about-paragraph">
-              Diving headfirst into making this portfolio website, working on my
-              novel, learning new technologies and tools... I'm constantly
-              learning new skills, while improving upon existing ones.
-            </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* currently working on section */}
-        <div className="currently-working">
+        <section className="currently-working">
           <div className="about-2">
             <div className="about-2-text">
-              <h1 className="working-title">What I'm Working On</h1>
+              <p className="about-kicker">Currently Building</p>
+              <h1 className="working-title">MusiWrite</h1>
 
               <p className="working-paragraph">
-                Right now, I'm working on MusiWrite: an AI-powered playlist
-                maker, made for writers, by a writer.
+                MusiWrite is an AI-powered playlist maker designed for writers.
+                The goal is to help people find the right sound, mood, and pace
+                for the scene they&apos;re trying to write.
               </p>
             </div>
 
-            <img src="images/musiwrite.webp" alt="" />
+            <img src="images/musiwrite.webp" alt="MusiWrite project preview" />
           </div>
-        </div>
+        </section>
       </div>
     </>
   );

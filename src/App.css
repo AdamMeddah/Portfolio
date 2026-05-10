@@ -37,16 +37,25 @@ body {
   background: black;
 }
 
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 #canvas-container,
 #canvas-container > div {
-  position: fixed; /* anchor to viewport, not relative */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: -1 !important; /* force behind everything */
+  z-index: -1 !important;
   pointer-events: none;
-  overflow-y: scroll;
+  overflow: hidden; /* changed from overflow-y: scroll */
 }
 
 /* ===== VARIABLES ===== */
@@ -298,6 +307,15 @@ body {
 }
 
 /* ===== MAIN CONTENT ===== */
+.main-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Video Preview */
 .main-preview-vid {
   position: absolute;
@@ -1090,77 +1108,108 @@ body {
 .about-wrapper {
   width: 100vw;
   height: 100vh;
-  margin-top: 10%;
+  padding: 7rem 5vw 5rem;
   overflow-y: auto;
 }
 
 .about-1 {
-  margin-top: 5%;
   display: flex;
-  flex-direction: row;
-}
-
-.about-improve {
-  font-size: 150%;
-  font-size: clamp(1.2rem, 2.5vw, 2.6rem);
+  justify-content: center;
 }
 
 .about-title {
-  max-width: 350px;
+  max-width: 320px;
   width: 100%;
   border-radius: 9px;
-  margin-left: -0.9%;
+  margin: 0 0 1rem;
 }
+
+.about-kicker {
+  margin: 0 0 0.9rem;
+  color: #d2d2d2;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.about-lead {
+  margin: 0 0 1.3rem;
+  color: white;
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .about-paragraph {
-  margin-left: 0%;
+  margin: 0 0 1rem;
+  color: #d8d8d8;
   font-weight: 500;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
 }
 
 .about-improve {
-  text-shadow: 0 0 5px #940101, 0 0 10px #471192, 0 0 20px #7873f5;
-  transition: text-shadow 0.3s ease;
+  font-size: clamp(1.15rem, 2.1vw, 1.9rem);
+  font-weight: 700;
+  color: white;
 }
 
-.about-improve:hover {
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec4, 0 0 40px #7873f5;
+.about-callout {
+  margin-top: 1.7rem;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid #c20f0f;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
 }
 
 .currently-working {
-  margin-top: 10vh;
+  margin-top: 3rem;
   color: white;
-  padding-bottom: 15vh;
+  padding-bottom: 5rem;
 }
 
 .about-2-text {
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 0.6rem;
 }
+
 .working-title {
   display: inline-block;
   font-weight: 700;
-  font-size: clamp(1.5rem, 3vw, 3rem);
-  margin-right: 20%;
-  text-shadow: 0 0 5px #250be5, 0 0 10px #471192, 0 0 20px #7873f5;
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin: 0;
 }
 
 .about-2 {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
 
 .about-2 img {
-  max-width: 500px;
+  max-width: 440px;
   width: 100%;
   border-radius: 24px;
-  margin-left: 2rem;
+  margin-left: 0;
 }
 
 .working-paragraph {
-  max-width: 70%;
-
+  max-width: 34rem;
+  margin: 0;
+  color: #d8d8d8;
   font-weight: 500;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
 }
 
 @keyframes gradientShift {
@@ -1177,14 +1226,18 @@ body {
 
 .about-text {
   color: white;
-  height: 110%;
+  width: min(760px, 100%);
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
 
 @media (max-width: 500px) {
   .about-1 {
     flex-direction: column;
     align-content: center;
-    margin-top: 15%;
   }
 
   .about-1 img {
@@ -1197,6 +1250,16 @@ body {
 
   .about-paragraph {
     margin-left: 0;
+  }
+
+  .about-wrapper {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .about-text,
+  .about-2 {
+    padding: 1.25rem;
+    border-radius: 18px;
   }
 }
 

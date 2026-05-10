@@ -2,14 +2,16 @@
 import Card from "../Card";
 import Navbar from "../Navbar";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 export default function MainScreen({ user, setCurrentTab }) {
+  const mainWrapperRef = useRef(null);
+
   useEffect(() => {
-    window.scrollTo({ top: -5, left: 0, behavior: "smooth" });
+    mainWrapperRef.current?.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, []);
 
   return (
-    <div className="main-wrapper">
+    <div className="main-wrapper" ref={mainWrapperRef}>
       <section className="outer-wrapper">
         <video
           className="main-preview-vid"
