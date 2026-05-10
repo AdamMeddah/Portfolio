@@ -27,8 +27,11 @@ export default function MainScreen({ user, setCurrentTab }) {
         <div className="main-info-wrapper">
           <div className="main-info">
             <h1 className="main-title" onClick={() => setCurrentTab("main")}>
-              Adam Meddah <span className="seperator-span">|</span> Full-Stack
-              Developer{" "}
+              <span className="main-title-name">Adam Meddah</span>
+              <span className="main-title-divider" aria-hidden="true">
+                |
+              </span>
+              <span className="main-title-role">Full-Stack Developer</span>
             </h1>
 
             <p className="main-paragraph">
