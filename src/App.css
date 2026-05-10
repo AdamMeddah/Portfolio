@@ -42,7 +42,25 @@ html {
   -ms-overflow-style: none;
 }
 
-*::-webkit-scrollbar {
+body,
+.main-wrapper,
+.project-wrapper,
+.blog-wrapper,
+.contact-wrapper,
+.about-wrapper {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.main-wrapper::-webkit-scrollbar,
+.project-wrapper::-webkit-scrollbar,
+.blog-wrapper::-webkit-scrollbar,
+.contact-wrapper::-webkit-scrollbar,
+.about-wrapper::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   display: none;
 }
 
