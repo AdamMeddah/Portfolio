@@ -4,7 +4,6 @@ export default function About({ user, setCurrentTab }) {
       <div className="about-wrapper">
         <section className="about-1">
           <div className="about-text">
-            <p className="about-kicker"></p>
             <img src="images/aboutlogo.webp" className="about-title" />
 
             <p className="about-lead">

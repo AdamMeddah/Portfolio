@@ -1119,9 +1119,10 @@ html {
 
 .about-title {
   max-width: 320px;
-  width: 100%;
+  width: 50%;
   border-radius: 9px;
   margin: 0 0 1rem;
+  margin-left: -3%;
 }
 
 .about-kicker {
