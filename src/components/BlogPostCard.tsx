@@ -1,6 +1,17 @@
-export default function BlogPostCard({ title, desc, image, onClick }) {
+type BlogPostCardProps = {
+  title: string;
+  desc: string;
+  image: string;
+  onClick: () => void;
+};
+
+export default function BlogPostCard({
+  title,
+  desc,
+  image,
+  onClick,
+}: BlogPostCardProps) {
   return (
-    // individual blog card
     <div className="blog-card" onClick={onClick}>
       <img className="blog-image" src={image} alt={title} />
 

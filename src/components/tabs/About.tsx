@@ -1,4 +1,4 @@
-export default function About({ user, setCurrentTab }) {
+export default function About() {
   return (
     <>
       <div className="about-wrapper">

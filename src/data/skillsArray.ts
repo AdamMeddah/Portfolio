@@ -1,12 +1,13 @@
-// list of programming languages
-export const languages = [
+import type { SkillItem } from "../types";
+
+export const languages: SkillItem[] = [
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
     title: "Java",
     desc: "Object-oriented language",
   },
   {
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", // keep local if needed
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
     title: "Python",
     desc: "General-purpose language",
   },
@@ -45,12 +46,6 @@ export const languages = [
     title: "Haskell",
     desc: "Functional programming",
   },
-  // optional languages commented out
-  // {
-  //   logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
-  //   title: "Bash",
-  //   desc: "scripting & automation",
-  // },
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg",
     title: "LaTeX",
@@ -58,13 +53,9 @@ export const languages = [
   },
 ];
 
-// list of frameworks
-export const frameworks = [
-  // commented out frameworks
-  // { logo: "...", title: "ASP.NET Core", desc: "backend framework" },
-  // { logo: "...", title: "Node.js", desc: "backend runtime" },
+export const frameworks: SkillItem[] = [
   {
-    logo: "images/flask.webp", // keep local
+    logo: "images/flask.webp",
     title: "Flask",
     desc: "Lightweight Python framework",
   },
@@ -90,10 +81,9 @@ export const frameworks = [
   },
 ];
 
-// list of tools
-export const tools = [
+export const tools: SkillItem[] = [
   {
-    logo: "images/aws.webp", // keep local
+    logo: "images/aws.webp",
     title: "AWS",
     desc: "Cloud services",
   },
@@ -103,22 +93,18 @@ export const tools = [
     desc: "Version control",
   },
   {
-    logo: "images/ollama.webp", // keep local
+    logo: "images/ollama.webp",
     title: "Ollama",
     desc: "AI model integration",
   },
   {
-    logo: "images/tailwind.webp", // keep local
+    logo: "images/tailwind.webp",
     title: "Tailwind CSS",
     desc: "Utility-first CSS framework",
   },
-  // optional tools commented out
-  // { logo: "...", title: "Docker", desc: "containerization" },
-  // { logo: "...", title: "Kubernetes", desc: "container orchestration" },
 ];
 
-// list of libraries
-export const libraries = [
+export const libraries: SkillItem[] = [
   {
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     title: "React",

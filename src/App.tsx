@@ -1,24 +1,14 @@
-//handles processes outside of scene, such as preloading assets and overarching canvas setup
-
-//3d related imports (r3f, drei)
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { Preload, useProgress } from "@react-three/drei";
-
-//react imports
-import { useState, useEffect, useRef } from "react";
-import { Suspense } from "react";
-
-//component & other file imports
+import { Suspense, useEffect, useRef, useState } from "react";
 import Scene from "./components/Scene";
 import { staticAssets } from "./assets/staticAssets";
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/tabs/MainScreen";
+import type { StaticAssets, TabName, UserRole } from "./types";
 import "./App.css";
 
-// all static assets organized by type
-
-// hook to preload all assets (images, videos, fonts, hdris)
-function usePreloadAssets(assets) {
+function usePreloadAssets(assets: StaticAssets) {
   const [loaded, setLoaded] = useState(0);
   const [total, setTotal] = useState(0);
   const [ready, setReady] = useState(false);
@@ -50,7 +40,6 @@ function usePreloadAssets(assets) {
 
     allAssets.forEach((src) => {
       if (src.endsWith(".mp4")) {
-        // video files
         const video = document.createElement("video");
         video.src = src;
         video.preload = "auto";
@@ -58,21 +47,18 @@ function usePreloadAssets(assets) {
         video.oncanplaythrough = handleLoad;
         video.onerror = handleLoad;
       } else if (src.endsWith(".hdr")) {
-        // hdr environment files - preload as images
         const img = new Image();
         img.src = src;
         img.onload = handleLoad;
         img.onerror = handleLoad;
       } else if (src.endsWith(".json") || src.endsWith(".otf")) {
-        // font files - fetch them to preload
         fetch(src)
           .then((response) => {
             if (response.ok) handleLoad();
-            else handleLoad(); // still count as loaded even if error
+            else handleLoad();
           })
           .catch(handleLoad);
       } else {
-        // image files
         const img = new Image();
         img.src = src;
         img.onload = handleLoad;
@@ -90,27 +76,22 @@ function usePreloadAssets(assets) {
 }
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserRole | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
-  const [currentTab, setCurrentTab] = useState("profiles");
+  const [currentTab, setCurrentTab] = useState<TabName>("profiles");
 
   const lastProgress = useRef(0);
 
-  // drei useProgress (3d assets)
   const { progress: threeProgress, active } = useProgress();
-
-  // custom static asset preload
   const { ready: staticReady, progress: staticProgress } =
     usePreloadAssets(staticAssets);
 
-  // calculate actual combined progress (weighted average)
   const actualProgress = Math.min(100, (threeProgress + staticProgress) / 2);
   const allReady = !active && staticReady;
 
   useEffect(() => {
-    // update progress based on actual loading, not simulation
     if (actualProgress > lastProgress.current) {
       lastProgress.current = actualProgress;
       setLoadingProgress(actualProgress);
@@ -129,7 +110,6 @@ function App() {
 
   return (
     <>
-      {/* show loading screen until everything is loaded */}
       {isLoading && (
         <div className="initial-loader">
           <div className="loader-content">
@@ -150,9 +130,6 @@ function App() {
         </div>
       )}
 
-      {/* hidden until loading done */}
-
-      {/* Navbar only shows on certain tabs */}
       {currentTab !== "profiles" && (
         <Navbar
           user={user}
@@ -160,7 +137,7 @@ function App() {
           sectionClass="navbar"
         />
       )}
-      {currentTab === "main" && (
+      {currentTab === "main" && user && (
         <MainScreen user={user} setCurrentTab={setCurrentTab} />
       )}
 
@@ -177,7 +154,6 @@ function App() {
             <Scene
               currentTab={currentTab}
               setCurrentTab={setCurrentTab}
-              user={user}
               setUser={setUser}
             />
             <Preload all />

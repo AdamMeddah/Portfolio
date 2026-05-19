@@ -1,13 +1,16 @@
-// launch screen lets the user pick a profile
-export default function LaunchScreen({ setCurrentTab, setUser }) {
+import type { SetCurrentTab, SetUser } from "../../types";
+
+type LaunchScreenProps = {
+  setCurrentTab: SetCurrentTab;
+  setUser: SetUser;
+};
+
+export default function LaunchScreen({ setCurrentTab, setUser }: LaunchScreenProps) {
   return (
     <>
-      {/* main title */}
       <h1 id="launch-title">Who's Watching?</h1>
 
-      {/* row of profile options */}
       <div id="profile-row">
-        {/* recruiter profile */}
         <div
           className="profile"
           onClick={() => {
@@ -19,7 +22,6 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
           <span className="profile-text">Recruiter</span>
         </div>
 
-        {/* writer profile */}
         <div
           className="profile"
           onClick={() => {
@@ -31,7 +33,6 @@ export default function LaunchScreen({ setCurrentTab, setUser }) {
           <span className="profile-text">Writer</span>
         </div>
 
-        {/* developer profile */}
         <div
           className="profile"
           onClick={() => {

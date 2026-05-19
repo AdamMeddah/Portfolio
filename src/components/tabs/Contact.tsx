@@ -1,27 +1,30 @@
-// contact page with form to send message via google form / formeasy
 import { useState } from "react";
-import Navbar from "../Navbar";
+import type { ChangeEvent, FormEvent } from "react";
 
-export default function Contact({ user, setCurrentTab }) {
-  // form state
-  const [formData, setFormData] = useState({
+type ContactFormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+export default function Contact() {
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     message: "",
   });
-  const [status, setStatus] = useState(""); // form status message
-  const [loading, setLoading] = useState(false); // spinner state
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // .env variable for formeasy url (starts with VITE)
   const url = import.meta.env.VITE_REACT_APP_GOOGLE_FORM_URL;
 
-  // handle input changes
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // handle form submit
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending...");
     setLoading(true);
@@ -29,11 +32,10 @@ export default function Contact({ user, setCurrentTab }) {
     try {
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" }, // formeasy expects utf-8
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(formData),
       });
 
-      // send data even if page is unloading
       if (navigator.sendBeacon) {
         const blob = new Blob([JSON.stringify(formData)], {
           type: "text/plain",
@@ -41,7 +43,6 @@ export default function Contact({ user, setCurrentTab }) {
         navigator.sendBeacon(url, blob);
       }
 
-      // check response
       if (res.ok) {
         setStatus("message sent!");
         setFormData({ name: "", email: "", message: "" });
@@ -59,14 +60,12 @@ export default function Contact({ user, setCurrentTab }) {
   return (
     <>
       <div className="contact-wrapper">
-        {/* header text */}
         <div className="contact-header">
           <h1 className="contact-title">Let's Work.</h1>
           <p className="secondary-contact">Or chat.</p>
           <p className="tertiary-contact">... or coffee, your call</p>
         </div>
 
-        {/* contact form */}
         <div className="contact-form">
           <h2 className="form-title">Contact Me</h2>
           <form onSubmit={handleSubmit}>
@@ -99,7 +98,6 @@ export default function Contact({ user, setCurrentTab }) {
             </button>
           </form>
 
-          {/* status / spinner */}
           {loading && <div className="spinner">⏳ Sending...</div>}
           {!loading && status && <p>{status}</p>}
         </div>

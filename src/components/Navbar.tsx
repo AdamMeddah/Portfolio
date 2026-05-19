@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react"; // icons
+import { Menu, X } from "lucide-react";
+import type { SetCurrentTab, UserRole } from "../types";
 
-export default function Navbar({ user, setCurrentTab, sectionClass }) {
+type NavbarProps = {
+  user: UserRole | null;
+  setCurrentTab: SetCurrentTab;
+  sectionClass: string;
+};
+
+export default function Navbar({
+  user,
+  setCurrentTab,
+  sectionClass,
+}: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  function getUserLogo(user) {
+  function getUserLogo(user: UserRole | null) {
     switch (user) {
       case "recruiter":
         return "images/bluishavatar.webp";
@@ -12,10 +23,11 @@ export default function Navbar({ user, setCurrentTab, sectionClass }) {
         return "images/greenavatar.webp";
       case "writer":
         return "images/redavatar.webp";
+      default:
+        return "images/bluishavatar.webp";
     }
   }
 
-  // solve edge case of having hamburger menu open, then changing orientation (hamburger menu icon is gone, so how will they close it?)
   useEffect(() => {
     function handleResize() {
       if (

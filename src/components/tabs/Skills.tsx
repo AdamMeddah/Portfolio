@@ -1,17 +1,13 @@
-// import components
-import Navbar from "../Navbar";
-
-// import skill data
 import {
   languages,
   frameworks,
   tools,
   libraries,
 } from "../../data/skillsArray";
+import type { SkillItem } from "../../types";
 
-export default function Skills({ user, setCurrentTab }) {
-  // reusable function to render each skills section
-  const renderSection = (title, items) => (
+export default function Skills() {
+  const renderSection = (title: string, items: SkillItem[]) => (
     <div className="skills-section">
       <h2 className="skills-subtitle">{title}</h2>
 
@@ -30,10 +26,8 @@ export default function Skills({ user, setCurrentTab }) {
   return (
     <>
       <div className="project-wrapper">
-        {/* main title */}
         <h1 className="skills-title">My Skills</h1>
 
-        {/* render all skill sections */}
         {renderSection("languages", languages)}
         {renderSection("frameworks", frameworks)}
         {renderSection("tools", tools)}

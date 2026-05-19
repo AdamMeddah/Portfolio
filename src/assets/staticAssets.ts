@@ -1,5 +1,6 @@
-// all static assets organized by type
-export const staticAssets = {
+import type { StaticAssets } from "../types";
+
+export const staticAssets: StaticAssets = {
   images: [
     "/images/about.webp",
     "/images/adam.webp",

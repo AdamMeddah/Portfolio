@@ -1,24 +1,23 @@
-// import components
-import Navbar from "../Navbar";
 import BlogPostCard from "../BlogPostCard";
-
-// import data
 import { blogData } from "../../data/blogData";
+import type { BlogPost } from "../../types";
 
-export default function Blog({ user, setCurrentTab, setActivePost }) {
+type BlogProps = {
+  setActivePost: (post: BlogPost) => void;
+};
+
+export default function Blog({ setActivePost }: BlogProps) {
   return (
     <>
       <div className="project-wrapper">
-        {/* grid of blog posts */}
         <div className="blog-grid">
           {blogData.map((post) => (
             <BlogPostCard
-              user={user}
               key={post.id}
               title={post.title}
               desc={post.desc}
               image={post.image}
-              onClick={() => setActivePost(post)} // navigate to detail
+              onClick={() => setActivePost(post)}
             />
           ))}
         </div>
