@@ -3,6 +3,7 @@ import type { StaticAssets } from "../types";
 export const staticAssets: StaticAssets = {
   images: [
     "/images/about.webp",
+    "/images/aboutlogo.webp",
     "/images/adam.webp",
     "/images/amLogo.webp",
     "/images/aws.webp",
@@ -21,9 +22,21 @@ export const staticAssets: StaticAssets = {
     "/images/python.webp",
     "/images/react.svg",
     "/images/redavatar.webp",
-    "/images/rick.webp",
     "/images/skills.webp",
     "/images/tailwind.webp",
     "/images/ThreeJS.webp",
   ],
+  videos: [
+    "/videos/black_ios.mp4",
+    "/videos/noted_ios.mp4",
+    "/videos/static_ios.mp4",
+    "/videos/white_ios.mp4",
+  ],
+  fonts: [
+    "/fonts/Inter_Bold.json",
+    "/fonts/net_sans_bold.otf",
+    "/fonts/net_sans_light.otf",
+    "/fonts/net_sans_med.otf",
+  ],
+  hdris: ["/hdris/fireplace.exr", "/fireplace.hdr"],
 };

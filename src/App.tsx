@@ -29,8 +29,11 @@ function usePreloadAssets(assets: StaticAssets) {
     }
 
     let completed = 0;
+    let cancelled = false;
 
     function handleLoad() {
+      if (cancelled) return;
+
       completed++;
       setLoaded(completed);
       if (completed === allAssets.length) {
@@ -38,19 +41,31 @@ function usePreloadAssets(assets: StaticAssets) {
       }
     }
 
+    function handleImageLoad(src: string) {
+      const img = new Image();
+      img.onload = () => {
+        if (img.decode) {
+          img.decode().then(handleLoad).catch(handleLoad);
+        } else {
+          handleLoad();
+        }
+      };
+      img.onerror = handleLoad;
+      img.src = src;
+    }
+
     allAssets.forEach((src) => {
       if (src.endsWith(".mp4")) {
         const video = document.createElement("video");
-        video.src = src;
         video.preload = "auto";
         video.muted = true;
-        video.oncanplaythrough = handleLoad;
+        video.playsInline = true;
+        video.onloadeddata = handleLoad;
         video.onerror = handleLoad;
-      } else if (src.endsWith(".hdr")) {
-        const img = new Image();
-        img.src = src;
-        img.onload = handleLoad;
-        img.onerror = handleLoad;
+        video.src = src;
+        video.load();
+      } else if (src.endsWith(".hdr") || src.endsWith(".exr")) {
+        fetch(src).then(handleLoad).catch(handleLoad);
       } else if (src.endsWith(".json") || src.endsWith(".otf")) {
         fetch(src)
           .then((response) => {
@@ -59,12 +74,13 @@ function usePreloadAssets(assets: StaticAssets) {
           })
           .catch(handleLoad);
       } else {
-        const img = new Image();
-        img.src = src;
-        img.onload = handleLoad;
-        img.onerror = handleLoad;
+        handleImageLoad(src);
       }
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [assets]);
 
   return {

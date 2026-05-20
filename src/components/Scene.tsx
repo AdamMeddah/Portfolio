@@ -118,25 +118,33 @@ export default function Scene({
               backgroundColor: "transparent",
             }}
           >
-            {currentTab === "profiles" && (
-              <div className="launch-wrapper">
-                <LaunchScreen setCurrentTab={setCurrentTab} setUser={setUser} />
-              </div>
-            )}
+            <div
+              className="tv-tab-shell"
+              key={activePost ? `${currentTab}-${activePost.id}` : currentTab}
+            >
+              {currentTab === "profiles" && (
+                <div className="launch-wrapper">
+                  <LaunchScreen
+                    setCurrentTab={setCurrentTab}
+                    setUser={setUser}
+                  />
+                </div>
+              )}
 
-            {currentTab === "Contact Me" && <Contact />}
-            {currentTab === "Projects" && <Projects />}
-            {currentTab === "Blog" && !activePost && (
-              <Blog setActivePost={setActivePost} />
-            )}
-            {currentTab === "Blog" && activePost && (
-              <BlogDetail
-                post={activePost}
-                clearActivePost={() => setActivePost(null)}
-              />
-            )}
-            {currentTab === "Skills" && <Skills />}
-            {currentTab === "About" && <About />}
+              {currentTab === "Contact Me" && <Contact />}
+              {currentTab === "Projects" && <Projects />}
+              {currentTab === "Blog" && !activePost && (
+                <Blog setActivePost={setActivePost} />
+              )}
+              {currentTab === "Blog" && activePost && (
+                <BlogDetail
+                  post={activePost}
+                  clearActivePost={() => setActivePost(null)}
+                />
+              )}
+              {currentTab === "Skills" && <Skills />}
+              {currentTab === "About" && <About />}
+            </div>
           </Html>
         )}
       </mesh>
