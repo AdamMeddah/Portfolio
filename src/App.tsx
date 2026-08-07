@@ -129,9 +129,16 @@ function App() {
       {isLoading && (
         <div className="initial-loader">
           <div className="loader-content">
-            <div className="loader-spinner"></div>
-            <p>Loading portfolio... {Math.round(loadingProgress)}%</p>
-            <div className="progress-bar">
+            <p className="loader-status">
+              Loading portfolio... {Math.round(loadingProgress)}%
+            </p>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              aria-valuenow={Math.round(loadingProgress)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            >
               <div
                 className="progress-fill"
                 style={{ width: `${loadingProgress}%` }}
@@ -149,6 +156,7 @@ function App() {
       {currentTab !== "profiles" && (
         <Navbar
           user={user}
+          currentTab={currentTab}
           setCurrentTab={setCurrentTab}
           sectionClass="navbar"
         />

@@ -12,13 +12,13 @@ export default function BlogPostCard({
   onClick,
 }: BlogPostCardProps) {
   return (
-    <div className="blog-card" onClick={onClick}>
-      <img className="blog-image" src={image} alt={title} />
+    <button type="button" className="blog-card" onClick={onClick}>
+      <img className="blog-image" src={image} alt="" loading="lazy" />
 
       <div className="blog-content">
-        <h2>{title}</h2>
-        <p>{desc}</p>
+        <h2 className="blog-title">{title}</h2>
+        <p className="blog-desc">{desc}</p>
       </div>
-    </div>
+    </button>
   );
 }

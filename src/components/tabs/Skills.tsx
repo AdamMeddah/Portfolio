@@ -8,24 +8,29 @@ import type { SkillItem } from "../../types";
 
 export default function Skills() {
   const renderSection = (title: string, items: SkillItem[]) => (
-    <div className="skills-section">
+    <section className="skills-section" key={title}>
       <h2 className="skills-subtitle">{title}</h2>
 
       <div className="skills-grid">
-        {items.map((skill, idx) => (
-          <div key={idx} className="skill-card">
-            <img src={skill.logo} alt={skill.title} className="skill-logo" />
+        {items.map((skill) => (
+          <div key={skill.title} className="skill-card">
+            <img
+              src={skill.logo}
+              alt=""
+              className="skill-logo"
+              loading="lazy"
+            />
             <h3 className="skill-title">{skill.title}</h3>
             <p className="skill-desc">{skill.desc}</p>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 
   return (
-    <>
-      <div className="project-wrapper">
+    <div className="tab-wrapper">
+      <div className="tab-inner">
         <h1 className="skills-title">My Skills</h1>
 
         {renderSection("languages", languages)}
@@ -33,6 +38,6 @@ export default function Skills() {
         {renderSection("tools", tools)}
         {renderSection("libraries", libraries)}
       </div>
-    </>
+    </div>
   );
 }

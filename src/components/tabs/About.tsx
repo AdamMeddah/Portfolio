@@ -1,7 +1,7 @@
 export default function About() {
   return (
     <>
-      <div className="about-wrapper">
+      <div className="tab-wrapper about-wrapper">
         <section className="about-1">
           <div className="about-text">
             <img src="images/aboutlogo.webp" className="about-title" />

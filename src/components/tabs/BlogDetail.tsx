@@ -9,16 +9,18 @@ type BlogDetailProps = {
 export default function BlogDetail({ post, clearActivePost }: BlogDetailProps) {
   return (
     <>
-      <div className="project-wrapper">
-        <div className="blog-detail">
-          <img className="detail-image" src={post.image} alt={post.title} />
+      <div className="tab-wrapper">
+        <article className="blog-detail">
+          <button className="blog-back" onClick={clearActivePost}>
+            ← Back to Blog
+          </button>
+
+          <img className="detail-image" src={post.image} alt="" />
 
           <h1>{post.title}</h1>
 
           <ReactMarkdown>{post.fullText || post.desc}</ReactMarkdown>
-
-          <button onClick={clearActivePost}>← Back to Blog</button>
-        </div>
+        </article>
       </div>
     </>
   );

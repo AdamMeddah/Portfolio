@@ -17,7 +17,7 @@ function Tag({ img, title }: TagProps) {
 export default function Projects() {
   return (
     <>
-      <div className="project-wrapper">
+      <div className="tab-wrapper">
         <div className="project-grid">
           <Project
             title="MusiWrite"

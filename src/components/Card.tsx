@@ -8,16 +8,13 @@ type CardProps = {
 
 export default function Card({ title, image, setCurrentTab }: CardProps) {
   return (
-    <div
+    <button
+      type="button"
       className="card"
       onClick={() => setCurrentTab(title)}
-      style={{
-        backgroundImage: `url(${image})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
-      {title}
-    </div>
+      <img className="card-image" src={image} alt="" loading="lazy" />
+      <span className="card-label">{title}</span>
+    </button>
   );
 }

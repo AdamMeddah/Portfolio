@@ -9,7 +9,7 @@ type BlogProps = {
 export default function Blog({ setActivePost }: BlogProps) {
   return (
     <>
-      <div className="project-wrapper">
+      <div className="tab-wrapper">
         <div className="blog-grid">
           {blogData.map((post) => (
             <BlogPostCard
