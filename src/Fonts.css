@@ -1,17 +1,22 @@
 /* define netflixsans font weights, can then be imported for use in App.css */
+/* each face covers a weight range so body copy at 400 resolves to light
+   instead of being synthetically bolded by the browser */
 @font-face {
   font-family: "NetflixSans";
   src: url("/fonts/net_sans_light.otf") format("opentype");
-  font-weight: 300;
+  font-weight: 300 400;
+  font-display: swap;
 }
 @font-face {
   font-family: "NetflixSans";
   src: url("/fonts/net_sans_med.otf") format("opentype");
-  font-weight: 500;
+  font-weight: 500 600;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "NetflixSans";
   src: url("/fonts/net_sans_bold.otf") format("opentype");
-  font-weight: 700;
+  font-weight: 700 900;
+  font-display: swap;
 }
