@@ -144,11 +144,6 @@ function App() {
                 style={{ width: `${loadingProgress}%` }}
               ></div>
             </div>
-            {loadingProgress > 30 && (
-              <p className="loading-tip">
-                Tip: This portfolio works best on faster connections
-              </p>
-            )}
           </div>
         </div>
       )}

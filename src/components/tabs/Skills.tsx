@@ -21,7 +21,6 @@ export default function Skills() {
               loading="lazy"
             />
             <h3 className="skill-title">{skill.title}</h3>
-            <p className="skill-desc">{skill.desc}</p>
           </div>
         ))}
       </div>

@@ -32,7 +32,6 @@ export type BlogPost = {
 export type SkillItem = {
   logo: string;
   title: string;
-  desc: string;
 };
 
 export type ProjectChildren = {
