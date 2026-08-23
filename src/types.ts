@@ -29,6 +29,14 @@ export type BlogPost = {
   image: string;
 };
 
+/* the mock "title details" shown when a home-screen tile expands */
+export type CardMeta = {
+  match: number;
+  rating: string;
+  length: string;
+  tags: string[];
+};
+
 export type SkillItem = {
   logo: string;
   title: string;

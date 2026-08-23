@@ -673,15 +673,24 @@ button {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
   padding: 0;
-  background: var(--surface-raised);
+  background: none;
   border: none;
-  border-radius: 4px;
-  overflow: hidden;
   cursor: pointer;
   scroll-snap-align: start;
-  transition: transform var(--medium), box-shadow var(--medium);
+  transition: transform var(--medium);
+}
+
+.card-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface-raised);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-radius var(--medium), box-shadow var(--medium);
 }
 
 .card-image {
@@ -694,7 +703,7 @@ button {
 }
 
 /* keeps labels legible over light photos without dimming the whole image */
-.card::after {
+.card-art::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -709,7 +718,7 @@ button {
 .card-label {
   position: absolute;
   left: 0.85rem;
-  right: 3rem;
+  right: 0.85rem;
   bottom: 0.7rem;
   z-index: 1;
   color: var(--text);
@@ -717,29 +726,6 @@ button {
   font-weight: 500;
   text-align: left;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
-}
-
-/* the circular play affordance Netflix puts on a focused tile */
-.card-play {
-  position: absolute;
-  right: 0.7rem;
-  bottom: 0.6rem;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 2rem;
-  height: 2rem;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity var(--medium), transform var(--medium);
-}
-
-.card-play svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  fill: #000;
 }
 
 /* the red "part way through" bar under a continue-watching tile */
@@ -766,49 +752,161 @@ button {
   bottom: 1.2rem;
 }
 
-.card:hover,
-.card:focus-visible {
+.card:hover .card-art,
+.card:focus-visible .card-art {
   box-shadow: var(--shadow-md);
 }
 
 .card:hover .card-image {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
-.card:hover .card-play,
-.card:focus-visible .card-play {
-  opacity: 1;
-  transform: scale(1);
+/* ===== EXPANDED TILE ===== */
+/* the detail drawer that drops out of a hovered tile */
+.card-expand {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem 0.9rem 1rem;
+  text-align: left;
+  background: var(--surface-raised);
+  border-radius: 0 0 4px 4px;
+  box-shadow: var(--shadow-lg);
+}
+
+.card-pips {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-pip {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+}
+
+.card-pip:first-child {
+  background: #fff;
+  border-color: #fff;
+}
+
+/* the chevron sits apart on the right, as it does on a Netflix tile */
+.card-pip:last-child {
+  margin-left: auto;
+}
+
+.card-pip svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-pip .pip-solid {
+  fill: #000;
+  stroke: none;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.card-match {
+  color: #46d369;
+  font-weight: 700;
+}
+
+.card-rating {
+  padding: 0 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.card-hd {
+  padding: 0 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.card-dot {
+  margin-right: 0.35rem;
+  color: var(--text-dim);
 }
 
 /*
-  pointer devices get the Netflix row behaviour: the hovered tile grows and its
-  neighbours slide out of the way. touch screens keep the plain grid.
+  pointer devices get the Netflix row behaviour: the hovered tile grows, drops a
+  detail drawer and its neighbours slide aside. touch screens keep the plain grid.
 */
 @media (hover: hover) and (min-width: 769px) {
   .row-list .card {
-    transition: transform var(--medium) 120ms, box-shadow var(--medium);
+    transition: transform var(--medium) 200ms;
   }
 
-  .row-list .card:hover {
-    transform: scale(1.14);
-    z-index: 3;
+  .row-list .card-expand {
+    display: flex;
+    opacity: 0;
+    transition: opacity var(--medium) 200ms;
+  }
+
+  .row-list .card:hover,
+  .row-list .card:focus-visible {
+    transform: scale(1.16);
+    z-index: 5;
+  }
+
+  .row-list .card:hover .card-art,
+  .row-list .card:focus-visible .card-art {
+    border-radius: 4px 4px 0 0;
+  }
+
+  .row-list .card:hover .card-expand,
+  .row-list .card:focus-visible .card-expand {
+    opacity: 1;
   }
 
   .row-list .card:hover ~ .card {
-    transform: translateX(2.2%);
+    transform: translateX(3%);
   }
 
   .row-list:has(.card:hover) .card:has(~ .card:hover) {
-    transform: translateX(-2.2%);
+    transform: translateX(-3%);
   }
 
   .row-list .card:first-child:hover {
-    transform: scale(1.14) translateX(5%);
+    transform: scale(1.16) translateX(6%);
   }
 
   .row-list .card:last-child:hover {
-    transform: scale(1.14) translateX(-5%);
+    transform: scale(1.16) translateX(-6%);
   }
 }
 
@@ -847,6 +945,10 @@ button {
 /* the entry already scales on hover; lifting the card too double-transforms */
 .rank-entry .card:hover {
   transform: none;
+}
+
+.rank-entry .card-expand {
+  display: none;
 }
 
 /* ===== FOOTER ===== */

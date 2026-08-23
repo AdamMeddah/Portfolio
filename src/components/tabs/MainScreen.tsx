@@ -1,6 +1,6 @@
 import Card from "../Card";
 import { useEffect, useRef } from "react";
-import type { SetCurrentTab, TabName, UserRole } from "../../types";
+import type { CardMeta, SetCurrentTab, TabName, UserRole } from "../../types";
 
 type MainScreenProps = {
   user: UserRole;
@@ -16,6 +16,40 @@ const cardImages: Record<Exclude<TabName, "profiles" | "main">, string> = {
 };
 
 type Destination = keyof typeof cardImages;
+
+/* mock title details, in the spirit of the rest of the Netflix pastiche */
+const cardMeta: Record<Destination, CardMeta> = {
+  Skills: {
+    match: 97,
+    rating: "PG",
+    length: "25 Titles",
+    tags: ["Technical", "Broad", "Hands-On"],
+  },
+  Projects: {
+    match: 98,
+    rating: "PG-13",
+    length: "3 Episodes",
+    tags: ["Full-Stack", "AI", "Built Solo"],
+  },
+  "Contact Me": {
+    match: 99,
+    rating: "G",
+    length: "2 min",
+    tags: ["Quick Reply", "Low Effort", "Coffee Optional"],
+  },
+  About: {
+    match: 95,
+    rating: "PG",
+    length: "4 min",
+    tags: ["Personal", "Curious", "Slightly Rambly"],
+  },
+  Blog: {
+    match: 92,
+    rating: "PG",
+    length: "1 Season",
+    tags: ["Reflective", "Technical", "Honest"],
+  },
+};
 
 const topPicks: Record<UserRole, Destination[]> = {
   recruiter: ["Skills", "Projects", "Contact Me"],
@@ -89,6 +123,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
         title={destination}
         image={cardImages[destination]}
         setCurrentTab={setCurrentTab}
+        meta={cardMeta[destination]}
       />
     ));
 
@@ -185,6 +220,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
                 title={to}
                 image={cardImages[to]}
                 setCurrentTab={setCurrentTab}
+                meta={cardMeta[to]}
                 progress={progress}
               />
             ))}
