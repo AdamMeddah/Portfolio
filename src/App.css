@@ -250,10 +250,33 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 10%, transparent);
+  background: transparent;
   border-bottom: 1px solid transparent;
   transition: background-color var(--medium), border-color var(--medium);
   z-index: 1000;
+}
+
+/*
+  the top scrim hangs below the bar and tapers off on an eased ramp. a plain
+  gradient ending flush with the bar leaves a faint mach band along its edge.
+*/
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 220%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.56) 22%,
+    rgba(0, 0, 0, 0.34) 44%,
+    rgba(0, 0, 0, 0.16) 64%,
+    rgba(0, 0, 0, 0.05) 82%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: opacity var(--medium);
 }
 
 /* solidifies once the page moves, the way the Netflix header does */
@@ -261,6 +284,10 @@ button {
   background: rgba(20, 20, 20, 0.96);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--line);
+}
+
+.navbar.is-scrolled::before {
+  opacity: 0;
 }
 
 .left-navbar {
