@@ -434,24 +434,41 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  /* biased low so the notebook in the lower-left of the frame stays in shot */
+  object-position: center 65%;
   z-index: 0;
 }
 
-/* fades the clip into the page instead of cutting it off mid-frame */
+/*
+  three light layers instead of one heavy one, the way Netflix stacks a billboard:
+  an angled wash that only darkens the text side, a soft lift off the floor, and a
+  short band at the very bottom that meets the page black. the middle of the frame
+  is left almost untouched so detail in the clip survives.
+*/
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(
-      to top,
-      #000 0%,
-      #000 10%,
-      rgba(0, 0, 0, 0.82) 28%,
-      rgba(0, 0, 0, 0) 72%
-    ),
-    linear-gradient(to right, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0) 65%);
+  background:
+    /* bottom band: confined to the last slice so it never reaches mid-frame */
+    linear-gradient(
+        to top,
+        #000 0%,
+        rgba(0, 0, 0, 0.88) 32%,
+        rgba(0, 0, 0, 0.45) 66%,
+        rgba(0, 0, 0, 0) 100%
+      )
+      bottom / 100% 15% no-repeat,
+    /* gentle overall lift off the floor */
+    linear-gradient(7deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 58%),
+    /* angled legibility wash behind the copy only */
+    linear-gradient(
+      77deg,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.38) 38%,
+      rgba(0, 0, 0, 0) 70%
+    );
 }
 
 .main-info-wrapper {
@@ -487,6 +504,7 @@ button {
   font-weight: 700;
   letter-spacing: -0.04em;
   color: var(--text);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.75);
 }
 
 .main-title-divider {
@@ -509,8 +527,8 @@ button {
   font-size: clamp(0.95rem, 1.35vw, 1.1rem);
   font-weight: 300;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 2px 18px rgba(0, 0, 0, 0.8);
 }
 
 .main-two-buttons {
