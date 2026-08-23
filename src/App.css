@@ -337,9 +337,10 @@ button {
   color: var(--text);
 }
 
+/* sized to match the profile avatar beside them so the row reads as one line */
 .contact-logos svg {
-  width: clamp(20px, 2vw, 24px);
-  height: clamp(20px, 2vw, 24px);
+  width: clamp(26px, 2.4vw, 32px);
+  height: clamp(26px, 2.4vw, 32px);
 }
 
 .user-logo {
