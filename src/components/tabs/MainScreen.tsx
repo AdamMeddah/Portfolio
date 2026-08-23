@@ -199,7 +199,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
       </div>
 
       <footer className="footer">
-        <h3> © 2025 Adam Meddah. All rights reserved.</h3>
+        <h3>© {new Date().getFullYear()} Adam Meddah. All rights reserved.</h3>
       </footer>
     </div>
   );
