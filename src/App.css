@@ -250,10 +250,17 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background: rgba(10, 10, 10, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 10%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--medium), border-color var(--medium);
   z-index: 1000;
+}
+
+/* solidifies once the page moves, the way the Netflix header does */
+.navbar.is-scrolled {
+  background: rgba(20, 20, 20, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--line);
 }
 
 .left-navbar {

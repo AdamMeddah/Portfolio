@@ -30,6 +30,24 @@ export default function Navbar({
   sectionClass,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  /*
+    each tab scrolls its own container rather than the window, so listen on the
+    capture phase to catch whichever one is currently active.
+  */
+  useEffect(() => {
+    function handleScroll(e: Event) {
+      const target = e.target as HTMLElement | Document;
+      const top = target instanceof HTMLElement ? target.scrollTop : 0;
+      setIsScrolled(top > 40);
+    }
+    document.addEventListener("scroll", handleScroll, true);
+    return () => document.removeEventListener("scroll", handleScroll, true);
+  }, []);
+
+  // a fresh tab starts at the top again
+  useEffect(() => setIsScrolled(false), [currentTab]);
 
   useEffect(() => {
     function handleResize() {
@@ -60,7 +78,7 @@ export default function Navbar({
   };
 
   return (
-    <nav className={sectionClass}>
+    <nav className={`${sectionClass}${isScrolled ? " is-scrolled" : ""}`}>
       <div className="left-navbar">
         <button
           type="button"
