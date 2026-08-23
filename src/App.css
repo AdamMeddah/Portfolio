@@ -735,7 +735,6 @@ button {
 }
 
 /* a tile carrying a progress bar needs its label to sit above it */
-.card-progress ~ .card-label,
 .card:has(.card-progress) .card-label {
   bottom: 1.2rem;
 }
