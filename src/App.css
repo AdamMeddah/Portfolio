@@ -184,6 +184,76 @@ button {
   }
 }
 
+/* ===== IDENT ===== */
+/* the "AM" launch sting that plays once before the profile gate */
+.ident {
+  display: grid;
+  place-items: center;
+  min-height: 60vh;
+  background: #000;
+}
+
+.ident-mark {
+  position: relative;
+  width: min(34vw, 300px);
+  aspect-ratio: 1200 / 985;
+  /* duration must stay in step with IDENT_MS in LaunchScreen.tsx */
+  animation: ident-mark 2200ms cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+.ident-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* a light sweep clipped to the letterforms themselves */
+.ident-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.9) 50%,
+      transparent 62%
+    )
+    150% 0 / 300% 100% no-repeat;
+  -webkit-mask: url("/images/amLogo.webp") center / contain no-repeat;
+  mask: url("/images/amLogo.webp") center / contain no-repeat;
+  animation: ident-shine 900ms 480ms ease-out forwards;
+}
+
+@keyframes ident-mark {
+  0% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  16% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(229, 9, 20, 0));
+  }
+  52% {
+    filter: drop-shadow(0 0 30px rgba(229, 9, 20, 0.6));
+  }
+  82% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(229, 9, 20, 0));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ident-shine {
+  to {
+    background-position: -150% 0;
+  }
+}
+
 /* ===== PROFILE PICKER ===== */
 #launch-title {
   font-size: 2rem;
