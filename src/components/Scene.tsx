@@ -1,6 +1,6 @@
 import { Environment, Html } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import About from "./tabs/About";
 import Blog from "./tabs/Blog";
@@ -16,14 +16,33 @@ type SceneProps = {
   currentTab: TabName;
   setCurrentTab: SetCurrentTab;
   setUser: SetUser;
+  /* true once the loader has handed over, so the opening move isn't wasted */
+  revealed: boolean;
 };
+
+const TV_POSITION = new THREE.Vector3(4.33, 5.5, -5);
+
+/* the opening push-in: a wide corner of the room easing to the resting frame */
+const INTRO_FROM = new THREE.Vector3(-2.6, 4.3, 8.6);
+const INTRO_TO = new THREE.Vector3(0, 5, 5);
+const INTRO_FOV_FROM = 96;
+const INTRO_FOV_TO = 80;
+const INTRO_SECONDS = 4;
+
+/* how far the pointer may push the camera, and swing what it aims at */
+const DRIFT_POSITION = 0.9;
+const DRIFT_TARGET = 2.6;
+
+const ZOOM_FOV = 30;
+
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export default function Scene({
   currentTab,
   setCurrentTab,
   setUser,
+  revealed,
 }: SceneProps) {
-  const { camera } = useThree();
   const [allowInteraction] = useState(true);
   const [TVFocus, setTVFocus] = useState(false);
   const [zoomIn, setZoomIn] = useState(false);
@@ -31,6 +50,26 @@ export default function Scene({
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false);
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
   const htmlRef = useRef<HTMLDivElement>(null);
+
+  const introRef = useRef(0);
+  const drift = useRef({ x: 0, y: 0 });
+
+  /* scratch vectors so the frame loop never allocates */
+  const scratch = useMemo(
+    () => ({
+      position: new THREE.Vector3(),
+      target: new THREE.Vector3(),
+      offset: new THREE.Vector3(),
+    }),
+    []
+  );
+
+  const stillCamera = useMemo(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    []
+  );
 
   useEffect(() => {
     window.scrollTo(0, 800);
@@ -50,23 +89,61 @@ export default function Scene({
     return () => window.clearTimeout(hideTimer);
   }, [zoomIn]);
 
-  useFrame(() => {
+  useFrame((state, delta) => {
+    const camera = state.camera;
     if (!(camera instanceof THREE.PerspectiveCamera)) return;
 
-    const TVPos = new THREE.Vector3(4.33, 5.5, -5);
-    const defaultCamPos = new THREE.Vector3(0, 5, 5);
-    const zoomTarget = new THREE.Vector3(TVPos.x, TVPos.y, TVPos.z + 0.5);
+    /* exponential smoothing, so the feel doesn't change with frame rate */
+    const settle = 1 - Math.exp(-6 * delta);
 
     if (zoomIn) {
-      camera.position.lerp(zoomTarget, 0.1);
-      camera.fov = THREE.MathUtils.lerp(camera.fov, 30, 0.1);
-      camera.lookAt(TVPos);
-    } else {
-      camera.position.lerp(defaultCamPos, 0.1);
-      camera.fov = THREE.MathUtils.lerp(camera.fov, 80, 0.1);
-      camera.lookAt(TVPos);
+      scratch.position.set(TV_POSITION.x, TV_POSITION.y, TV_POSITION.z + 0.5);
+      camera.position.lerp(scratch.position, settle);
+      camera.fov = THREE.MathUtils.lerp(camera.fov, ZOOM_FOV, settle);
+      camera.lookAt(TV_POSITION);
+      camera.updateProjectionMatrix();
+      return;
     }
 
+    /* the opening move only runs once the loader has stepped aside */
+    if (revealed && introRef.current < 1) {
+      introRef.current = Math.min(
+        1,
+        introRef.current + delta / (stillCamera ? 0.4 : INTRO_SECONDS)
+      );
+    }
+    const intro = easeOutCubic(introRef.current);
+
+    /*
+      the pointer nudges the camera one way and what it aims at the other. that
+      split is what turns a slide into something that reads as looking around.
+    */
+    const wantX = stillCamera ? 0 : state.pointer.x;
+    const wantY = stillCamera ? 0 : state.pointer.y;
+    drift.current.x += (wantX - drift.current.x) * settle;
+    drift.current.y += (wantY - drift.current.y) * settle;
+
+    scratch.offset.set(
+      drift.current.x * DRIFT_POSITION * intro,
+      drift.current.y * DRIFT_POSITION * 0.55 * intro,
+      0
+    );
+    scratch.position.copy(INTRO_FROM).lerp(INTRO_TO, intro).add(scratch.offset);
+
+    camera.position.lerp(scratch.position, settle);
+    camera.fov = THREE.MathUtils.lerp(
+      camera.fov,
+      THREE.MathUtils.lerp(INTRO_FOV_FROM, INTRO_FOV_TO, intro),
+      settle
+    );
+
+    scratch.offset.set(
+      -drift.current.x * DRIFT_TARGET * intro,
+      -drift.current.y * DRIFT_TARGET * 0.55 * intro,
+      0
+    );
+    scratch.target.copy(TV_POSITION).add(scratch.offset);
+    camera.lookAt(scratch.target);
     camera.updateProjectionMatrix();
   });
 

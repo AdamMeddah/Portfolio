@@ -174,6 +174,7 @@ function App() {
               currentTab={currentTab}
               setCurrentTab={setCurrentTab}
               setUser={setUser}
+              revealed={showContent}
             />
             <Preload all />
           </Suspense>
