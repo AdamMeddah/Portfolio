@@ -23,10 +23,23 @@ const topPicks: Record<UserRole, Destination[]> = {
   writer: ["Blog", "About", "Contact Me"],
 };
 
-const continueWatching: Record<UserRole, Destination[]> = {
-  recruiter: ["About", "Blog"],
-  developer: ["About", "Blog"],
-  writer: ["Projects", "Skills"],
+/* the progress values are set dressing for the "continue watching" gag */
+const continueWatching: Record<
+  UserRole,
+  { to: Destination; progress: number }[]
+> = {
+  recruiter: [
+    { to: "About", progress: 64 },
+    { to: "Blog", progress: 23 },
+  ],
+  developer: [
+    { to: "About", progress: 41 },
+    { to: "Blog", progress: 78 },
+  ],
+  writer: [
+    { to: "Projects", progress: 55 },
+    { to: "Skills", progress: 17 },
+  ],
 };
 
 const topFive: Destination[] = [
@@ -165,7 +178,17 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
 
         <section className="row">
           <h2 className="row-title">Continue Watching for {displayName}</h2>
-          <div className="row-list">{renderCards(continueWatching[user])}</div>
+          <div className="row-list">
+            {continueWatching[user].map(({ to, progress }) => (
+              <Card
+                key={to}
+                title={to}
+                image={cardImages[to]}
+                setCurrentTab={setCurrentTab}
+                progress={progress}
+              />
+            ))}
+          </div>
         </section>
 
         <section className="row">

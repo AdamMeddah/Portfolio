@@ -621,6 +621,17 @@ button {
   scrollbar-width: none;
 }
 
+/*
+  the rows fit without scrolling at this width, so drop the clipping and let a
+  hovered tile grow past the row box instead.
+*/
+@media (min-width: 769px) {
+  .row-list {
+    overflow: visible;
+    padding-bottom: 0;
+  }
+}
+
 .row-list .card {
   flex: 1 0 clamp(170px, 24vw, 320px);
   max-width: 340px;
@@ -639,7 +650,7 @@ button {
   padding: 0;
   background: var(--surface-raised);
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   scroll-snap-align: start;
@@ -671,7 +682,7 @@ button {
 .card-label {
   position: absolute;
   left: 0.85rem;
-  right: 0.85rem;
+  right: 3rem;
   bottom: 0.7rem;
   z-index: 1;
   color: var(--text);
@@ -681,14 +692,98 @@ button {
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
 }
 
+/* the circular play affordance Netflix puts on a focused tile */
+.card-play {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.6rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity var(--medium), transform var(--medium);
+}
+
+.card-play svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: #000;
+}
+
+/* the red "part way through" bar under a continue-watching tile */
+.card-progress {
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.35rem;
+  z-index: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.card-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+/* a tile carrying a progress bar needs its label to sit above it */
+.card-progress ~ .card-label,
+.card:has(.card-progress) .card-label {
+  bottom: 1.2rem;
+}
+
 .card:hover,
 .card:focus-visible {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
 
 .card:hover .card-image {
   transform: scale(1.06);
+}
+
+.card:hover .card-play,
+.card:focus-visible .card-play {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/*
+  pointer devices get the Netflix row behaviour: the hovered tile grows and its
+  neighbours slide out of the way. touch screens keep the plain grid.
+*/
+@media (hover: hover) and (min-width: 769px) {
+  .row-list .card {
+    transition: transform var(--medium) 120ms, box-shadow var(--medium);
+  }
+
+  .row-list .card:hover {
+    transform: scale(1.14);
+    z-index: 3;
+  }
+
+  .row-list .card:hover ~ .card {
+    transform: translateX(2.2%);
+  }
+
+  .row-list:has(.card:hover) .card:has(~ .card:hover) {
+    transform: translateX(-2.2%);
+  }
+
+  .row-list .card:first-child:hover {
+    transform: scale(1.14) translateX(5%);
+  }
+
+  .row-list .card:last-child:hover {
+    transform: scale(1.14) translateX(-5%);
+  }
 }
 
 /* ===== TOP 5 ===== */
