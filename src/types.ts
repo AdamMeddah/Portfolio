@@ -1,4 +1,4 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export type UserRole = "recruiter" | "developer" | "writer";
 
@@ -42,6 +42,3 @@ export type SkillItem = {
   title: string;
 };
 
-export type ProjectChildren = {
-  children: ReactNode;
-};
