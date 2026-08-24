@@ -72,7 +72,7 @@ const PAN_SPEED = 0.85;
 const ZOOM_FOV = 30;
 
 /* the poster wall: framed whole, then tightened onto a single sheet */
-const WALL_FOV = 18;
+const WALL_FOV = 20;
 /* the panel eats the right of the frame, so only this much is clear for art */
 const CLEAR_WIDTH = 0.62;
 /* how far along the wall the edge controls may slide the framing */
