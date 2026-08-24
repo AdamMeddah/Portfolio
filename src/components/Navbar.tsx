@@ -6,6 +6,8 @@ type NavbarProps = {
   user: UserRole | null;
   currentTab: TabName;
   setCurrentTab: SetCurrentTab;
+  /* switch the set off and step back into the room */
+  onExit: () => void;
   sectionClass: string;
 };
 
@@ -27,6 +29,7 @@ export default function Navbar({
   user,
   currentTab,
   setCurrentTab,
+  onExit,
   sectionClass,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,8 +86,8 @@ export default function Navbar({
         <button
           type="button"
           className="adam-logo"
-          onClick={() => window.location.reload()}
-          aria-label="Adam Meddah — reload"
+          onClick={onExit}
+          aria-label="Adam Meddah — back to the room"
         >
           <img src="images/fullLogo.webp" alt="Adam Meddah" />
         </button>

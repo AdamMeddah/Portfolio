@@ -11,7 +11,9 @@ export type TabName =
   | "Contact Me"
   | "Blog";
 
-export type SetCurrentTab = Dispatch<SetStateAction<TabName>>;
+/* navigation goes through App so the display can power down first, so this is
+   a plain setter rather than a raw state dispatch */
+export type SetCurrentTab = (tab: TabName) => void;
 export type SetUser = Dispatch<SetStateAction<UserRole | null>>;
 
 export type StaticAssets = {
