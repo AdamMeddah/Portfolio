@@ -169,9 +169,8 @@ function App() {
       )}
 
       {showContent &&
-        (!tvOpen || (currentTab === "Projects" && !focusedProject)) && (
-          <LookControls look={look} />
-        )}
+        !focusedProject &&
+        (!tvOpen || currentTab === "Projects") && <LookControls look={look} />}
 
       {currentTab !== "profiles" && (
         <Navbar
@@ -185,16 +184,14 @@ function App() {
         <MainScreen user={user} setCurrentTab={setCurrentTab} />
       )}
 
-      {currentTab === "Projects" && !focusedProject && (
+      {tvOpen && currentTab === "Projects" && !focusedProject && (
         <p className="wall-hint">Select a poster</p>
       )}
 
-      {currentTab === "Projects" && (
-        <ProjectPanel
-          project={projects.find((p) => p.id === focusedProject) ?? null}
-          onClose={() => setFocusedProject(null)}
-        />
-      )}
+      <ProjectPanel
+        project={projects.find((p) => p.id === focusedProject) ?? null}
+        onClose={() => setFocusedProject(null)}
+      />
 
       <div
         id="canvas-container"

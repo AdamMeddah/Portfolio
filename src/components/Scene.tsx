@@ -88,6 +88,8 @@ export default function Scene({
   setFocusedProject,
 }: SceneProps) {
   const [showTVContent, setShowTVContent] = useState(false);
+  /* true when the panel is coming back after a turn away from the wall */
+  const [warmUp, setWarmUp] = useState(false);
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false);
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
   const htmlRef = useRef<HTMLDivElement>(null);
@@ -119,12 +121,37 @@ export default function Scene({
 
   /* Projects leaves the TV behind and turns the camera on the poster wall */
   const onWall = tvOpen && currentTab === "Projects";
+  /* the wall is part of the room, so the sheets answer to a click out there too */
+  const postersLive = !tvOpen || onWall;
+
+  /*
+    Leaving the wall used to cut straight to a black TV while the camera was
+    still turning. Hold the content back until the camera has actually arrived,
+    then bring it up like a set warming through, so the swing is the transition.
+  */
+  const leftWall = useRef(false);
+  useEffect(() => {
+    if (onWall) leftWall.current = true;
+  }, [onWall]);
 
   useEffect(() => {
     if (tvOpen && !onWall) {
-      setShouldRenderTVContent(true);
-      const showTimer = window.setTimeout(() => setShowTVContent(true), 200);
-      return () => window.clearTimeout(showTimer);
+      const swinging = leftWall.current;
+      leftWall.current = false;
+      setWarmUp(swinging);
+
+      const mountTimer = window.setTimeout(
+        () => setShouldRenderTVContent(true),
+        swinging ? 620 : 0
+      );
+      const showTimer = window.setTimeout(
+        () => setShowTVContent(true),
+        swinging ? 700 : 200
+      );
+      return () => {
+        window.clearTimeout(mountTimer);
+        window.clearTimeout(showTimer);
+      };
     }
 
     setShowTVContent(false);
@@ -141,7 +168,7 @@ export default function Scene({
     /* exponential smoothing, so the feel doesn't change with frame rate */
     const settle = 1 - Math.exp(-6 * delta);
 
-    if (onWall) {
+    if (focusedProject || onWall) {
       /*
         rotation and focal length only. translating toward a poster would slide
         it across a wall that is painted at infinity and cannot move with it.
@@ -257,7 +284,7 @@ export default function Scene({
       <Environment
         files="/hdris/fireplace.exr"
         background
-        resolution={512}
+        resolution={1024}
         backgroundRotation={[0, 2.2, 0]}
         backgroundIntensity={0.4}
       />
@@ -297,7 +324,7 @@ export default function Scene({
       </EffectComposer>
 
       <ProjectPosters
-        active={onWall}
+        active={postersLive}
         focusedId={focusedProject}
         onSelect={setFocusedProject}
       />
@@ -322,7 +349,7 @@ export default function Scene({
             }}
           >
             <div
-              className="tv-tab-shell"
+              className={`tv-tab-shell${warmUp ? " tv-tab-shell--warm" : ""}`}
               key={activePost ? `${currentTab}-${activePost.id}` : currentTab}
             >
               {currentTab === "profiles" && (
