@@ -5,6 +5,8 @@ import Scene from "./components/Scene";
 import { staticAssets } from "./assets/staticAssets";
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/tabs/MainScreen";
+import LookControls from "./components/LookControls";
+import type { LookState } from "./components/LookControls";
 import type { StaticAssets, TabName, UserRole } from "./types";
 import "./App.css";
 
@@ -97,6 +99,10 @@ function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showContent, setShowContent] = useState(false);
   const [currentTab, setCurrentTab] = useState<TabName>("profiles");
+  const [tvOpen, setTvOpen] = useState(false);
+
+  /* a ref, not state: the turn updates every frame and must not re-render */
+  const look = useRef<LookState>({ pan: 0, input: 0 });
 
   const lastProgress = useRef(0);
 
@@ -148,6 +154,8 @@ function App() {
         </div>
       )}
 
+      {showContent && !tvOpen && <LookControls look={look} />}
+
       {currentTab !== "profiles" && (
         <Navbar
           user={user}
@@ -175,6 +183,9 @@ function App() {
               setCurrentTab={setCurrentTab}
               setUser={setUser}
               revealed={showContent}
+              look={look}
+              tvOpen={tvOpen}
+              openTV={() => setTvOpen(true)}
             />
             <Preload all />
           </Suspense>

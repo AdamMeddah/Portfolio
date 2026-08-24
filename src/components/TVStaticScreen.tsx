@@ -1,15 +1,12 @@
 import { useRef, useEffect, useMemo } from "react";
-import type { Dispatch, SetStateAction } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Text3D } from "@react-three/drei";
 import * as THREE from "three";
 
 type TVStaticScreenProps = {
-  TVFocus: boolean;
-  handleTVFocus: Dispatch<SetStateAction<boolean>>;
-  zoomIn: boolean;
-  handleZoomIn: Dispatch<SetStateAction<boolean>>;
-  allowInteraction: boolean;
+  /* the viewer has switched the set on, so it plays black and stops inviting clicks */
+  open: boolean;
+  onOpen: () => void;
 };
 
 const TV_POSITION: [number, number, number] = [4.33, 5.5, -5];
@@ -52,13 +49,7 @@ function makeGlowTexture() {
   return texture;
 }
 
-export function TVStaticScreen({
-  TVFocus,
-  handleTVFocus,
-  zoomIn,
-  handleZoomIn,
-  allowInteraction,
-}: TVStaticScreenProps) {
+export function TVStaticScreen({ open, onOpen }: TVStaticScreenProps) {
   const meshRef =
     useRef<THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>>(null);
   const videoRef = useRef(document.createElement("video"));
@@ -87,7 +78,7 @@ export function TVStaticScreen({
     const video = videoRef.current;
     if (!video) return;
 
-    video.src = TVFocus ? "/videos/black_ios.mp4" : "/videos/static_ios.mp4";
+    video.src = open ? "/videos/black_ios.mp4" : "/videos/static_ios.mp4";
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
@@ -101,7 +92,7 @@ export function TVStaticScreen({
       video.pause();
       video.src = "";
     };
-  }, [TVFocus]);
+  }, [open]);
 
   /* the skybox brightness is shared state, so hand it back on unmount */
   useEffect(() => {
@@ -175,10 +166,8 @@ export function TVStaticScreen({
         ref={meshRef}
         position={TV_POSITION}
         onClick={() => {
-          if (!allowInteraction || zoomIn) return;
-
-          handleTVFocus(true);
-          handleZoomIn(true);
+          if (open) return;
+          onOpen();
         }}
       >
         <planeGeometry args={[2.3, 1.8]} />
@@ -187,7 +176,7 @@ export function TVStaticScreen({
         </meshBasicMaterial>
       </mesh>
 
-      {!zoomIn && (
+      {!open && (
         <>
           <Text3D
             font="fonts/Inter_Bold.json"

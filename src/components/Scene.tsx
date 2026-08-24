@@ -17,6 +17,8 @@ import Contact from "./tabs/Contact";
 import Skills from "./tabs/Skills";
 import BlogDetail from "./tabs/BlogDetail";
 import { TVStaticScreen } from "./TVStaticScreen";
+import type { MutableRefObject } from "react";
+import type { LookState } from "./LookControls";
 import type { BlogPost, SetCurrentTab, SetUser, TabName } from "../types";
 
 type SceneProps = {
@@ -25,6 +27,10 @@ type SceneProps = {
   setUser: SetUser;
   /* true once the loader has handed over, so the opening move isn't wasted */
   revealed: boolean;
+  look: MutableRefObject<LookState>;
+  /* lives in App so the chrome outside the canvas can react to it too */
+  tvOpen: boolean;
+  openTV: () => void;
 };
 
 const TV_POSITION = new THREE.Vector3(4.33, 5.5, -5);
@@ -46,8 +52,10 @@ const INTRO_FOV_FROM = 104;
 const INTRO_FOV_TO = 80;
 const INTRO_SECONDS = 4;
 
-/* how far the pointer may swing the aim once the opening move has settled */
-const DRIFT_TARGET = 2.4;
+/* how far the edge controls may swing the aim once the opening move settles */
+const DRIFT_TARGET = 3.4;
+/* seconds to sweep from centre to a full turn */
+const PAN_SPEED = 0.85;
 
 const ZOOM_FOV = 30;
 
@@ -58,17 +66,18 @@ export default function Scene({
   setCurrentTab,
   setUser,
   revealed,
+  look,
+  tvOpen,
+  openTV,
 }: SceneProps) {
-  const [allowInteraction] = useState(true);
-  const [TVFocus, setTVFocus] = useState(false);
-  const [zoomIn, setZoomIn] = useState(false);
   const [showTVContent, setShowTVContent] = useState(false);
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false);
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
   const htmlRef = useRef<HTMLDivElement>(null);
 
   const introRef = useRef(0);
-  const drift = useRef({ x: 0, y: 0 });
+  /* eased follower for the raw pan value, so turns start and stop softly */
+  const drift = useRef(0);
 
   /* scratch vectors so the frame loop never allocates */
   const scratch = useMemo(
@@ -92,7 +101,7 @@ export default function Scene({
   }, []);
 
   useEffect(() => {
-    if (zoomIn) {
+    if (tvOpen) {
       setShouldRenderTVContent(true);
       const showTimer = window.setTimeout(() => setShowTVContent(true), 200);
       return () => window.clearTimeout(showTimer);
@@ -103,7 +112,7 @@ export default function Scene({
       setShouldRenderTVContent(false);
     }, 500);
     return () => window.clearTimeout(hideTimer);
-  }, [zoomIn]);
+  }, [tvOpen]);
 
   useFrame((state, delta) => {
     const camera = state.camera;
@@ -112,7 +121,7 @@ export default function Scene({
     /* exponential smoothing, so the feel doesn't change with frame rate */
     const settle = 1 - Math.exp(-6 * delta);
 
-    if (zoomIn) {
+    if (tvOpen) {
       scratch.position.set(TV_POSITION.x, TV_POSITION.y, TV_POSITION.z + 0.5);
       camera.position.lerp(scratch.position, settle);
       camera.fov = THREE.MathUtils.lerp(camera.fov, ZOOM_FOV, settle);
@@ -130,10 +139,14 @@ export default function Scene({
     }
     const intro = easeOutCubic(introRef.current);
 
-    const wantX = stillCamera ? 0 : state.pointer.x;
-    const wantY = stillCamera ? 0 : state.pointer.y;
-    drift.current.x += (wantX - drift.current.x) * settle;
-    drift.current.y += (wantY - drift.current.y) * settle;
+    if (!stillCamera) {
+      look.current.pan = THREE.MathUtils.clamp(
+        look.current.pan + look.current.input * PAN_SPEED * delta,
+        -1,
+        1
+      );
+    }
+    drift.current += (look.current.pan - drift.current) * settle;
 
     camera.position.lerp(CAMERA_ANCHOR, settle);
     camera.fov = THREE.MathUtils.lerp(
@@ -147,11 +160,7 @@ export default function Scene({
       .copy(INTRO_AIM_OFFSET)
       .multiplyScalar(1 - intro)
       .add(
-        scratch.position.set(
-          -drift.current.x * DRIFT_TARGET * intro,
-          -drift.current.y * DRIFT_TARGET * 0.55 * intro,
-          0
-        )
+        scratch.position.set(drift.current * DRIFT_TARGET * intro, 0, 0)
       );
     scratch.target.copy(TV_POSITION).add(scratch.offset);
     camera.lookAt(scratch.target);
@@ -204,13 +213,7 @@ export default function Scene({
         />
       </EffectComposer>
 
-      <TVStaticScreen
-        handleTVFocus={setTVFocus}
-        TVFocus={TVFocus}
-        zoomIn={zoomIn}
-        handleZoomIn={setZoomIn}
-        allowInteraction={allowInteraction}
-      />
+      <TVStaticScreen open={tvOpen} onOpen={openTV} />
 
       <mesh position={[4.33, 5.5, -5]}>
         <boxGeometry args={[0.1, 0.1, 0.1]} />
