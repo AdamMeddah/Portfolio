@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import MainScreen from "./components/tabs/MainScreen";
 import LookControls from "./components/LookControls";
 import type { LookState } from "./components/LookControls";
+import ProjectPanel from "./components/ProjectPanel";
+import { projects } from "./data/projectData";
 import type { StaticAssets, TabName, UserRole } from "./types";
 import "./App.css";
 
@@ -100,9 +102,21 @@ function App() {
   const [showContent, setShowContent] = useState(false);
   const [currentTab, setCurrentTab] = useState<TabName>("profiles");
   const [tvOpen, setTvOpen] = useState(false);
+  const [focusedProject, setFocusedProject] = useState<string | null>(null);
 
   /* a ref, not state: the turn updates every frame and must not re-render */
   const look = useRef<LookState>({ pan: 0, input: 0 });
+
+  /* leaving Projects drops whatever poster was open */
+  useEffect(() => {
+    if (currentTab !== "Projects") setFocusedProject(null);
+  }, [currentTab]);
+
+  /* every view change starts from a centred camera */
+  useEffect(() => {
+    look.current.pan = 0;
+    look.current.input = 0;
+  }, [currentTab, tvOpen]);
 
   const lastProgress = useRef(0);
 
@@ -154,7 +168,10 @@ function App() {
         </div>
       )}
 
-      {showContent && !tvOpen && <LookControls look={look} />}
+      {showContent &&
+        (!tvOpen || (currentTab === "Projects" && !focusedProject)) && (
+          <LookControls look={look} />
+        )}
 
       {currentTab !== "profiles" && (
         <Navbar
@@ -166,6 +183,17 @@ function App() {
       )}
       {currentTab === "main" && user && (
         <MainScreen user={user} setCurrentTab={setCurrentTab} />
+      )}
+
+      {currentTab === "Projects" && !focusedProject && (
+        <p className="wall-hint">Select a poster</p>
+      )}
+
+      {currentTab === "Projects" && (
+        <ProjectPanel
+          project={projects.find((p) => p.id === focusedProject) ?? null}
+          onClose={() => setFocusedProject(null)}
+        />
       )}
 
       <div
@@ -186,6 +214,8 @@ function App() {
               look={look}
               tvOpen={tvOpen}
               openTV={() => setTvOpen(true)}
+              focusedProject={focusedProject}
+              setFocusedProject={setFocusedProject}
             />
             <Preload all />
           </Suspense>
