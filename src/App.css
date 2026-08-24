@@ -190,6 +190,47 @@ button {
   }
 }
 
+/*
+  Arriving back from the poster wall, the panel comes up the way a CRT does:
+  a bright line that opens vertically and settles. The camera swing covers the
+  time before this runs, so the two read as one movement.
+*/
+.tv-tab-shell--warm {
+  animation: tv-tab-warm 620ms cubic-bezier(0.2, 0, 0, 1) forwards;
+  transform-origin: center;
+}
+
+@keyframes tv-tab-warm {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.006) scaleX(1.06);
+    filter: brightness(7) saturate(0);
+  }
+  22% {
+    opacity: 1;
+    transform: scaleY(0.02) scaleX(1.02);
+    filter: brightness(5) saturate(0.2);
+  }
+  52% {
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(2.1) saturate(0.7);
+  }
+  74% {
+    filter: brightness(1.24) saturate(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tv-tab-shell--warm {
+    animation: tv-tab-enter 200ms ease forwards;
+  }
+}
+
 /* ===== IDENT ===== */
 /* the "AM" launch sting that plays once before the profile gate */
 .ident {
