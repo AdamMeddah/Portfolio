@@ -72,7 +72,7 @@ const PAN_SPEED = 0.85;
 const ZOOM_FOV = 30;
 
 /* the poster wall: framed whole, then tightened onto a single sheet */
-const WALL_FOV = 34;
+const WALL_FOV = 18;
 /* the panel eats the right of the frame, so only this much is clear for art */
 const CLEAR_WIDTH = 0.62;
 /* how far along the wall the edge controls may slide the framing */
@@ -173,9 +173,7 @@ export default function Scene({
         const forHeight = 2 * Math.atan((height * 0.62) / distance);
         const forWidth =
           2 *
-          Math.atan(
-            (width * 0.56) / (distance * camera.aspect * CLEAR_WIDTH)
-          );
+          Math.atan((width * 0.56) / (distance * camera.aspect * CLEAR_WIDTH));
         const wanted = THREE.MathUtils.clamp(
           THREE.MathUtils.radToDeg(Math.max(forHeight, forWidth)),
           14,
@@ -252,9 +250,7 @@ export default function Scene({
     scratch.offset
       .copy(INTRO_AIM_OFFSET)
       .multiplyScalar(1 - intro)
-      .add(
-        scratch.position.set(drift.current * DRIFT_TARGET * intro, 0, 0)
-      );
+      .add(scratch.position.set(drift.current * DRIFT_TARGET * intro, 0, 0));
     scratch.target.copy(TV_POSITION).add(scratch.offset);
     camera.lookAt(scratch.target);
     camera.updateProjectionMatrix();
@@ -273,7 +269,11 @@ export default function Scene({
       />
 
       <ambientLight intensity={1.5} />
-      <directionalLight position={[4.33, 10, -2]} intensity={2} castShadow={false} />
+      <directionalLight
+        position={[4.33, 10, -2]}
+        intensity={2}
+        castShadow={false}
+      />
       <spotLight
         position={[4, 5, -3]}
         angle={0.3}
