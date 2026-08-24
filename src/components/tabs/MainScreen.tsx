@@ -141,8 +141,19 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
         ></video>
         <div className="hero-scrim" aria-hidden="true"></div>
 
+        {/* the maturity strip that rides the right edge of a Netflix billboard */}
+        <div className="hero-rating" aria-hidden="true">
+          <span>TV-14</span>
+        </div>
+
         <div className="main-info-wrapper">
           <div className="main-info">
+            {/* the eyebrow Netflix puts above an original's title treatment */}
+            <p className="main-eyebrow">
+              <img src="images/amLogo.webp" alt="" aria-hidden="true" />
+              <span>Original Series</span>
+            </p>
+
             <h1 className="main-title" onClick={() => setCurrentTab("main")}>
               <span className="main-title-name">Adam Meddah</span>
               <span className="main-title-divider" aria-hidden="true">

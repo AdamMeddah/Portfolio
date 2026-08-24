@@ -167,7 +167,13 @@ button {
 .launch-wrapper {
   position: relative;
   z-index: 1;
-  width: 100%;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .tv-tab-shell {
@@ -189,8 +195,6 @@ button {
 .ident {
   display: grid;
   place-items: center;
-  min-height: 60vh;
-  background: #000;
 }
 
 .ident-mark {
@@ -256,27 +260,33 @@ button {
 
 /* ===== PROFILE PICKER ===== */
 #launch-title {
-  font-size: 2rem;
+  margin: 0 0 clamp(2rem, 5vh, 3.5rem);
+  color: #ffffff;
+  font-size: clamp(1.8rem, 3.6vw, 3.2rem);
   font-weight: 300;
   text-align: center;
-  align-self: end;
-  margin-bottom: 5vh;
-  color: #ffffff;
 }
 
 #profile-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: center;
-  gap: 2vh;
+  gap: clamp(1rem, 3vw, 2.5rem);
 }
 
+/*
+  Fixed width and no shrinking. These sit in an auto-width container, so with
+  the default flex-shrink the tile ended up as wide as its label - "Writer"
+  came out visibly smaller than "Developer".
+*/
 .profile {
+  flex: 0 0 auto;
+  width: clamp(88px, 12vw, 170px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 4vh;
   padding: 0;
   background: none;
   border: none;
@@ -284,16 +294,22 @@ button {
 }
 
 .profile-img {
-  width: clamp(30px, 20vw, 200px);
-  border: 5px solid transparent;
-  transition: box-shadow 0.1s ease, filter 0.1s ease;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.15s ease, filter 0.15s ease;
 }
 
 .profile-text {
-  margin-top: 1vh;
-  font-size: 1.2rem;
-  color: #4f4f4f;
-  transition: color 0.1s ease;
+  margin-top: 0.9rem;
+  color: #6d6d6e;
+  font-size: clamp(0.85rem, 1.3vw, 1.15rem);
+  text-align: center;
+  transition: color 0.15s ease;
 }
 
 .profile:hover .profile-text,
@@ -303,8 +319,8 @@ button {
 
 .profile:hover .profile-img,
 .profile:focus-visible .profile-img {
-  box-shadow: 0 0 10px 3px white;
-  filter: brightness(1.2);
+  outline-color: #ffffff;
+  filter: brightness(1.08);
 }
 
 /* ===== NAVBAR ===== */
@@ -591,6 +607,41 @@ button {
   flex-direction: column;
   gap: 0.9rem;
   color: var(--text);
+}
+
+.main-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.main-eyebrow img {
+  height: clamp(1rem, 1.4vw, 1.35rem);
+  width: auto;
+}
+
+/* the maturity strip riding the right edge of the billboard */
+.hero-rating {
+  position: absolute;
+  right: 0;
+  bottom: clamp(4rem, 12vh, 8rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 1.5rem 0.45rem 0.8rem;
+  background: rgba(51, 51, 51, 0.6);
+  border-left: 3px solid rgba(255, 255, 255, 0.85);
+  color: var(--text);
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  pointer-events: none;
 }
 
 .main-title {
