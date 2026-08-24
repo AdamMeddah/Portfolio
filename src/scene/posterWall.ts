@@ -9,8 +9,8 @@ import type { ProjectEntry } from "../data/projectData";
   wall's slant. Because the camera only ever rotates, the group stays welded to
   the painted wall exactly the way the TV picture stays inside its bezel.
 */
-export const WALL_ORIGIN = new THREE.Vector3(11.18, 6.0, -1.94);
-export const WALL_YAW = -0.42;
+export const WALL_ORIGIN = new THREE.Vector3(10.2, 5.75, -5.6);
+export const WALL_YAW = -0.22;
 
 /* the wall's own left-to-right axis in world space, for aiming the camera */
 export const WALL_RIGHT = new THREE.Vector3(
@@ -26,6 +26,8 @@ const BANNER_ASPECT = 1.8;
 
 export type Placed = {
   project: ProjectEntry;
+  /* position in the source list, so the sticky notes read 1, 2, 3 */
+  index: number;
   x: number;
   y: number;
   width: number;
@@ -41,6 +43,8 @@ export type Placed = {
 function layout(entries: ProjectEntry[]): Placed[] {
   const tall = entries.filter((p) => p.aspect < BANNER_ASPECT);
   const wide = entries.filter((p) => p.aspect >= BANNER_ASPECT);
+
+  const indexOf = (project: ProjectEntry) => entries.indexOf(project);
 
   const tallSized = tall.map((project) => ({
     project,
@@ -71,6 +75,7 @@ function layout(entries: ProjectEntry[]): Placed[] {
     tallSized.forEach(({ project, width, height }, i) => {
       placed.push({
         project,
+        index: indexOf(project),
         x: cursorX + width / 2,
         y: cursorY,
         width,
@@ -87,6 +92,7 @@ function layout(entries: ProjectEntry[]): Placed[] {
     cursorY -= GAP + height / 2;
     placed.push({
       project,
+      index: indexOf(project),
       x: 0,
       y: cursorY,
       width,
@@ -100,6 +106,10 @@ function layout(entries: ProjectEntry[]): Placed[] {
 }
 
 export const posterLayout = layout(projects);
+
+export function posterPlacement(id: string) {
+  return posterLayout.find((p) => p.project.id === id) ?? null;
+}
 
 /* world-space centre of a poster, so the camera knows where to aim */
 export function posterWorldPosition(id: string) {
