@@ -9,8 +9,8 @@ import type { ProjectEntry } from "../data/projectData";
   wall's slant. Because the camera only ever rotates, the group stays welded to
   the painted wall exactly the way the TV picture stays inside its bezel.
 */
-export const WALL_ORIGIN = new THREE.Vector3(10.2, 5.75, -5.6);
-export const WALL_YAW = -0.22;
+export const WALL_ORIGIN = new THREE.Vector3(20.2, 6.75, -2.6);
+export const WALL_YAW = -1;
 
 /* the wall's own left-to-right axis in world space, for aiming the camera */
 export const WALL_RIGHT = new THREE.Vector3(
