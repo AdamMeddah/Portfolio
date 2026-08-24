@@ -22,6 +22,36 @@ function makeShadowTexture() {
 const shadowTexture = makeShadowTexture();
 
 /*
+  Fine grain used as a roughness map. Without it the sheets take light like
+  glass and read as screens floating in front of the wall rather than paper on
+  it - this is most of what sells the close-up.
+*/
+function makeGrainTexture() {
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return new THREE.CanvasTexture(canvas);
+
+  const image = ctx.createImageData(size, size);
+  for (let i = 0; i < image.data.length; i += 4) {
+    const v = 150 + Math.random() * 105;
+    image.data[i] = v;
+    image.data[i + 1] = v;
+    image.data[i + 2] = v;
+    image.data[i + 3] = 255;
+  }
+  ctx.putImageData(image, 0, 0);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(5, 5);
+  return texture;
+}
+
+const grainTexture = makeGrainTexture();
+
+/*
   A numbered sticky drawn to canvas rather than shipped as art, so the count
   follows the project list. The paper is very slightly off-square and the ink
   sits a touch off-centre, which stops a grid of them looking printed.
@@ -128,7 +158,8 @@ function Poster({
     );
   });
 
-  const tapeWidth = Math.min(0.2, width * 0.16);
+  const tapeWidth = THREE.MathUtils.clamp(width * 0.2, 0.34, 0.8);
+  const margin = Math.min(width, height) * 0.055;
   const stickySize = Math.min(0.62, height * 0.3);
   const sticky = stickyTexture(String(placed.index + 1));
 
@@ -136,13 +167,24 @@ function Poster({
     <group ref={group} position={[x, y, 0]} rotation={[0, 0, tilt]}>
       {/* soft contact shadow, offset the way the room light falls */}
       <mesh position={[0.035, -0.045, -0.014]}>
-        <planeGeometry args={[width * 1.07, height * 1.09]} />
+        <planeGeometry args={[width * 1.12, height * 1.14]} />
         <meshBasicMaterial
           map={shadowTexture}
           transparent
           opacity={0.6}
           depthWrite={false}
           toneMapped={false}
+        />
+      </mesh>
+
+      {/* the printed border of the sheet, visible past the artwork */}
+      <mesh position={[0, 0, -0.006]}>
+        <planeGeometry args={[width + margin * 2, height + margin * 2]} />
+        <meshStandardMaterial
+          color="#b3a894"
+          roughnessMap={grainTexture}
+          roughness={0.95}
+          metalness={0}
         />
       </mesh>
 
@@ -216,19 +258,36 @@ function Poster({
 
       {/* strips of tape at the top corners */}
       {[-1, 1].map((side) => (
-        <mesh
+        <group
           key={side}
-          position={[side * (width / 2 - tapeWidth * 0.35), height / 2 - 0.01, 0.006]}
-          rotation={[0, 0, side * 0.5]}
+          position={[
+            side * (width / 2 + margin - tapeWidth * 0.28),
+            height / 2 + margin - tapeWidth * 0.1,
+            0.012,
+          ]}
+          rotation={[0, 0, side * 0.72]}
         >
-          <planeGeometry args={[tapeWidth, tapeWidth * 0.42]} />
-          <meshStandardMaterial
-            color="#e8e2d2"
-            transparent
-            opacity={0.34}
-            roughness={0.6}
-          />
-        </mesh>
+          <mesh position={[0.012, -0.014, -0.003]}>
+            <planeGeometry args={[tapeWidth * 1.08, tapeWidth * 0.5]} />
+            <meshBasicMaterial
+              color="#000000"
+              transparent
+              opacity={0.32}
+              depthWrite={false}
+            />
+          </mesh>
+
+          <mesh>
+            <planeGeometry args={[tapeWidth, tapeWidth * 0.44]} />
+            <meshStandardMaterial
+              color="#cfc6ab"
+              transparent
+              opacity={0.5}
+              roughnessMap={grainTexture}
+              roughness={0.5}
+            />
+          </mesh>
+        </group>
       ))}
     </group>
   );
@@ -242,7 +301,7 @@ function PosterLight({ active }: { active: boolean }) {
     const k = 1 - Math.exp(-4 * delta);
     light.current.intensity = THREE.MathUtils.lerp(
       light.current.intensity,
-      active ? 78 : 0,
+      active ? 30 : 0,
       k
     );
   });
