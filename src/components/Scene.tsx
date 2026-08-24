@@ -20,6 +20,7 @@ import { ProjectPosters } from "./ProjectPosters";
 import {
   WALL_ORIGIN,
   WALL_RIGHT,
+  posterPlacement,
   posterWorldPosition,
 } from "../scene/posterWall";
 import type { MutableRefObject } from "react";
@@ -67,13 +68,9 @@ const PAN_SPEED = 0.85;
 const ZOOM_FOV = 30;
 
 /* the poster wall: framed whole, then tightened onto a single sheet */
-const WALL_FOV = 40;
-const POSTER_FOV = 20;
-/*
-  the detail panel occupies the right of the screen, so aim off to that side and
-  the poster slides into the clear space on the left
-*/
-const PANEL_SHIFT = 1.15;
+const WALL_FOV = 34;
+/* the panel eats the right of the frame, so only this much is clear for art */
+const CLEAR_WIDTH = 0.62;
 /* how far along the wall the edge controls may slide the framing */
 const WALL_PAN = 2.4;
 
@@ -152,10 +149,40 @@ export default function Scene({
       camera.position.lerp(CAMERA_ANCHOR, settle);
 
       if (focusedProject) {
+        /*
+          A single focal length cannot suit both a square sheet and a 3:1
+          banner, so derive one that fits whichever poster was picked - into the
+          clear part of the frame, not the part the panel covers.
+        */
+        const placed = posterPlacement(focusedProject);
+        const centre = posterWorldPosition(focusedProject);
+        const distance = camera.position.distanceTo(centre);
+        const width = placed?.width ?? 3;
+        const height = placed?.height ?? 3;
+
+        const forHeight = 2 * Math.atan((height * 0.62) / distance);
+        const forWidth =
+          2 *
+          Math.atan(
+            (width * 0.56) / (distance * camera.aspect * CLEAR_WIDTH)
+          );
+        const wanted = THREE.MathUtils.clamp(
+          THREE.MathUtils.radToDeg(Math.max(forHeight, forWidth)),
+          14,
+          50
+        );
+
+        /* slide the aim so the sheet sits in the clear half of the frame */
+        const visibleWidth =
+          2 *
+          distance *
+          camera.aspect *
+          Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
         scratch.target
-          .copy(posterWorldPosition(focusedProject))
-          .addScaledVector(WALL_RIGHT, PANEL_SHIFT);
-        camera.fov = THREE.MathUtils.lerp(camera.fov, POSTER_FOV, settle);
+          .copy(centre)
+          .addScaledVector(WALL_RIGHT, visibleWidth * 0.16);
+
+        camera.fov = THREE.MathUtils.lerp(camera.fov, wanted, settle);
       } else {
         if (!stillCamera) {
           look.current.pan = THREE.MathUtils.clamp(
