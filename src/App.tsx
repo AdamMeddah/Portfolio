@@ -6,6 +6,8 @@ import { staticAssets } from "./assets/staticAssets";
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/tabs/MainScreen";
 import LookControls from "./components/LookControls";
+import CrtScreen from "./components/CrtScreen";
+import type { CrtPhase } from "./components/CrtScreen";
 import type { LookState } from "./components/LookControls";
 import ProjectPanel from "./components/ProjectPanel";
 import { projects } from "./data/projectData";
@@ -95,6 +97,14 @@ function usePreloadAssets(assets: StaticAssets) {
   };
 }
 
+/* beats of the power cycle, in milliseconds */
+const FIRST_SWING_MS = 820;
+const SWING_MS = 240;
+const BOOT_MS = 780;
+const SHUTDOWN_MS = 460;
+/* must cover the crt-warm keyframes in App.css */
+const WARM_MS = 1200;
+
 function App() {
   const [user, setUser] = useState<UserRole | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -103,6 +113,84 @@ function App() {
   const [currentTab, setCurrentTab] = useState<TabName>("profiles");
   const [tvOpen, setTvOpen] = useState(false);
   const [focusedProject, setFocusedProject] = useState<string | null>(null);
+  const [crt, setCrt] = useState<CrtPhase>("off");
+
+  /*
+    The TV's own power cycle, kept here because both the panels inside the set
+    and the home screen outside it have to obey the same sequence. The display
+    is lit whenever the set is open on something other than the poster wall.
+  */
+  const displayLit = tvOpen && currentTab !== "Projects";
+  const timers = useRef<number[]>([]);
+  /* the very first zoom into the set gets a longer beat than a turn back */
+  const bootedOnce = useRef(false);
+  /* only a genuine power-on plays the full warm-through */
+  const [warm, setWarm] = useState(false);
+
+  const clearTimers = () => {
+    timers.current.forEach(window.clearTimeout);
+    timers.current = [];
+  };
+
+  /*
+    The set's power cycle. Change detection comes from the dependency rather
+    than a "previous value" ref, because StrictMode's double invoke leaves such
+    a ref already up to date on the second pass and the sequence never runs.
+  */
+  useEffect(() => {
+    if (!displayLit) {
+      setCrt("off");
+      setWarm(false);
+      return;
+    }
+
+    const swing = bootedOnce.current ? SWING_MS : FIRST_SWING_MS;
+    bootedOnce.current = true;
+
+    setCrt("off");
+    setWarm(false);
+    timers.current.push(
+      window.setTimeout(() => setCrt("boot"), swing),
+      window.setTimeout(() => {
+        setCrt("on");
+        setWarm(true);
+      }, swing + BOOT_MS),
+      window.setTimeout(() => setWarm(false), swing + BOOT_MS + WARM_MS)
+    );
+
+    return clearTimers;
+  }, [displayLit]);
+
+  /*
+    Anything that darkens the set runs the collapse first and only then commits
+    the navigation, so the picture is never yanked out from under the viewer.
+  */
+  const powerDownThen = (action: () => void) => {
+    if (!displayLit) {
+      action();
+      return;
+    }
+    clearTimers();
+    setCrt("shutdown");
+    timers.current.push(window.setTimeout(action, SHUTDOWN_MS));
+  };
+
+  const requestTab = (tab: TabName) => {
+    if (tab === "Projects" && displayLit) {
+      powerDownThen(() => setCurrentTab(tab));
+      return;
+    }
+    setCurrentTab(tab);
+  };
+
+  /* the wordmark switches the set off and puts you back in the room */
+  const exitToRoom = () => {
+    powerDownThen(() => {
+      setTvOpen(false);
+      setCurrentTab("profiles");
+      setFocusedProject(null);
+    });
+  };
 
   /* a ref, not state: the turn updates every frame and must not re-render */
   const look = useRef<LookState>({ pan: 0, input: 0 });
@@ -176,12 +264,17 @@ function App() {
         <Navbar
           user={user}
           currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
+          setCurrentTab={requestTab}
+          onExit={exitToRoom}
           sectionClass="navbar"
         />
       )}
       {currentTab === "main" && user && (
-        <MainScreen user={user} setCurrentTab={setCurrentTab} />
+        <MainScreen
+          user={user}
+          setCurrentTab={requestTab}
+          warm={warm}
+        />
       )}
 
       {tvOpen && currentTab === "Projects" && !focusedProject && (
@@ -192,6 +285,8 @@ function App() {
         project={projects.find((p) => p.id === focusedProject) ?? null}
         onClose={() => setFocusedProject(null)}
       />
+
+      <CrtScreen phase={crt} />
 
       <div
         id="canvas-container"
@@ -205,12 +300,14 @@ function App() {
           <Suspense fallback={null}>
             <Scene
               currentTab={currentTab}
-              setCurrentTab={setCurrentTab}
+              setCurrentTab={requestTab}
               setUser={setUser}
               revealed={showContent}
               look={look}
               tvOpen={tvOpen}
               openTV={() => setTvOpen(true)}
+              displayLit={crt === "on"}
+              warm={warm}
               focusedProject={focusedProject}
               setFocusedProject={setFocusedProject}
             />

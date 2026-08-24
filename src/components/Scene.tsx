@@ -37,6 +37,10 @@ type SceneProps = {
   /* lives in App so the chrome outside the canvas can react to it too */
   tvOpen: boolean;
   openTV: () => void;
+  /* App drives the power cycle; this is the beat where content may appear */
+  displayLit: boolean;
+  /* true only just after a real power-on, so tab switches stay quiet */
+  warm: boolean;
   focusedProject: string | null;
   setFocusedProject: (id: string | null) => void;
 };
@@ -84,12 +88,12 @@ export default function Scene({
   look,
   tvOpen,
   openTV,
+  displayLit,
+  warm,
   focusedProject,
   setFocusedProject,
 }: SceneProps) {
   const [showTVContent, setShowTVContent] = useState(false);
-  /* true when the panel is coming back after a turn away from the wall */
-  const [warmUp, setWarmUp] = useState(false);
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false);
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
   const htmlRef = useRef<HTMLDivElement>(null);
@@ -124,42 +128,21 @@ export default function Scene({
   /* the wall is part of the room, so the sheets answer to a click out there too */
   const postersLive = !tvOpen || onWall;
 
-  /*
-    Leaving the wall used to cut straight to a black TV while the camera was
-    still turning. Hold the content back until the camera has actually arrived,
-    then bring it up like a set warming through, so the swing is the transition.
-  */
-  const leftWall = useRef(false);
+  /* the panels appear only once App says the tube has warmed through */
   useEffect(() => {
-    if (onWall) leftWall.current = true;
-  }, [onWall]);
-
-  useEffect(() => {
-    if (tvOpen && !onWall) {
-      const swinging = leftWall.current;
-      leftWall.current = false;
-      setWarmUp(swinging);
-
-      const mountTimer = window.setTimeout(
-        () => setShouldRenderTVContent(true),
-        swinging ? 620 : 0
-      );
-      const showTimer = window.setTimeout(
-        () => setShowTVContent(true),
-        swinging ? 700 : 200
-      );
-      return () => {
-        window.clearTimeout(mountTimer);
-        window.clearTimeout(showTimer);
-      };
+    if (displayLit) {
+      setShouldRenderTVContent(true);
+      setShowTVContent(true);
+      return;
     }
 
     setShowTVContent(false);
-    const hideTimer = window.setTimeout(() => {
-      setShouldRenderTVContent(false);
-    }, 500);
+    const hideTimer = window.setTimeout(
+      () => setShouldRenderTVContent(false),
+      500
+    );
     return () => window.clearTimeout(hideTimer);
-  }, [tvOpen, onWall]);
+  }, [displayLit]);
 
   useFrame((state, delta) => {
     const camera = state.camera;
@@ -349,7 +332,7 @@ export default function Scene({
             }}
           >
             <div
-              className={`tv-tab-shell${warmUp ? " tv-tab-shell--warm" : ""}`}
+              className={`tv-tab-shell${warm ? " crt-warm" : ""}`}
               key={activePost ? `${currentTab}-${activePost.id}` : currentTab}
             >
               {currentTab === "profiles" && (

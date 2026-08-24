@@ -5,6 +5,8 @@ import type { CardMeta, SetCurrentTab, TabName, UserRole } from "../../types";
 type MainScreenProps = {
   user: UserRole;
   setCurrentTab: SetCurrentTab;
+  /* the set has just finished warming, so play the same power-on as the panels */
+  warm: boolean;
 };
 
 const cardImages: Record<Exclude<TabName, "profiles" | "main">, string> = {
@@ -111,7 +113,11 @@ const rankNumerals = [
   },
 ];
 
-export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
+export default function MainScreen({
+  user,
+  setCurrentTab,
+  warm,
+}: MainScreenProps) {
   const mainWrapperRef = useRef<HTMLDivElement>(null);
   const heroVideo = useRef<HTMLVideoElement>(null);
   const displayName = user.charAt(0).toUpperCase() + user.slice(1);
@@ -133,7 +139,10 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
     ));
 
   return (
-    <div className="main-wrapper" ref={mainWrapperRef}>
+    <div
+      className={`main-wrapper${warm ? " crt-warm" : ""}`}
+      ref={mainWrapperRef}
+    >
       <section className="outer-wrapper">
         <video
           ref={heroVideo}
