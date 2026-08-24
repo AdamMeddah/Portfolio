@@ -21,6 +21,54 @@ function makeShadowTexture() {
 
 const shadowTexture = makeShadowTexture();
 
+/*
+  A numbered sticky drawn to canvas rather than shipped as art, so the count
+  follows the project list. The paper is very slightly off-square and the ink
+  sits a touch off-centre, which stops a grid of them looking printed.
+*/
+function makeStickyTexture(label: string) {
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return new THREE.CanvasTexture(canvas);
+
+  const paper = ctx.createLinearGradient(0, 0, size, size);
+  paper.addColorStop(0, "#f7e06a");
+  paper.addColorStop(0.62, "#f0d454");
+  paper.addColorStop(1, "#dcbf42");
+  ctx.fillStyle = paper;
+  ctx.fillRect(0, 0, size, size);
+
+  /* the darker band where the adhesive strip pulls the paper flat */
+  const glue = ctx.createLinearGradient(0, 0, 0, size * 0.28);
+  glue.addColorStop(0, "rgba(0,0,0,0.13)");
+  glue.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = glue;
+  ctx.fillRect(0, 0, size, size * 0.28);
+
+  ctx.fillStyle = "#2b2622";
+  ctx.font = `700 ${size * 0.56}px "NetflixSans", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, size * 0.5, size * 0.54);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
+  return texture;
+}
+
+const stickyCache = new Map<string, THREE.Texture>();
+function stickyTexture(label: string) {
+  let texture = stickyCache.get(label);
+  if (!texture) {
+    texture = makeStickyTexture(label);
+    stickyCache.set(label, texture);
+  }
+  return texture;
+}
+
 type PosterProps = {
   placed: Placed;
   active: boolean;
@@ -81,6 +129,8 @@ function Poster({
   });
 
   const tapeWidth = Math.min(0.2, width * 0.16);
+  const stickySize = Math.min(0.62, height * 0.3);
+  const sticky = stickyTexture(String(placed.index + 1));
 
   return (
     <group ref={group} position={[x, y, 0]} rotation={[0, 0, tilt]}>
@@ -130,6 +180,39 @@ function Poster({
           toneMapped
         />
       </mesh>
+
+      {/* numbered sticky, lapping over the top-left corner of the sheet */}
+      <group
+        position={[
+          -width / 2 + stickySize * 0.62,
+          height / 2 + stickySize * 0.08,
+          0.014,
+        ]}
+        rotation={[0, 0, tilt > 0 ? -0.09 : 0.075]}
+      >
+        <mesh position={[0.018, -0.022, -0.004]}>
+          <planeGeometry args={[stickySize * 1.12, stickySize * 1.12]} />
+          <meshBasicMaterial
+            map={shadowTexture}
+            transparent
+            opacity={0.55}
+            depthWrite={false}
+            toneMapped={false}
+          />
+        </mesh>
+
+        <mesh>
+          <planeGeometry args={[stickySize, stickySize]} />
+          <meshStandardMaterial
+            map={sticky}
+            emissiveMap={sticky}
+            emissive="#ffffff"
+            emissiveIntensity={0.34}
+            roughness={0.95}
+            metalness={0}
+          />
+        </mesh>
+      </group>
 
       {/* strips of tape at the top corners */}
       {[-1, 1].map((side) => (
