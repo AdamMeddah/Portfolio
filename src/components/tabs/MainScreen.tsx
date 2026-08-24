@@ -17,6 +17,9 @@ const cardImages: Record<Exclude<TabName, "profiles" | "main">, string> = {
 
 type Destination = keyof typeof cardImages;
 
+/* the destinations that carry their own body of work, so they get the mark */
+const originals: Destination[] = ["Projects", "About", "Blog"];
+
 /* mock title details, in the spirit of the rest of the Netflix pastiche */
 const cardMeta: Record<Destination, CardMeta> = {
   Skills: {
@@ -125,6 +128,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
         image={cardImages[destination]}
         setCurrentTab={setCurrentTab}
         meta={cardMeta[destination]}
+        original={originals.includes(destination)}
       />
     ));
 
@@ -253,6 +257,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
                 image={cardImages[to]}
                 setCurrentTab={setCurrentTab}
                 meta={cardMeta[to]}
+                original={originals.includes(to)}
                 progress={progress}
               />
             ))}
@@ -282,6 +287,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
                   title={destination}
                   image={cardImages[destination]}
                   setCurrentTab={setCurrentTab}
+                  original={originals.includes(destination)}
                 />
               </div>
             ))}

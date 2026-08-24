@@ -6,6 +6,8 @@ type CardProps = {
   image: string;
   setCurrentTab: SetCurrentTab;
   meta?: CardMeta;
+  /* stamps the AM mark, the way Netflix flags only its own titles */
+  original?: boolean;
   /* 0-100, renders the red "partly watched" bar under the artwork */
   progress?: number;
 };
@@ -24,6 +26,7 @@ export default function Card({
   image,
   setCurrentTab,
   meta,
+  original,
   progress,
 }: CardProps) {
   return (
@@ -31,13 +34,14 @@ export default function Card({
       <span className="card-art">
         <img className="card-image" src={image} alt="" loading="lazy" />
 
-        {/* the little mark Netflix stamps on its own titles */}
-        <img
-          className="card-mark"
-          src="images/amLogo.webp"
-          alt=""
-          aria-hidden="true"
-        />
+        {original && (
+          <img
+            className="card-mark"
+            src="images/amLogo.webp"
+            alt=""
+            aria-hidden="true"
+          />
+        )}
 
         <span className="card-label">{title}</span>
 
