@@ -651,7 +651,6 @@ button {
   gap: 0.65rem;
   margin: 0;
   line-height: 1.05;
-  cursor: pointer;
 }
 
 .main-title-name {
@@ -1414,7 +1413,13 @@ button {
   background: var(--surface-raised);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-sm);
-  transition: border-color var(--fast), background-color var(--fast);
+  /*
+    the form renders inside a transformed layer, where the default caret can
+    end up sub-pixel and effectively invisible until text is typed
+  */
+  caret-color: var(--accent);
+  transition: border-color var(--fast), background-color var(--fast),
+    box-shadow var(--fast);
 }
 
 .field textarea {
@@ -1432,7 +1437,13 @@ button {
 .field textarea:focus {
   outline: none;
   background: var(--surface-hover);
-  border-color: var(--line-strong);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.28);
+}
+
+/* a standing bar so the focused field reads as active before anything is typed */
+.field:focus-within .field-label {
+  color: var(--text);
 }
 
 .contact-submit {
