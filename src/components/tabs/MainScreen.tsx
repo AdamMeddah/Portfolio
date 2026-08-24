@@ -154,7 +154,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
               <span>Original Series</span>
             </p>
 
-            <h1 className="main-title" onClick={() => setCurrentTab("main")}>
+            <h1 className="main-title">
               <span className="main-title-name">Adam Meddah</span>
               <span className="main-title-divider" aria-hidden="true">
                 |
