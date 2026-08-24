@@ -11,12 +11,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import About from "./tabs/About";
 import Blog from "./tabs/Blog";
-import Projects from "./tabs/Projects";
 import LaunchScreen from "./tabs/LaunchScreen";
 import Contact from "./tabs/Contact";
 import Skills from "./tabs/Skills";
 import BlogDetail from "./tabs/BlogDetail";
 import { TVStaticScreen } from "./TVStaticScreen";
+import { ProjectPosters } from "./ProjectPosters";
+import {
+  WALL_ORIGIN,
+  WALL_RIGHT,
+  posterWorldPosition,
+} from "../scene/posterWall";
 import type { MutableRefObject } from "react";
 import type { LookState } from "./LookControls";
 import type { BlogPost, SetCurrentTab, SetUser, TabName } from "../types";
@@ -31,6 +36,8 @@ type SceneProps = {
   /* lives in App so the chrome outside the canvas can react to it too */
   tvOpen: boolean;
   openTV: () => void;
+  focusedProject: string | null;
+  setFocusedProject: (id: string | null) => void;
 };
 
 const TV_POSITION = new THREE.Vector3(4.33, 5.5, -5);
@@ -59,6 +66,17 @@ const PAN_SPEED = 0.85;
 
 const ZOOM_FOV = 30;
 
+/* the poster wall: framed whole, then tightened onto a single sheet */
+const WALL_FOV = 40;
+const POSTER_FOV = 20;
+/*
+  the detail panel occupies the right of the screen, so aim off to that side and
+  the poster slides into the clear space on the left
+*/
+const PANEL_SHIFT = 1.15;
+/* how far along the wall the edge controls may slide the framing */
+const WALL_PAN = 2.4;
+
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export default function Scene({
@@ -69,6 +87,8 @@ export default function Scene({
   look,
   tvOpen,
   openTV,
+  focusedProject,
+  setFocusedProject,
 }: SceneProps) {
   const [showTVContent, setShowTVContent] = useState(false);
   const [shouldRenderTVContent, setShouldRenderTVContent] = useState(false);
@@ -100,8 +120,11 @@ export default function Scene({
     window.scrollTo(0, 800);
   }, []);
 
+  /* Projects leaves the TV behind and turns the camera on the poster wall */
+  const onWall = tvOpen && currentTab === "Projects";
+
   useEffect(() => {
-    if (tvOpen) {
+    if (tvOpen && !onWall) {
       setShouldRenderTVContent(true);
       const showTimer = window.setTimeout(() => setShowTVContent(true), 200);
       return () => window.clearTimeout(showTimer);
@@ -112,7 +135,7 @@ export default function Scene({
       setShouldRenderTVContent(false);
     }, 500);
     return () => window.clearTimeout(hideTimer);
-  }, [tvOpen]);
+  }, [tvOpen, onWall]);
 
   useFrame((state, delta) => {
     const camera = state.camera;
@@ -120,6 +143,39 @@ export default function Scene({
 
     /* exponential smoothing, so the feel doesn't change with frame rate */
     const settle = 1 - Math.exp(-6 * delta);
+
+    if (onWall) {
+      /*
+        rotation and focal length only. translating toward a poster would slide
+        it across a wall that is painted at infinity and cannot move with it.
+      */
+      camera.position.lerp(CAMERA_ANCHOR, settle);
+
+      if (focusedProject) {
+        scratch.target
+          .copy(posterWorldPosition(focusedProject))
+          .addScaledVector(WALL_RIGHT, PANEL_SHIFT);
+        camera.fov = THREE.MathUtils.lerp(camera.fov, POSTER_FOV, settle);
+      } else {
+        if (!stillCamera) {
+          look.current.pan = THREE.MathUtils.clamp(
+            look.current.pan + look.current.input * PAN_SPEED * delta,
+            -1,
+            1
+          );
+        }
+        drift.current += (look.current.pan - drift.current) * settle;
+
+        scratch.target
+          .copy(WALL_ORIGIN)
+          .addScaledVector(WALL_RIGHT, drift.current * WALL_PAN);
+        camera.fov = THREE.MathUtils.lerp(camera.fov, WALL_FOV, settle);
+      }
+
+      camera.lookAt(scratch.target);
+      camera.updateProjectionMatrix();
+      return;
+    }
 
     if (tvOpen) {
       scratch.position.set(TV_POSITION.x, TV_POSITION.y, TV_POSITION.z + 0.5);
@@ -213,6 +269,12 @@ export default function Scene({
         />
       </EffectComposer>
 
+      <ProjectPosters
+        active={onWall}
+        focusedId={focusedProject}
+        onSelect={setFocusedProject}
+      />
+
       <TVStaticScreen open={tvOpen} onOpen={openTV} />
 
       <mesh position={[4.33, 5.5, -5]}>
@@ -246,7 +308,6 @@ export default function Scene({
               )}
 
               {currentTab === "Contact Me" && <Contact />}
-              {currentTab === "Projects" && <Projects />}
               {currentTab === "Blog" && !activePost && (
                 <Blog setActivePost={setActivePost} />
               )}
