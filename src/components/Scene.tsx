@@ -1,4 +1,11 @@
 import { Environment, Html } from "@react-three/drei";
+import {
+  Bloom,
+  EffectComposer,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
@@ -173,6 +180,29 @@ export default function Scene({
         castShadow
       />
       <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+
+      {/*
+        Bloom is what actually sells the screen as a light source: it bleeds the
+        bright pixels of the panel and the fire out into the surrounding frame,
+        which no amount of painted-on glow can fake. The vignette pulls the
+        corners down so the room feels lit from inside it, and a trace of grain
+        stops the large flat wall from banding.
+      */}
+      <EffectComposer multisampling={4} enableNormalPass={false}>
+        <Bloom
+          intensity={0.75}
+          luminanceThreshold={0.58}
+          luminanceSmoothing={0.28}
+          radius={0.62}
+          mipmapBlur
+        />
+        <Vignette offset={0.3} darkness={0.62} eskil={false} />
+        <Noise
+          opacity={0.035}
+          premultiply
+          blendFunction={BlendFunction.OVERLAY}
+        />
+      </EffectComposer>
 
       <TVStaticScreen
         handleTVFocus={setTVFocus}

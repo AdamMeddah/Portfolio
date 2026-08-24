@@ -26,20 +26,30 @@ const SAMPLE_W = 4;
 const SAMPLE_H = 3;
 const SAMPLE_EVERY = 3;
 
-/* soft radial falloff, generated rather than shipped as an image */
+/*
+  A heavily blurred rectangle rather than a radial gradient. Light thrown from a
+  screen pools in the screen's own shape; a circle reads as a spotlight and was
+  the giveaway that this was a decal rather than light.
+*/
 function makeGlowTexture() {
+  const size = 256;
   const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 128;
+  canvas.width = canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (ctx) {
-    const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-    gradient.addColorStop(0, "rgba(255,255,255,1)");
-    gradient.addColorStop(0.4, "rgba(255,255,255,0.4)");
-    gradient.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, 128, 128);
+    ctx.filter = "blur(34px)";
+    ctx.fillStyle = "#fff";
+    /* inset so the blur has room to fall off inside the texture */
+    ctx.fillRect(size * 0.24, size * 0.28, size * 0.52, size * 0.44);
+
+    /* a second tighter pass keeps a brighter core near the panel */
+    ctx.filter = "blur(14px)";
+    ctx.globalAlpha = 0.7;
+    ctx.fillRect(size * 0.3, size * 0.34, size * 0.4, size * 0.32);
   }
-  return new THREE.CanvasTexture(canvas);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 }
 
 export function TVStaticScreen({
@@ -150,7 +160,7 @@ export function TVStaticScreen({
     <>
       {/* screen spill, behind the panel so only the halo around it reads */}
       <mesh ref={spillRef} position={[4.33, 5.5, -5.05]}>
-        <planeGeometry args={[6.5, 5.2]} />
+        <planeGeometry args={[7.4, 5.6]} />
         <meshBasicMaterial
           map={glowTexture}
           transparent
