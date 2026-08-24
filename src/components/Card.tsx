@@ -30,6 +30,15 @@ export default function Card({
     <button type="button" className="card" onClick={() => setCurrentTab(title)}>
       <span className="card-art">
         <img className="card-image" src={image} alt="" loading="lazy" />
+
+        {/* the little mark Netflix stamps on its own titles */}
+        <img
+          className="card-mark"
+          src="images/amLogo.webp"
+          alt=""
+          aria-hidden="true"
+        />
+
         <span className="card-label">{title}</span>
 
         {progress !== undefined && (

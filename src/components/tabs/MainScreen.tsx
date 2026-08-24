@@ -110,6 +110,7 @@ const rankNumerals = [
 
 export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
   const mainWrapperRef = useRef<HTMLDivElement>(null);
+  const heroVideo = useRef<HTMLVideoElement>(null);
   const displayName = user.charAt(0).toUpperCase() + user.slice(1);
 
   useEffect(() => {
@@ -131,6 +132,7 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
     <div className="main-wrapper" ref={mainWrapperRef}>
       <section className="outer-wrapper">
         <video
+          ref={heroVideo}
           className="main-preview-vid"
           autoPlay
           loop
@@ -141,9 +143,28 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
         ></video>
         <div className="hero-scrim" aria-hidden="true"></div>
 
-        {/* the maturity strip that rides the right edge of a Netflix billboard */}
-        <div className="hero-rating" aria-hidden="true">
-          <span>TV-14</span>
+        {/* replay and maturity strip, as they sit on a Netflix billboard */}
+        <div className="hero-controls">
+          <button
+            type="button"
+            className="hero-replay"
+            aria-label="Replay"
+            onClick={() => {
+              const video = heroVideo.current;
+              if (!video) return;
+              video.currentTime = 0;
+              void video.play().catch(() => {});
+            }}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12a8 8 0 1 0 2.6-5.9" />
+              <path d="M4 4v4h4" />
+            </svg>
+          </button>
+
+          <span className="hero-rating" aria-hidden="true">
+            TV-14
+          </span>
         </div>
 
         <div className="main-info-wrapper">
@@ -269,6 +290,31 @@ export default function MainScreen({ user, setCurrentTab }: MainScreenProps) {
       </div>
 
       <footer className="footer">
+        <div className="footer-links">
+          <a href="https://github.com/AdamMeddah" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          <a
+            href="https://ca.linkedin.com/in/adammeddah"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="images/AdamResume.pdf" target="blank">
+            Resume
+          </a>
+          <button type="button" onClick={() => setCurrentTab("Contact Me")}>
+            Contact
+          </button>
+          <button type="button" onClick={() => setCurrentTab("About")}>
+            About
+          </button>
+          <button type="button" onClick={() => setCurrentTab("Blog")}>
+            Blog
+          </button>
+        </div>
+
         <h3>© {new Date().getFullYear()} Adam Meddah. All rights reserved.</h3>
       </footer>
     </div>

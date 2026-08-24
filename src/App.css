@@ -689,12 +689,46 @@ button {
   width: auto;
 }
 
-/* the maturity strip riding the right edge of the billboard */
-.hero-rating {
+/* replay button and maturity strip, as paired on a Netflix billboard */
+.hero-controls {
   position: absolute;
   right: 0;
   bottom: clamp(4rem, 12vh, 8rem);
-  z-index: 2;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-replay {
+  display: grid;
+  place-items: center;
+  width: clamp(2rem, 2.6vw, 2.6rem);
+  height: clamp(2rem, 2.6vw, 2.6rem);
+  padding: 0;
+  background: rgba(42, 42, 42, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--fast), border-color var(--fast);
+}
+
+.hero-replay:hover {
+  background: rgba(80, 80, 80, 0.7);
+  border-color: #fff;
+}
+
+.hero-replay svg {
+  width: 55%;
+  height: 55%;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-rating {
   display: flex;
   align-items: center;
   padding: 0.45rem 1.5rem 0.45rem 0.8rem;
@@ -702,7 +736,6 @@ button {
   border-left: 3px solid rgba(255, 255, 255, 0.85);
   color: var(--text);
   font-size: clamp(0.85rem, 1.1vw, 1rem);
-  font-weight: 400;
   letter-spacing: 0.02em;
   pointer-events: none;
 }
@@ -896,6 +929,18 @@ button {
     rgba(0, 0, 0, 0.35) 45%,
     rgba(0, 0, 0, 0.05) 100%
   );
+}
+
+/* the "this is one of ours" mark in the tile corner */
+.card-mark {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.6rem;
+  z-index: 1;
+  width: auto;
+  height: clamp(0.85rem, 1.1vw, 1.05rem);
+  opacity: 0.9;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.85));
 }
 
 .card-label {
@@ -1136,9 +1181,38 @@ button {
 
 /* ===== FOOTER ===== */
 .footer {
-  padding: 2rem var(--gutter) 3rem;
+  padding: 2.5rem var(--gutter) 3rem;
   border-top: 1px solid var(--line);
   margin-top: 2rem;
+}
+
+/* the link grid Netflix runs above its small print */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.9rem 1.5rem;
+  max-width: 780px;
+  margin: 0 0 2rem;
+}
+
+.footer-links a,
+.footer-links button {
+  padding: 0;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-weight: 300;
+  text-align: left;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--fast);
+}
+
+.footer-links a:hover,
+.footer-links button:hover {
+  color: var(--text);
+  text-decoration: underline;
 }
 
 .footer h3 {
