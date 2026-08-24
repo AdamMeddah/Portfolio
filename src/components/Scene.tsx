@@ -22,16 +22,25 @@ type SceneProps = {
 
 const TV_POSITION = new THREE.Vector3(4.33, 5.5, -5);
 
-/* the opening push-in: a wide corner of the room easing to the resting frame */
-const INTRO_FROM = new THREE.Vector3(-2.6, 4.3, 8.6);
-const INTRO_TO = new THREE.Vector3(0, 5, 5);
-const INTRO_FOV_FROM = 96;
+/*
+  The camera never translates while the room is on screen, and that is load
+  bearing rather than laziness. The room is an environment map painted at
+  infinity while the TV screen is a real plane a few units away, so any camera
+  movement parallaxes the screen off the painted set it is meant to sit in.
+  Pure rotation shifts near and far by exactly the same amount, so the picture
+  stays welded to the bezel. The opening move is therefore a lens move - the
+  field of view narrows while the aim swings onto the TV.
+*/
+const CAMERA_ANCHOR = new THREE.Vector3(0, 5, 5);
+
+/* the establishing shot starts wide, aimed away from the set */
+const INTRO_AIM_OFFSET = new THREE.Vector3(-6.5, -1.6, 0);
+const INTRO_FOV_FROM = 104;
 const INTRO_FOV_TO = 80;
 const INTRO_SECONDS = 4;
 
-/* how far the pointer may push the camera, and swing what it aims at */
-const DRIFT_POSITION = 0.9;
-const DRIFT_TARGET = 2.6;
+/* how far the pointer may swing the aim once the opening move has settled */
+const DRIFT_TARGET = 2.4;
 
 const ZOOM_FOV = 30;
 
@@ -114,34 +123,29 @@ export default function Scene({
     }
     const intro = easeOutCubic(introRef.current);
 
-    /*
-      the pointer nudges the camera one way and what it aims at the other. that
-      split is what turns a slide into something that reads as looking around.
-    */
     const wantX = stillCamera ? 0 : state.pointer.x;
     const wantY = stillCamera ? 0 : state.pointer.y;
     drift.current.x += (wantX - drift.current.x) * settle;
     drift.current.y += (wantY - drift.current.y) * settle;
 
-    scratch.offset.set(
-      drift.current.x * DRIFT_POSITION * intro,
-      drift.current.y * DRIFT_POSITION * 0.55 * intro,
-      0
-    );
-    scratch.position.copy(INTRO_FROM).lerp(INTRO_TO, intro).add(scratch.offset);
-
-    camera.position.lerp(scratch.position, settle);
+    camera.position.lerp(CAMERA_ANCHOR, settle);
     camera.fov = THREE.MathUtils.lerp(
       camera.fov,
       THREE.MathUtils.lerp(INTRO_FOV_FROM, INTRO_FOV_TO, intro),
       settle
     );
 
-    scratch.offset.set(
-      -drift.current.x * DRIFT_TARGET * intro,
-      -drift.current.y * DRIFT_TARGET * 0.55 * intro,
-      0
-    );
+    /* the opening aim slides in, then the pointer takes over the same offset */
+    scratch.offset
+      .copy(INTRO_AIM_OFFSET)
+      .multiplyScalar(1 - intro)
+      .add(
+        scratch.position.set(
+          -drift.current.x * DRIFT_TARGET * intro,
+          -drift.current.y * DRIFT_TARGET * 0.55 * intro,
+          0
+        )
+      );
     scratch.target.copy(TV_POSITION).add(scratch.offset);
     camera.lookAt(scratch.target);
     camera.updateProjectionMatrix();
