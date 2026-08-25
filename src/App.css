@@ -2028,6 +2028,16 @@ button {
 }
 
 @media (max-width: 768px) {
+  /*
+    Bottom-right puts these straight on top of the CTA buttons once the copy
+    wraps to full height, so on a phone they ride under the header instead.
+  */
+  .hero-controls {
+    top: calc(var(--nav-height) + 0.75rem);
+    bottom: auto;
+    gap: 0.6rem;
+  }
+
   .nav-links {
     display: none;
   }
@@ -2104,7 +2114,7 @@ button {
   transform: translateX(-50%);
   color: rgba(255, 255, 255, 0.62);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 500; 
   letter-spacing: 0.32em;
   text-transform: uppercase;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
