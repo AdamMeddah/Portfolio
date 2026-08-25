@@ -20,6 +20,7 @@ import { ProjectPosters } from "./ProjectPosters";
 import {
   WALL_ORIGIN,
   WALL_RIGHT,
+  WALL_BOUNDS,
   posterPlacement,
   posterWorldPosition,
 } from "../scene/posterWall";
@@ -71,10 +72,36 @@ const PAN_SPEED = 0.85;
 
 const ZOOM_FOV = 30;
 
-/* the poster wall: framed whole, then tightened onto a single sheet */
-const WALL_FOV = 20;
-/* the panel eats the right of the frame, so only this much is clear for art */
-const CLEAR_WIDTH = 0.62;
+/*
+  A fixed field of view framed the wall on a laptop and cropped it badly on a
+  phone: the viewport there is tall and narrow, so the same vertical angle gives
+  a far tighter horizontal one. Derive the angle from what has to fit instead.
+*/
+function fitFov(
+  width: number,
+  height: number,
+  distance: number,
+  aspect: number,
+  clearWidth = 1,
+  clearHeight = 1
+) {
+  const forHeight = 2 * Math.atan(height / 2 / (distance * clearHeight));
+  const forWidth = 2 * Math.atan(width / 2 / (distance * aspect * clearWidth));
+  return THREE.MathUtils.clamp(
+    THREE.MathUtils.radToDeg(Math.max(forHeight, forWidth)),
+    14,
+    96
+  );
+}
+
+/* headroom so the block never sits flush against the frame edge */
+const WALL_MARGIN = 1.32;
+/*
+  The detail panel is a right-hand column on a wide screen and a bottom sheet on
+  a narrow one, so it eats a different axis depending on which it is.
+*/
+const PANEL_CLEAR_WIDTH = 0.62;
+const PANEL_CLEAR_HEIGHT = 0.52;
 /* how far along the wall the edge controls may slide the framing */
 const WALL_PAN = 2.4;
 
@@ -170,25 +197,25 @@ export default function Scene({
         const width = placed?.width ?? 3;
         const height = placed?.height ?? 3;
 
-        const forHeight = 2 * Math.atan((height * 0.62) / distance);
-        const forWidth =
-          2 *
-          Math.atan((width * 0.56) / (distance * camera.aspect * CLEAR_WIDTH));
-        const wanted = THREE.MathUtils.clamp(
-          THREE.MathUtils.radToDeg(Math.max(forHeight, forWidth)),
-          14,
-          50
+        const portrait = camera.aspect < 1;
+        const wanted = fitFov(
+          width * 1.16,
+          height * 1.24,
+          distance,
+          camera.aspect,
+          portrait ? 1 : PANEL_CLEAR_WIDTH,
+          portrait ? PANEL_CLEAR_HEIGHT : 1
         );
 
-        /* slide the aim so the sheet sits in the clear half of the frame */
-        const visibleWidth =
-          2 *
-          distance *
-          camera.aspect *
-          Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
-        scratch.target
-          .copy(centre)
-          .addScaledVector(WALL_RIGHT, visibleWidth * 0.16);
+        /* nudge the sheet clear of the panel, whichever edge it occupies */
+        const half =
+          distance * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+        scratch.target.copy(centre);
+        if (portrait) {
+          scratch.target.y -= half * 0.34;
+        } else {
+          scratch.target.addScaledVector(WALL_RIGHT, half * camera.aspect * 0.32);
+        }
 
         camera.fov = THREE.MathUtils.lerp(camera.fov, wanted, settle);
       } else {
@@ -204,7 +231,16 @@ export default function Scene({
         scratch.target
           .copy(WALL_ORIGIN)
           .addScaledVector(WALL_RIGHT, drift.current * WALL_PAN);
-        camera.fov = THREE.MathUtils.lerp(camera.fov, WALL_FOV, settle);
+        camera.fov = THREE.MathUtils.lerp(
+          camera.fov,
+          fitFov(
+            WALL_BOUNDS.width * WALL_MARGIN,
+            WALL_BOUNDS.height * WALL_MARGIN,
+            camera.position.distanceTo(WALL_ORIGIN),
+            camera.aspect
+          ),
+          settle
+        );
       }
 
       camera.lookAt(scratch.target);

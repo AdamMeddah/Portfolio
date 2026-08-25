@@ -107,6 +107,21 @@ function layout(entries: ProjectEntry[]): Placed[] {
 
 export const posterLayout = layout(projects);
 
+/* overall extents of the block, so the camera can frame it on any aspect */
+export const WALL_BOUNDS = (() => {
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const p of posterLayout) {
+    minX = Math.min(minX, p.x - p.width / 2);
+    maxX = Math.max(maxX, p.x + p.width / 2);
+    minY = Math.min(minY, p.y - p.height / 2);
+    maxY = Math.max(maxY, p.y + p.height / 2);
+  }
+  return { width: maxX - minX, height: maxY - minY };
+})();
+
 export function posterPlacement(id: string) {
   return posterLayout.find((p) => p.project.id === id) ?? null;
 }
