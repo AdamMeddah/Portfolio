@@ -16,7 +16,7 @@ const ROOM_BASE_INTENSITY = 0.4;
 const ROOM_FLICKER = 0.22;
 
 /* the spill plane sits behind the screen, so only its halo shows */
-const SPILL_MAX_OPACITY = 0.45;
+const SPILL_MAX_OPACITY = 0.34;
 
 /* the video is downscaled to this before averaging - 12 pixels is plenty */
 const SAMPLE_W = 4;
@@ -34,15 +34,38 @@ function makeGlowTexture() {
   canvas.width = canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (ctx) {
-    ctx.filter = "blur(34px)";
+    ctx.filter = "blur(30px)";
     ctx.fillStyle = "#fff";
     /* inset so the blur has room to fall off inside the texture */
-    ctx.fillRect(size * 0.24, size * 0.28, size * 0.52, size * 0.44);
+    ctx.fillRect(size * 0.3, size * 0.33, size * 0.4, size * 0.34);
 
     /* a second tighter pass keeps a brighter core near the panel */
-    ctx.filter = "blur(14px)";
-    ctx.globalAlpha = 0.7;
-    ctx.fillRect(size * 0.3, size * 0.34, size * 0.4, size * 0.32);
+    ctx.filter = "blur(13px)";
+    ctx.globalAlpha = 0.65;
+    ctx.fillRect(size * 0.35, size * 0.38, size * 0.3, size * 0.24);
+
+    /*
+      Force the alpha to zero at the border. Any residue left there draws the
+      plane's own rectangle, which desktop bloom mostly buried but a phone
+      renders plainly.
+    */
+    ctx.filter = "none";
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "destination-in";
+    const falloff = ctx.createRadialGradient(
+      size / 2,
+      size / 2,
+      size * 0.1,
+      size / 2,
+      size / 2,
+      size * 0.5
+    );
+    falloff.addColorStop(0, "rgba(255,255,255,1)");
+    falloff.addColorStop(0.7, "rgba(255,255,255,0.85)");
+    falloff.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = falloff;
+    ctx.fillRect(0, 0, size, size);
+    ctx.globalCompositeOperation = "source-over";
   }
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
