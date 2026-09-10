@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/images/amLogo.webp" />
     <meta name="theme-color" content="#0a0a0a" />
+
+    <!--
+      Preloading the environment map was tried here and removed: three's loader
+      issues a request the preload never matches, so the browser fetched the
+      636KB map twice. Only the font, whose CORS mode is unambiguous, is hinted.
+    -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/otf"
+      href="/fonts/net_sans_med.otf"
+      crossorigin="anonymous"
+    />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
