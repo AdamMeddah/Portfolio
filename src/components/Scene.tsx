@@ -7,14 +7,22 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import About from "./tabs/About";
-import Blog from "./tabs/Blog";
 import LaunchScreen from "./tabs/LaunchScreen";
-import Contact from "./tabs/Contact";
-import Skills from "./tabs/Skills";
-import BlogDetail from "./tabs/BlogDetail";
+
+/*
+  None of these panels exist until the TV is switched on, and BlogDetail drags
+  react-markdown (and its whole remark/unified tree) along with it. Splitting
+  them keeps that weight out of the bundle that has to parse before the room can
+  render. The CRT boot sequence covers the fetch, so nothing is ever seen
+  waiting on them.
+*/
+const About = lazy(() => import("./tabs/About"));
+const Blog = lazy(() => import("./tabs/Blog"));
+const Contact = lazy(() => import("./tabs/Contact"));
+const Skills = lazy(() => import("./tabs/Skills"));
+const BlogDetail = lazy(() => import("./tabs/BlogDetail"));
 import { TVStaticScreen } from "./TVStaticScreen";
 import { ProjectPosters } from "./ProjectPosters";
 import {
@@ -371,6 +379,8 @@ export default function Scene({
               className={`tv-tab-shell${warm ? " crt-warm" : ""}`}
               key={activePost ? `${currentTab}-${activePost.id}` : currentTab}
             >
+              {/* scoped so a lazy panel never unmounts the scene above it */}
+              <Suspense fallback={null}>
               {currentTab === "profiles" && (
                 <div className="launch-wrapper">
                   <LaunchScreen
@@ -392,6 +402,7 @@ export default function Scene({
               )}
               {currentTab === "Skills" && <Skills />}
               {currentTab === "About" && <About />}
+              </Suspense>
             </div>
           </Html>
         )}
