@@ -312,20 +312,16 @@ export default function Scene({
         backgroundIntensity={0.4}
       />
 
+      {/*
+        None of these cast. The room is an environment map painted at infinity
+        and the only real geometry is the panel, so there is no surface for a
+        shadow to land on - asking for one built two depth targets a frame and
+        drew nothing into either.
+      */}
       <ambientLight intensity={1.5} />
-      <directionalLight
-        position={[4.33, 10, -2]}
-        intensity={2}
-        castShadow={false}
-      />
-      <spotLight
-        position={[4, 5, -3]}
-        angle={0.3}
-        intensity={2}
-        penumbra={1}
-        castShadow
-      />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+      <directionalLight position={[4.33, 10, -2]} intensity={2} />
+      <spotLight position={[4, 5, -3]} angle={0.3} intensity={2} penumbra={1} />
+      <directionalLight position={[5, 5, 5]} intensity={1.2} />
 
       {/*
         Bloom is what actually sells the screen as a light source: it bleeds the

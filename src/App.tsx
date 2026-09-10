@@ -342,7 +342,17 @@ function App() {
           pointerEvents: showContent ? "all" : "none",
         }}
       >
-        <Canvas shadows camera={{ fov: 100, position: [0, 1, 10] }}>
+        {/*
+          Nothing in the room casts or receives a shadow, so `shadows` bought a
+          shadow map pass that rendered an empty depth buffer every frame.
+          Antialiasing is off for a related reason: the composer inside owns a
+          multisampled target, and all this canvas is ever handed back is one
+          full-screen quad, whose only edges are the edges of the canvas.
+        */}
+        <Canvas
+          camera={{ fov: 100, position: [0, 1, 10] }}
+          gl={{ antialias: false, powerPreference: "high-performance" }}
+        >
           <Suspense fallback={null}>
             <Scene
               currentTab={currentTab}
