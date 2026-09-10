@@ -1,10 +1,28 @@
 import type { StaticAssets } from "../types";
 
-export const staticAssets: StaticAssets = {
+/*
+  The loading screen used to wait on every asset in the project - roughly 2.5MB
+  - before showing anything, even though the first thing on screen is only a
+  dark room with a TV in it. These are the assets that first frame actually
+  needs, and they are the only ones that gate the reveal.
+*/
+export const criticalAssets: StaticAssets = {
+  /* the room itself */
+  hdris: ["/hdris/fireplace.exr"],
+  /* the static playing on the TV before it is clicked */
+  videos: ["/videos/static_ios.mp4"],
+  /* the typeface the "click me" 3D text is extruded from */
+  fonts: ["/fonts/Inter_Bold.json"],
+};
+
+/*
+  Everything else. Warmed in the background once the room is on screen, so it is
+  in cache by the time the viewer clicks through to it, but never blocking.
+*/
+export const deferredAssets: StaticAssets = {
   images: [
     "/images/about.webp",
     "/images/aboutlogo.webp",
-    "/images/adam.webp",
     "/images/amLogo.webp",
     "/images/aws.webp",
     "/images/blog.webp",
@@ -15,7 +33,6 @@ export const staticAssets: StaticAssets = {
     "/images/greenavatar.webp",
     "/images/musiwrite.webp",
     "/images/ollama.webp",
-    "/images/orangeavatar.webp",
     "/images/portfolio.webp",
     "/images/projects.webp",
     "/images/pvault.webp",
@@ -26,17 +43,7 @@ export const staticAssets: StaticAssets = {
     "/images/tailwind.webp",
     "/images/ThreeJS.webp",
   ],
-  videos: [
-    "/videos/black_ios.mp4",
-    "/videos/noted_ios.mp4",
-    "/videos/static_ios.mp4",
-    "/videos/white_ios.mp4",
-  ],
-  fonts: [
-    "/fonts/Inter_Bold.json",
-    "/fonts/net_sans_bold.otf",
-    "/fonts/net_sans_light.otf",
-    "/fonts/net_sans_med.otf",
-  ],
-  hdris: ["/hdris/fireplace.exr", "/fireplace.hdr"],
+  videos: ["/videos/black_ios.mp4", "/videos/noted_ios.mp4"],
+  /* net_sans_med is already hinted from index.html, so it is not repeated */
+  fonts: ["/fonts/net_sans_bold.otf", "/fonts/net_sans_light.otf"],
 };

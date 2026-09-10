@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { Preload, useProgress } from "@react-three/drei";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Scene from "./components/Scene";
-import { staticAssets } from "./assets/staticAssets";
+import { criticalAssets, deferredAssets } from "./assets/staticAssets";
 import Navbar from "./components/Navbar";
 import MainScreen from "./components/tabs/MainScreen";
 import LookControls from "./components/LookControls";
@@ -104,6 +104,37 @@ const BOOT_MS = 780;
 const SHUTDOWN_MS = 460;
 /* must cover the crt-warm keyframes in App.css */
 const WARM_MS = 1200;
+
+/*
+  Kick off the rest of the downloads without reporting on them. Deliberately
+  fire-and-forget: nothing here is allowed to hold up the first frame, it only
+  needs to land before the viewer clicks through to whatever uses it.
+*/
+function warmAssets(assets: StaticAssets) {
+  const queue = [
+    ...(assets.images || []),
+    ...(assets.videos || []),
+    ...(assets.fonts || []),
+    ...(assets.hdris || []),
+  ];
+
+  for (const src of queue) {
+    if (src.endsWith(".mp4")) {
+      /* metadata only - enough to have the connection and headers cached */
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.muted = true;
+      video.src = src;
+    } else if (/\.(webp|png|jpe?g|svg)$/.test(src)) {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = src;
+    } else {
+      /* low priority so these never contend with the critical path */
+      void fetch(src, { priority: "low" }).catch(() => {});
+    }
+  }
+}
 
 function App() {
   const [user, setUser] = useState<UserRole | null>(null);
@@ -210,10 +241,25 @@ function App() {
 
   const { progress: threeProgress, active } = useProgress();
   const { ready: staticReady, progress: staticProgress } =
-    usePreloadAssets(staticAssets);
+    usePreloadAssets(criticalAssets);
 
   const actualProgress = Math.min(100, (threeProgress + staticProgress) / 2);
   const allReady = !active && staticReady;
+
+  /* once the room is up, quietly pull the rest down in the background */
+  useEffect(() => {
+    if (!showContent) return;
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(() => warmAssets(deferredAssets), {
+          timeout: 1200,
+        })
+      : window.setTimeout(() => warmAssets(deferredAssets), 300);
+
+    return () => {
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idle as number);
+      else window.clearTimeout(idle as number);
+    };
+  }, [showContent]);
 
   useEffect(() => {
     if (actualProgress > lastProgress.current) {
