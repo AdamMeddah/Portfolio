@@ -23,6 +23,10 @@ const SAMPLE_W = 4;
 const SAMPLE_H = 3;
 const SAMPLE_EVERY = 3;
 
+const HAS_VIDEO_FRAME_CALLBACK =
+  typeof HTMLVideoElement !== "undefined" &&
+  "requestVideoFrameCallback" in HTMLVideoElement.prototype;
+
 /*
   A heavily blurred rectangle rather than a radial gradient. Light thrown from a
   screen pools in the screen's own shape; a circle reads as a spotlight and was
@@ -95,6 +99,12 @@ export function TVStaticScreen({ open, onOpen }: TVStaticScreenProps) {
   const frameCount = useRef(0);
   const luminance = useRef(0);
 
+  /* state for the video-texture check below */
+  const nudgeByHand = useRef(!HAS_VIDEO_FRAME_CALLBACK);
+  const lastVersion = useRef(-1);
+  const lastClock = useRef(-1);
+  const starvedFrames = useRef(0);
+
   const isVideoReady = () => videoRef.current?.readyState >= 2;
 
   useEffect(() => {
@@ -128,9 +138,33 @@ export function TVStaticScreen({ open, onOpen }: TVStaticScreenProps) {
     const video = videoRef.current;
     if (!meshRef.current || !video || !isVideoReady()) return;
 
-    const material = meshRef.current.material;
-    if (material.map) {
-      material.map.needsUpdate = true;
+    /*
+      three's VideoTexture flags itself from requestVideoFrameCallback, once per
+      decoded frame. Setting the flag by hand here re-uploaded the picture at
+      display rate instead: the black plate is 1228x990, about 5MB an upload, so
+      a 25fps clip on a 60Hz screen was moving twice the bytes it had frames for
+      and four times on a 120Hz one.
+
+      Trusting the callback outright is a bet on every browser this runs in, and
+      losing it means a frozen screen, so it is checked rather than assumed. If
+      the video clock keeps advancing while the texture's version sits still,
+      nothing is driving the upload and the manual nudge comes back for good.
+    */
+    const texture = meshRef.current.material.map;
+    if (texture) {
+      if (nudgeByHand.current) {
+        texture.needsUpdate = true;
+      } else {
+        const clockMoved = video.currentTime !== lastClock.current;
+        lastClock.current = video.currentTime;
+        starvedFrames.current =
+          clockMoved && texture.version === lastVersion.current
+            ? starvedFrames.current + 1
+            : 0;
+        /* a 10fps clip on a 120Hz panel repeats 12 frames; 60 is clear of that */
+        if (starvedFrames.current > 60) nudgeByHand.current = true;
+        lastVersion.current = texture.version;
+      }
     }
 
     const spill = spillRef.current;
